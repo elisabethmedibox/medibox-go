@@ -640,7 +640,7 @@ a { color: var(--lp-bleu); text-decoration: none; }
   box-shadow: 0 12px 32px rgba(255, 87, 87, 0.3);
 }
 .lp-pourquoi-card-highlight h3 { color: #fff; }
-.lp-pourquoi-card-highlight p { opacity: 0.95; }
+.lp-pourquoi-card-highlight p { color: #fff; opacity: 0.97; }
 .lp-pourquoi-card-highlight strong { color: #fff; }
 .lp-pourquoi-icon { font-size: 2.4rem; margin-bottom: 10px; }
 .lp-pourquoi-card h3 {
