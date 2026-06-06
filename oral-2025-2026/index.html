@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Prépa Oral PASS-LAS Antilles 2025-2026 · MediBox Antilles-Guyane. La prépa 100% spécialisée dans les épreuves orales du 2ᵉ groupe d'admission.">
+<title>Prépa Oral PASS-LAS 2025-2026 · MediBox Antilles-Guyane</title>
+<link rel="icon" href="logo-medibox.png">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=6">
+</head>
+<body>
+
+<!-- ─── HEADER COMPACT ─── -->
+<header class="lp-header">
+  <div class="lp-container lp-header-inner">
+    <a href="#hero" class="lp-brand">
+      <img src="logo-medibox.png" alt="MediBox Antilles-Guyane" class="lp-brand-logo">
+      <span class="lp-brand-text">MediBox <strong>Antilles-Guyane</strong></span>
+    </a>
+    <a href="https://buy.stripe.com/3cIdR8booc0VaSOa9A4ZG08" class="lp-cta-mini" target="_blank" rel="noopener">Je m'inscris · 750 €</a>
+  </div>
+</header>
+
+<!-- ─── HERO ─── -->
+<section class="lp-hero" id="hero">
+  <div class="lp-container lp-hero-grid">
+    <div class="lp-hero-text">
+      <div class="lp-hero-tag">🏝️ Prépa Oral PASS-LAS Antilles · Session 2025-2026</div>
+      <h1 class="lp-hero-title">Tes oraux approchent.<br><span class="lp-hero-accent">On les a déjà préparés avec des dizaines d'étudiant·e·s avant toi.</span></h1>
+      <p class="lp-hero-lead">Nous avons développé depuis 5 ans une véritable expertise dans les épreuves orales du 2ᵉ groupe d'admission, conçue avec et pour les étudiant·e·s des Antilles.</p>
+      <ul class="lp-hero-bullets">
+        <li>📺 Zooms collectifs de préparation</li>
+        <li>👤 Coaching individuel en face à face</li>
+        <li>💻 Plateforme dédiée</li>
+        <li>🤖 Analyse IA</li>
+        <li>📚 La plus grosse base de textes d'entraînement des Antilles</li>
+      </ul>
+      <div class="lp-hero-ctas">
+        <a href="https://buy.stripe.com/3cIdR8booc0VaSOa9A4ZG08" class="lp-cta-primary" target="_blank" rel="noopener">🚀 Je m'inscris · 750 €</a>
+        <a href="#programme" class="lp-cta-secondary">↓ Découvrir le programme</a>
+      </div>
+    </div>
+    <div class="lp-hero-video-wrap">
+      <div class="lp-hero-video-frame">
+        <video id="lpHeroVideo" controls preload="metadata" playsinline></video>
+        <div class="lp-hero-video-loading" id="lpHeroVideoLoading">Chargement de la présentation…</div>
+      </div>
+      <p class="lp-hero-video-caption">▶️ Découvre la prépa en 5 min avec Elisabeth</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Charge l'URL de la vidéo via l'Edge Function publique (signed URL fraîche)
+  (function() {
+    const VIDEO_ID = '8717c898-b5bd-4a07-a901-b3a4c3253b1f';
+    const ENDPOINT = 'https://uozfgssyswxjapscklan.supabase.co/functions/v1/landing-video?id=' + VIDEO_ID;
+    fetch(ENDPOINT)
+      .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+      .then(data => {
+        const video = document.getElementById('lpHeroVideo');
+        const loading = document.getElementById('lpHeroVideoLoading');
+        if (data.url && video) {
+          video.src = data.url;
+          if (loading) loading.style.display = 'none';
+        }
+      })
+      .catch(e => {
+        console.error('[landing-video]', e);
+        const loading = document.getElementById('lpHeroVideoLoading');
+        if (loading) loading.textContent = 'Vidéo temporairement indisponible.';
+      });
+  })();
+</script>
+
+<!-- ─── POUR QUI ─── -->
+<section class="lp-section">
+  <div class="lp-container lp-narrow">
+    <h2 class="lp-section-title">Tu es concerné·e si...</h2>
+    <ul class="lp-features">
+      <li><span class="lp-feature-emoji">🎯</span> Tu prépares l'oral PASS-LAS aux Antilles (2ᵉ groupe d'admission)</li>
+      <li><span class="lp-feature-emoji">💪</span> Tu veux mettre toutes tes chances de ton côté avec un encadrement structuré</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─── LE PROGRAMME ─── -->
+<section class="lp-section lp-section-alt" id="programme">
+  <div class="lp-container">
+    <h2 class="lp-section-title">Tu vas être prêt·e sur les 3 épreuves du 2ᵉ groupe</h2>
+    <div class="lp-mems">
+
+      <article class="lp-mem">
+        <div class="lp-mem-num">MEM 1</div>
+        <h3 class="lp-mem-title">📖 Discussion autour d'une situation complexe</h3>
+        <p>Comprendre, analyser, argumenter sur un texte. Format Q1 / Q2 / Q3 / Q4 imposé par le jury.</p>
+        <div class="lp-mem-arrow">Bibliothèque de textes corrigés inédits, organisés en cahiers thématiques (actualité Antilles-Guyane, grands enjeux, presse de référence…)</div>
+      </article>
+
+      <article class="lp-mem">
+        <div class="lp-mem-num">MEM 2</div>
+        <h3 class="lp-mem-title">📚 Synthèse et analyse d'un extrait d'article</h3>
+        <p>Construire une synthèse structurée à partir de documents (texte / tableau / image).</p>
+        <div class="lp-mem-arrow">Cahiers thématiques d'entraînement (climat, pollution, biodiversité, santé, sciences)</div>
+      </article>
+
+      <article class="lp-mem">
+        <div class="lp-mem-num">MEM 3</div>
+        <h3 class="lp-mem-title">🩺 Transmission d'un conseil</h3>
+        <p>Simulation et jeu de rôle avec une personne en demande de conseil.</p>
+        <div class="lp-mem-arrow">Scénarios d'entraînement en grand nombre</div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── MÉTHODOLOGIE ─── -->
+<section class="lp-section">
+  <div class="lp-container">
+    <h2 class="lp-section-title">Une prépa comme aucune autre</h2>
+    <div class="lp-methodo">
+
+      <article class="lp-methodo-card">
+        <div class="lp-methodo-num">1</div>
+        <h3>🎙️ Plus de 20 h de visio préparatoire de cours</h3>
+        <p>Sur les 3 MEM, en collectif. Pour poser des bases solides avant les passages individuels.</p>
+      </article>
+
+      <article class="lp-methodo-card">
+        <div class="lp-methodo-num">2</div>
+        <h3>🤝 Coaching individuel en face à face</h3>
+        <p>3 passages par MEM avec ton coach, enregistrés. Tu passes, on te débrieffe, tu repars avec un plan d'action personnalisé.</p>
+      </article>
+
+      <article class="lp-methodo-card">
+        <div class="lp-methodo-num">3</div>
+        <h3>🤖 Merlin, ton coach IA</h3>
+        <p>Disponible entre deux coachings. Tu t'auto-enregistres sur la plateforme, Merlin analyse ta vidéo et te livre un débrief structuré.</p>
+      </article>
+
+      <article class="lp-methodo-card">
+        <div class="lp-methodo-num">4</div>
+        <h3>📚 La plus grande base de travail Antilles-Guyane</h3>
+        <p>Depuis 5 ans, on a construit plus de 250 textes corrigés. Une richesse unique.</p>
+      </article>
+
+      <article class="lp-methodo-card">
+        <div class="lp-methodo-num">5</div>
+        <h3>🌍 Module Culture Générale</h3>
+        <p>Parce que le jury valorise un·e étudiant·e qui montre qu'il/elle a de la culture générale. Fiches pédagogiques + liens vers podcasts, vidéos YouTube et sites de référence sur chaque sujet.</p>
+      </article>
+
+      <article class="lp-methodo-card">
+        <div class="lp-methodo-num">6</div>
+        <h3>🤜 Matchs entre étudiants illimités</h3>
+        <p>Tu trouves un binôme sur la plateforme, vous lancez une visio sans coach pour t'entraîner librement. Gratuit, illimité.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── INTERVENANT EXCLUSIF SÉRAM BORGEL ─── -->
+<section class="lp-section lp-section-alt" id="seram">
+  <div class="lp-container">
+    <div class="lp-seram-card">
+      <div class="lp-seram-avatar">
+        <div class="lp-seram-photo-frame" aria-label="Séram Borgel">
+          <img
+            src="https://raw.githubusercontent.com/elisabethmedibox/medibox-assets/main/images/equipe/seram_borgiel"
+            alt="Séram Borgel"
+            class="lp-seram-photo"
+            loading="lazy"
+            onerror="this.style.display='none';this.parentNode.classList.add('lp-seram-photo-placeholder');this.parentNode.insertAdjacentHTML('beforeend','<span class=&quot;lp-seram-initials&quot;>SB</span>');">
+        </div>
+        <span class="lp-seram-badge">Intervenant externe</span>
+      </div>
+      <div class="lp-seram-body">
+        <div class="lp-seram-pretitle">Avec l'intervention exclusive de</div>
+        <h2 class="lp-seram-name">Séram Borgel</h2>
+        <p class="lp-seram-role">Coach et expert en prise de parole</p>
+        <p class="lp-seram-desc">
+          Coach en prise de parole, juriste de formation (Master 2 Université Paris II Panthéon-Assas + ISIT),
+          également <strong>comédien professionnel</strong> formé au <strong>Cours Florent</strong> et au
+          <strong>Conservatoire National Supérieur d'Art Dramatique</strong>. Suivi par
+          <strong>plus de 100 000 personnes</strong> sur les réseaux sociaux.
+        </p>
+        <p class="lp-seram-mission">
+          Il intervient dans nos Zooms collectifs pour te donner les clés de l'<strong>éloquence</strong>,
+          de la <strong>rhétorique</strong> et de l'<strong>impact à l'oral</strong>.
+        </p>
+        <a href="https://www.instagram.com/parlemieux_/" target="_blank" rel="noopener" class="lp-seram-insta">
+          <span class="lp-seram-insta-icon">📸</span>
+          <span class="lp-seram-insta-text">
+            <span class="lp-seram-insta-handle">@parlemieux_</span>
+            <span class="lp-seram-insta-cta">Suivre sur Instagram →</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CE QUI EST INCLUS ─── -->
+<section class="lp-section lp-section-pack">
+  <div class="lp-container lp-narrow">
+    <h2 class="lp-section-title lp-section-title-light">Ton pack complet</h2>
+    <div class="lp-prix-tag">
+      <span class="lp-prix-num">750 €</span>
+      <span class="lp-prix-info">Paiement en une seule fois</span>
+    </div>
+    <ul class="lp-inclus">
+      <li>✅ Plus de <strong>20 h de formation</strong> accessibles en replay sur les 3 MEM</li>
+      <li>✅ <strong>9 passages MEM d'1 h</strong> avec ton coach, enregistrés (= 9 h de coaching individuel)</li>
+      <li>✅ <strong>Replay</strong> de tous tes passages, accessibles à volonté</li>
+      <li>✅ <strong>Correction personnalisée</strong> de ton coach après chaque passage</li>
+      <li>✅ <strong>Débriefs Merlin illimités</strong> sur tes entraînements en autonomie</li>
+      <li>✅ Plus de <strong>250 textes corrigés</strong> dans la bibliothèque MEM 1 / 2 / 3</li>
+      <li>✅ <strong>Module Culture Générale</strong> · 63 fiches pédagogiques (en évolution constante)</li>
+      <li>✅ <strong>Matchs entre étudiants illimités</strong></li>
+      <li>✅ <strong>Messagerie directe</strong> avec ton coach</li>
+      <li>✅ <strong>Accompagnement jusqu'à l'examen</strong></li>
+    </ul>
+    <div class="lp-cta-block">
+      <a href="https://buy.stripe.com/3cIdR8booc0VaSOa9A4ZG08" class="lp-cta-primary lp-cta-primary-light" target="_blank" rel="noopener">🚀 Je m'inscris maintenant</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── POURQUOI MEDIBOX AG ─── -->
+<section class="lp-section">
+  <div class="lp-container">
+    <h2 class="lp-section-title">Pourquoi se préparer avec MediBox Antilles-Guyane</h2>
+    <div class="lp-pourquoi">
+
+      <article class="lp-pourquoi-card">
+        <div class="lp-pourquoi-icon">🏝️</div>
+        <h3>On est née ici</h3>
+        <p>Construite aux Antilles, pour les étudiant·e·s d'ici. Aucune prépa métropolitaine ne connaît aussi bien que nous les spécificités locales.</p>
+      </article>
+
+      <article class="lp-pourquoi-card lp-pourquoi-card-highlight">
+        <div class="lp-pourquoi-icon">📊</div>
+        <h3>Des résultats qui parlent pour nous</h3>
+        <p>L'année dernière, <strong>86 % de taux de réussite aux oraux</strong> (25 étudiant·e·s admis·es sur 29 présenté·e·s).</p>
+      </article>
+
+      <article class="lp-pourquoi-card">
+        <div class="lp-pourquoi-icon">🚀</div>
+        <h3>Une plateforme construite sur-mesure</h3>
+        <p>Pas de PDF à télécharger, rien envoyé par email. Une vraie plateforme où tu peux t'entraîner pour de vrai à l'oral et suivre ta progression en temps réel.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── TÉMOIGNAGES ─── -->
+<section class="lp-section lp-section-alt" id="temoignages">
+  <div class="lp-container">
+    <h2 class="lp-section-title">Ils en parlent mieux que nous</h2>
+    <div class="lp-temoignages">
+
+      <article class="lp-temoignage">
+        <p>"Je suis une étudiante de 35 ans en reconversion. J'ai une famille et surtout pas de temps à perdre. Je suis très satisfaite de cette prépa. Déjà humainement, vous n'êtes pas juste un numéro. Dès le début de l'année, on vous offre toutes les clefs pour réussir et ne pas perdre de temps pour s'organiser. Une méthodologie claire, et un planning construit. Vous avez un coach pour vous soutenir. […] Pour finir, la directrice et son équipe connaissent très bien les spécificités des Antilles. Vraiment un plus non négligeable pour être plus serein. <strong>Je recommande à 100 %</strong>."</p>
+        <footer><strong>Lucie</strong> · Promo 2024-2025 · Vice-majore Kiné</footer>
+      </article>
+
+      <article class="lp-temoignage">
+        <p>"Initialement inscrite chez MMPP, j'ai rejoint MediBox pour les préparations à l'oral. MediBox m'a offert un accompagnement personnalisé, attentif et réellement adapté à mes besoins. L'équipe pédagogique est à l'écoute, disponible et surtout très investie. Sincèrement je n'ai absolument rien à reprocher à cette prépa, et <strong>je la recommande à tout futur étudiant en PASS / LAS</strong>. Mon seul regret est de ne pas l'avoir choisie dès le début de l'année."</p>
+        <footer><strong>Melodhy</strong> · Préparation orale 2024-2025</footer>
+      </article>
+
+      <article class="lp-temoignage">
+        <p>"MediBox est la prépa que je recommanderais à tout le monde. […] Les entrevues de préparation avec Elisabeth Schaeffer étaient réellement constructives et m'ont réellement aidée à m'améliorer. L'oral ressemblait exactement aux entraînements que l'on a pu faire. Toutes les astuces, les directives et tous les conseils m'ont permis de <strong>remonter de 51 places dans le classement</strong>. Je suis passée de 108ᵉ à 57ᵉ, donc ADAC à l'oral. Je pense honnêtement que je n'aurais pas réussi mes oraux sans MediBox, alors je ne peux que vous dire de foncer !"</p>
+        <footer><strong>Tahina</strong> · Préparation orale 2024-2025</footer>
+      </article>
+
+      <article class="lp-temoignage">
+        <p>"Je tente le concours pour la deuxième fois et MediBox m'a beaucoup aidée ce semestre. Les QCM interactifs, les cours clairs et les ED bien structurés rendent l'apprentissage plus efficace et logique. J'ai constaté de vrais progrès dans mon apprentissage notamment en biochimie et en anatomie. <strong>L'accompagnement est beaucoup plus structuré</strong> et on sent une réelle envie de faire progresser les étudiants contrairement à d'autres organismes."</p>
+        <footer><strong>Leslie</strong> · Promo 2024-2025 · LAS2 (était dans une autre prépa l'année de sa PASS)</footer>
+      </article>
+
+      <article class="lp-temoignage">
+        <p>"J'ai beaucoup aimé l'accompagnement de MediBox. En effet, les tuteurs et la directrice sont à l'écoute de nos besoins et font le maximum pour notre réussite. <strong>La préparation à l'oral est également d'une grande qualité. Je recommande !</strong>"</p>
+        <footer><strong>Maya</strong> · Promo 2024-2025</footer>
+      </article>
+
+      <article class="lp-temoignage">
+        <p>"Je tenais à vous remercier pour tout ce que vous avez fait pour moi et pour nous étudiants. Cette prépa m'a beaucoup aidée et apporté, l'aide de toute votre équipe a été incommensurable. Merci de m'avoir donné envie de me surpasser, pour le travail extraordinaire que vous avez fourni, <strong>pour le plaisir d'apprendre que cette prépa m'a donné</strong>."</p>
+        <footer><strong>Alexia</strong> · Promo 2022-2023</footer>
+      </article>
+
+      <article class="lp-temoignage">
+        <p>"Une prépa investie dans la réussite de ses étudiants. Le sérieux de l'accompagnement se ressent à travers une grande banque de QCM ciblés, parfaitement adaptés à chaque cours. Les contenus sont clairs, efficaces et vraiment pensés pour optimiser l'entraînement. <strong>Je recommande vivement cette prépa</strong>, qui mérite d'être bien plus connue."</p>
+        <footer><strong>Philipine</strong> · Promo 2024-2025 (changement de prépa en cours d'année)</footer>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section class="lp-section">
+  <div class="lp-container lp-narrow">
+    <h2 class="lp-section-title">Les questions qu'on nous pose souvent</h2>
+
+    <details class="lp-faq">
+      <summary>Quand commence la prépa ?</summary>
+      <p>Dès ton inscription validée.</p>
+    </details>
+
+    <details class="lp-faq">
+      <summary>Le paiement en 2 ou 3 fois est-il possible ?</summary>
+      <p>Non, depuis début juin ce n'est plus possible. Paiement en une seule fois.</p>
+    </details>
+
+  </div>
+</section>
+
+<!-- ─── CTA FINAL ─── -->
+<section class="lp-section lp-cta-final">
+  <div class="lp-container lp-narrow">
+    <h2 class="lp-cta-final-title">Prêt·e à mettre toutes tes chances de ton côté ?</h2>
+    <div class="lp-cta-block">
+      <a href="https://buy.stripe.com/3cIdR8booc0VaSOa9A4ZG08" class="lp-cta-primary lp-cta-primary-light" target="_blank" rel="noopener">🎯 Je m'inscris maintenant</a>
+    </div>
+    <p class="lp-cta-secondary-line">Une question avant de te décider ?<br>
+      <a href="https://www.laspasscaraibes.com/contact" target="_blank" rel="noopener">📩 Envoie-nous un message ici</a>
+    </p>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="lp-footer">
+  <div class="lp-container lp-footer-inner">
+    <span>© MediBox Antilles-Guyane · Session oraux 2025-2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
