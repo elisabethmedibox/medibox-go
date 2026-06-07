@@ -141,6 +141,32 @@ a { color: var(--lp-bleu); text-decoration: none; }
   margin-bottom: 24px;
   line-height: 1.55;
 }
+
+/* ─── Lien Instagram du Hero ─── */
+.lp-hero-insta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin: -8px 0 18px;
+  box-shadow: 0 6px 16px rgba(220, 39, 67, 0.25);
+  transition: transform 0.15s, box-shadow 0.15s;
+  max-width: max-content;
+}
+.lp-hero-insta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(220, 39, 67, 0.4);
+  color: #fff;
+}
+.lp-hero-insta-icon { font-size: 1.15rem; }
+.lp-hero-insta-arrow { font-size: 1rem; opacity: 0.9; }
+
 .lp-hero-bullets {
   list-style: none;
   display: flex;
