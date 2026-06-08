@@ -9,6 +9,7 @@ Chaque page = un sous-dossier indépendant. URL : `https://go.mediboxantillesguy
 | Slug | URL | Description |
 |---|---|---|
 | `oral-2025-2026` | [go.mediboxantillesguyane.com/oral-2025-2026/](https://go.mediboxantillesguyane.com/oral-2025-2026/) | Landing Prépa Oral PASS-LAS session 2025-2026 (750 €) |
+| `inscription-pass-las` | [go.mediboxantillesguyane.com/inscription-pass-las/](https://go.mediboxantillesguyane.com/inscription-pass-las/) | Formulaire de pré-inscription PASS-LAS 2026-2027 (création de compte + référents) |
 
 ## Ajouter une nouvelle page
 

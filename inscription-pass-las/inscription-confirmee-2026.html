@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription confirmée</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="card-header">
+      <div class="logo-row">
+        <img src="" class="logo-img small" id="logoImg" alt="">
+        <div class="logo-text small"><span id="brandPart1"></span><span id="brandPart2"></span></div>
+      </div>
+      <h1 class="subtitle">Inscription confirmée</h1>
+      <span class="year" id="year"></span>
+    </div>
+
+    <div style="text-align:center;font-size:2.6rem;margin:10px 0 4px;">🎉</div>
+
+    <p style="font-size:0.95rem;color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;padding:16px 18px;border-radius:12px;margin:14px 0;text-align:center;line-height:1.5;">
+      Merci, ton inscription est bien enregistrée et tes frais ont été pris en compte.
+    </p>
+
+    <p style="font-size:0.9rem;color:#334155;line-height:1.55;margin:14px 4px;text-align:center;">
+      Tu recevras bientôt un email avec plus de précisions pour la suite de ton intégration à la préparation MediBox 2026-2027. À très vite !
+    </p>
+  </div>
+
+  <div class="auth-footer" id="footer"></div>
+
+  <script src="config.js"></script>
+  <script>
+    document.title = 'Inscription confirmée — ' + APP_CONFIG.brandName;
+    document.getElementById('logoImg').src = APP_CONFIG.logoUrl;
+    document.getElementById('logoImg').alt = APP_CONFIG.brandName;
+    document.getElementById('brandPart1').textContent = APP_CONFIG.brandPart1;
+    document.getElementById('brandPart2').textContent = APP_CONFIG.brandPart2;
+    document.getElementById('year').textContent = APP_CONFIG.year;
+    document.getElementById('footer').textContent = APP_CONFIG.copyright;
+  </script>
+</body>
+</html>

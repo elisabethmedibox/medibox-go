@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription PASS-LAS 2026-2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+  <div class="auth-card wide">
+    <div class="card-header">
+      <div class="logo-row">
+        <img src="" class="logo-img small" id="logoImg" alt="">
+        <div class="logo-text small"><span id="brandPart1"></span><span id="brandPart2"></span></div>
+      </div>
+      <h1 class="subtitle">Inscription PASS-LAS</h1>
+      <span class="year" id="year"></span>
+    </div>
+
+    <!-- ─── Vidéo de bienvenue (Elisabeth, 4 min) ─── -->
+    <div class="inscription-video-wrap">
+      <div class="inscription-video-frame">
+        <video id="inscriptionVideo" controls preload="metadata" playsinline></video>
+        <div class="inscription-video-loading" id="inscriptionVideoLoading">Chargement de la vidéo…</div>
+      </div>
+      <p class="inscription-video-caption">▶️ <strong>Elisabeth t'explique en 4 min</strong> comment va se passer la suite de la procédure d'inscription.</p>
+    </div>
+
+    <p style="font-size:0.85rem;color:#01466e;background:#e0edf4;padding:12px 14px;border-radius:10px;margin:14px 0;">
+      Une fois le formulaire rempli, tu seras dirigé·e vers le règlement des <strong>frais d'inscription (140 €)</strong>.
+    </p>
+
+    <style>
+      .inscription-video-wrap { margin: 4px 0 16px; }
+      .inscription-video-frame {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 12px 32px rgba(1, 70, 110, 0.18);
+        background: #0f172a;
+        aspect-ratio: 16 / 9;
+        border: 3px solid #fff;
+      }
+      .inscription-video-frame video {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        background: #0f172a;
+      }
+      .inscription-video-loading {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.88rem;
+        pointer-events: none;
+      }
+      .inscription-video-frame video[src] + .inscription-video-loading { display: none; }
+      .inscription-video-caption {
+        margin: 10px 0 0;
+        text-align: center;
+        color: #01466e;
+        font-size: 0.85rem;
+        line-height: 1.4;
+      }
+      .inscription-video-caption strong { font-weight: 700; }
+    </style>
+
+    <script>
+      (function() {
+        var VIDEO_ID = 'cbdac914-5d2f-4915-a001-9f589e2d72d5';
+        var ENDPOINT = 'https://uozfgssyswxjapscklan.supabase.co/functions/v1/landing-video?id=' + VIDEO_ID;
+        fetch(ENDPOINT)
+          .then(function(r) { return r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)); })
+          .then(function(data) {
+            var v = document.getElementById('inscriptionVideo');
+            var l = document.getElementById('inscriptionVideoLoading');
+            if (data.url && v) {
+              v.src = data.url;
+              if (l) l.style.display = 'none';
+            }
+          })
+          .catch(function(e) {
+            console.warn('[inscription-video]', e);
+            var l = document.getElementById('inscriptionVideoLoading');
+            if (l) l.textContent = 'Vidéo temporairement indisponible.';
+          });
+      })();
+    </script>
+
+    <form id="inscriptionForm">
+
+      <div class="form-group">
+        <label for="universite">Université <span class="req">*</span></label>
+        <select id="universite" required>
+          <option value="">— Chargement... —</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="civilite">Civilité <span class="req">*</span></label>
+          <select id="civilite" required>
+            <option value="">— Choisir —</option>
+            <option value="M.">M.</option>
+            <option value="Mme">Mme</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="niveau">Niveau <span class="label-hint">(si connu)</span></label>
+          <select id="niveau">
+            <option value="">— Chargement... —</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="departementEtudes">Département d'études <span class="req">*</span></label>
+        <select id="departementEtudes" required>
+          <option value="">— Chargement... —</option>
+        </select>
+        <span class="email-hint">Si tu ne sais pas encore, mets le département le plus probable : cette information pourra être modifiée par la suite.</span>
+      </div>
+
+      <div class="form-group">
+        <label for="formule">Formule souhaitée <span class="req">*</span></label>
+        <select id="formule" required>
+          <option value="">— Chargement... —</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="prenom">Prénom <span class="req">*</span></label>
+          <input type="text" id="prenom" required placeholder="Prénom">
+        </div>
+        <div class="form-group">
+          <label for="nom">Nom <span class="req">*</span></label>
+          <input type="text" id="nom" required placeholder="Nom" class="uppercase">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dateNaissance">Date de naissance <span class="label-hint">(facultatif)</span></label>
+        <input type="date" id="dateNaissance">
+      </div>
+
+      <div class="form-group">
+        <label for="telephone">Téléphone <span class="req">*</span></label>
+        <div class="phone-row">
+          <select id="indicatif" class="phone-indicatif" required>
+            <option value="+590">🇬🇵 Guadeloupe +590</option>
+            <option value="+596">🇲🇶 Martinique +596</option>
+            <option value="+594">🇬🇫 Guyane +594</option>
+            <option value="+33">🇫🇷 France +33</option>
+          </select>
+          <input type="tel" id="telephone" required placeholder="6 00 00 00 00">
+        </div>
+        <span class="email-hint">* Si ton indicatif n'est pas dans la liste, choisis « France ».</span>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email <span class="req">*</span></label>
+        <input type="email" id="email" required placeholder="prenom.nom@gmail.com">
+        <span class="email-hint">Cet email te servira d'identifiant de connexion. Tu peux utiliser ton email personnel (Gmail, Yahoo, etc.).</span>
+      </div>
+
+      <div class="form-group">
+        <label for="mdp">Mot de passe <span class="req">*</span></label>
+        <div class="password-row">
+          <input type="password" id="mdp" required placeholder="Minimum 6 caractères" minlength="6">
+          <button type="button" class="password-toggle" onclick="togglePasswordVisibility()">👁️</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="rue">Rue <span class="label-hint">(facultatif)</span></label>
+        <input type="text" id="rue" placeholder="Numéro et nom de rue">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="codePostal">Code postal <span class="label-hint">(facultatif)</span></label>
+          <input type="text" id="codePostal" placeholder="97100">
+        </div>
+        <div class="form-group">
+          <label for="ville">Ville <span class="label-hint">(facultatif)</span></label>
+          <input type="text" id="ville" placeholder="Ville" class="uppercase">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="financeParProche">La formation est-elle financée par un parent ou un proche ? <span class="req">*</span></label>
+        <select id="financeParProche" required>
+          <option value="">— Choisir —</option>
+          <option value="oui">Oui</option>
+          <option value="non">Non, je finance moi-même</option>
+        </select>
+      </div>
+
+      <div id="parentsSection" class="cond-fields" style="display:none;">
+        <div class="activites-bloc">
+          <span class="activites-titre">Référent 1 (parent ou proche)
+            <span class="activites-subtitle">Ces informations sont facultatives.</span>
+          </span>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ref1Civilite">Civilité</label>
+              <select id="ref1Civilite">
+                <option value="">— Choisir —</option>
+                <option value="M.">M.</option>
+                <option value="Mme">Mme</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="ref1Prenom">Prénom</label>
+              <input type="text" id="ref1Prenom" placeholder="Prénom">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="ref1Nom">Nom</label>
+            <input type="text" id="ref1Nom" placeholder="Nom" class="uppercase">
+          </div>
+          <div class="form-group">
+            <label for="ref1Email">Email</label>
+            <input type="email" id="ref1Email" placeholder="email@exemple.com">
+          </div>
+          <div class="form-group">
+            <label for="ref1Telephone">Téléphone</label>
+            <div class="phone-row">
+              <select id="ref1Indicatif" class="phone-indicatif">
+                <option value="+590">🇬🇵 Guadeloupe +590</option>
+                <option value="+596">🇲🇶 Martinique +596</option>
+                <option value="+594">🇬🇫 Guyane +594</option>
+                <option value="+33">🇫🇷 France +33</option>
+              </select>
+              <input type="tel" id="ref1Telephone" placeholder="6 00 00 00 00">
+            </div>
+          </div>
+          <label class="spe-checkbox" style="margin-top:6px;">
+            <input type="checkbox" id="ref1Payeur">
+            <span class="spe-label">C'est cette personne qui règle les frais</span>
+          </label>
+
+          <button type="button" id="btnAjouterRef2" class="auth-link" style="border:none;background:none;cursor:pointer;margin-top:12px;">+ Ajouter un deuxième référent</button>
+        </div>
+
+        <div id="parent2Section" style="display:none;">
+          <div class="activites-bloc">
+            <span class="activites-titre">Référent 2 (parent ou proche)
+              <span class="activites-subtitle">Ces informations sont facultatives.</span>
+            </span>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ref2Civilite">Civilité</label>
+                <select id="ref2Civilite">
+                  <option value="">— Choisir —</option>
+                  <option value="M.">M.</option>
+                  <option value="Mme">Mme</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="ref2Prenom">Prénom</label>
+                <input type="text" id="ref2Prenom" placeholder="Prénom">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="ref2Nom">Nom</label>
+              <input type="text" id="ref2Nom" placeholder="Nom" class="uppercase">
+            </div>
+            <div class="form-group">
+              <label for="ref2Email">Email</label>
+              <input type="email" id="ref2Email" placeholder="email@exemple.com">
+            </div>
+            <div class="form-group">
+              <label for="ref2Telephone">Téléphone</label>
+              <div class="phone-row">
+                <select id="ref2Indicatif" class="phone-indicatif">
+                  <option value="+590">🇬🇵 Guadeloupe +590</option>
+                  <option value="+596">🇲🇶 Martinique +596</option>
+                  <option value="+594">🇬🇫 Guyane +594</option>
+                  <option value="+33">🇫🇷 France +33</option>
+                </select>
+                <input type="tel" id="ref2Telephone" placeholder="6 00 00 00 00">
+              </div>
+            </div>
+            <label class="spe-checkbox" style="margin-top:6px;">
+              <input type="checkbox" id="ref2Payeur">
+              <span class="spe-label">C'est cette personne qui règle les frais</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-auth signup" id="btnSubmit">Créer mon compte</button>
+    </form>
+
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="auth-footer" id="footer"></div>
+
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="auth-validation.js"></script>
+  <script src="inscription-2026.js"></script>
+</body>
+</html>
