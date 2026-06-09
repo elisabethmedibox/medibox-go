@@ -20,7 +20,7 @@ const APP_CONFIG = {
 
   // Logo — version couleur (M bleu marine + serpent rouge) lisible sur fond clair
   // Chemin relatif : depuis pages/*.html ou auth/*.html on remonte d'un niveau pour atteindre assets/
-  logoUrl: '../assets/logo-medibox.png',
+  logoUrl: 'assets/logo-medibox.png',
 
   // Copyright
   copyright: '© MediBox Antilles Guyane 2026 - Tracking EDN / ECOS',
