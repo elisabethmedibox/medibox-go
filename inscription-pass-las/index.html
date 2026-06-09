@@ -20,79 +20,9 @@
       <span class="year" id="year"></span>
     </div>
 
-    <!-- ─── Vidéo de bienvenue (Elisabeth, 4 min) ─── -->
-    <div class="inscription-video-wrap">
-      <div class="inscription-video-frame">
-        <video id="inscriptionVideo" controls preload="metadata" playsinline></video>
-        <div class="inscription-video-loading" id="inscriptionVideoLoading">Chargement de la vidéo…</div>
-      </div>
-      <p class="inscription-video-caption">▶️ <strong>Elisabeth t'explique en 4 min</strong> comment va se passer la suite de la procédure d'inscription.</p>
-    </div>
-
     <p style="font-size:0.85rem;color:#01466e;background:#e0edf4;padding:12px 14px;border-radius:10px;margin:14px 0;">
       Une fois le formulaire rempli, tu seras dirigé·e vers le règlement des <strong>frais d'inscription (140 €)</strong>.
     </p>
-
-    <style>
-      .inscription-video-wrap { margin: 4px 0 16px; }
-      .inscription-video-frame {
-        position: relative;
-        border-radius: 14px;
-        overflow: hidden;
-        box-shadow: 0 12px 32px rgba(1, 70, 110, 0.18);
-        background: #0f172a;
-        aspect-ratio: 16 / 9;
-        border: 3px solid #fff;
-      }
-      .inscription-video-frame video {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
-        background: #0f172a;
-      }
-      .inscription-video-loading {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 0.88rem;
-        pointer-events: none;
-      }
-      .inscription-video-frame video[src] + .inscription-video-loading { display: none; }
-      .inscription-video-caption {
-        margin: 10px 0 0;
-        text-align: center;
-        color: #01466e;
-        font-size: 0.85rem;
-        line-height: 1.4;
-      }
-      .inscription-video-caption strong { font-weight: 700; }
-    </style>
-
-    <script>
-      (function() {
-        var VIDEO_ID = 'cbdac914-5d2f-4915-a001-9f589e2d72d5';
-        var ENDPOINT = 'https://uozfgssyswxjapscklan.supabase.co/functions/v1/landing-video?id=' + VIDEO_ID;
-        fetch(ENDPOINT)
-          .then(function(r) { return r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)); })
-          .then(function(data) {
-            var v = document.getElementById('inscriptionVideo');
-            var l = document.getElementById('inscriptionVideoLoading');
-            if (data.url && v) {
-              v.src = data.url;
-              if (l) l.style.display = 'none';
-            }
-          })
-          .catch(function(e) {
-            console.warn('[inscription-video]', e);
-            var l = document.getElementById('inscriptionVideoLoading');
-            if (l) l.textContent = 'Vidéo temporairement indisponible.';
-          });
-      })();
-    </script>
 
     <form id="inscriptionForm">
 
