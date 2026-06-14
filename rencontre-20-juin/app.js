@@ -1,5 +1,5 @@
 /* ============================================================
-   RENCONTRE MEDIBOX · 19 juin 2026 — logique du formulaire
+   RENCONTRE MEDIBOX · 20 juin 2026 — logique du formulaire
    - Insertion publique dans evenement_inscriptions (RLS stricte :
      anon peut UNIQUEMENT inserer une ligne validee, jamais lire).
    - Anti-spam : honeypot + on n'expose aucune liste.
@@ -12,7 +12,7 @@ const SUPABASE_URL = 'https://uozfgssyswxjapscklan.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVvemZnc3N5c3d4amFwc2NrbGFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MDEwODksImV4cCI6MjA5MDE3NzA4OX0.XoO9fWh0PqgEmt7zvlEfJeUcnfT2hVP_o5ORlXr7ZDQ';
 
 // Identifiant de CET evenement (la table sert aussi aux prochains).
-const EVENEMENT_SLUG = 'rencontre-2026-06-19';
+const EVENEMENT_SLUG = 'rencontre-2026-06-20';
 
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -85,7 +85,7 @@ document.getElementById('rencontreForm').addEventListener('submit', async (e) =>
     if (error) {
       // 23505 = doublon (meme e-mail deja inscrit a cet evenement)
       if (error.code === '23505') {
-        afficherSucces('Tu es déjà inscrit·e avec cette adresse — on t\'attend le samedi 19 juin à la Marina du Gosier, entre 10h et 16h. À très vite !');
+        afficherSucces('Tu es déjà inscrit·e avec cette adresse — on t\'attend le samedi 20 juin à la Marina du Gosier, entre 10h et 16h. À très vite !');
         return;
       }
       console.error('Erreur insertion :', error);
