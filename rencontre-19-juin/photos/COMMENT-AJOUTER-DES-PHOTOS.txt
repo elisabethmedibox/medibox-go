@@ -1,0 +1,15 @@
+AJOUTER DES PHOTOS À LA PAGE
+============================
+
+La page affiche automatiquement une galerie SI tu déposes des photos ici.
+
+1. Mets tes images dans ce dossier "photos/".
+2. Nomme-les exactement : photo-1.jpg, photo-2.jpg, photo-3.jpg ... jusqu'à photo-8.jpg
+   (format .jpg, dans l'ordre que tu veux).
+3. Commit + push.
+
+La section "En images" apparaît toute seule sur la page dès qu'au moins une photo
+est présente. S'il n'y a aucune photo, la section reste simplement masquée.
+
+Astuce : des photos en paysage (largeur > hauteur), pas trop lourdes (moins de 1 Mo
+chacune), rendent le mieux.
