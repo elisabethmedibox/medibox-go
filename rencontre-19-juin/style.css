@@ -56,14 +56,7 @@ h1, h2, h3 { font-family: 'Barlow Condensed', sans-serif; line-height: 1.05; }
     radial-gradient(1100px 500px at 80% -10%, rgba(11,187,214,0.45), transparent 60%),
     linear-gradient(160deg, var(--navy) 0%, var(--navy-d) 60%, #012438 100%);
   color: #fff; text-align: center;
-  padding: 56px 22px 130px;
-}
-.hero-wave {
-  position: absolute; left: 0; right: 0; bottom: -1px; height: 70px;
-  background: var(--bg);
-  -webkit-mask: radial-gradient(60px 70px at 50% 0, transparent 98%, #000) repeat-x;
-  mask: radial-gradient(60px 70px at 50% 0, transparent 98%, #000) repeat-x;
-  -webkit-mask-size: 120px 70px; mask-size: 120px 70px;
+  padding: 56px 22px 70px;
 }
 .hero-inner { position: relative; max-width: 760px; margin: 0 auto; z-index: 1; }
 .hero-logo {
@@ -246,5 +239,5 @@ h1, h2, h3 { font-family: 'Barlow Condensed', sans-serif; line-height: 1.05; }
   .ateliers-grid { grid-template-columns: 1fr; }
   .field-row { grid-template-columns: 1fr; }
   .form-card { padding: 32px 22px; }
-  .hero { padding: 40px 20px 110px; }
+  .hero { padding: 40px 20px 56px; }
 }
