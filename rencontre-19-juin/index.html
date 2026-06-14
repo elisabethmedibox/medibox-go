@@ -24,11 +24,10 @@
 
     <div class="hero-ribbon">Venez nous rencontrer !</div>
 
-    <span class="hero-kicker">Ouverture du campus MediBox Guadeloupe · Rentrée 2026</span>
-    <h1 class="hero-title">Rencontre MediBox</h1>
+    <h1 class="hero-title">Rencontre Medi<span class="cor">Box</span></h1>
+    <div class="hero-date">Samedi 19 juin</div>
 
     <div class="hero-badges">
-      <span class="badge"><span class="badge-emoji">📅</span> Samedi 19 juin 2026</span>
       <span class="badge"><span class="badge-emoji">🕙</span> 10h00 - 16h00</span>
       <span class="badge"><span class="badge-emoji">📍</span> Marina du Gosier</span>
     </div>
@@ -79,68 +78,29 @@
 
       <div class="ateliers-grid">
         <div class="atelier-card">
-          <div class="atelier-icon">
-            <!-- Suture : aiguille + fil -->
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 40c8-2 10-10 18-12s12-10 18-22" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 5"/>
-              <path d="M30 18c4-3 8-5 12-12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="31.5" cy="18.5" r="2.4" fill="currentColor"/>
-              <path d="M8 42l4-4" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-          </div>
+          <div class="atelier-photo"><img src="photos/photo-1.jpg" alt="Atelier suture MediBox" loading="lazy"></div>
           <h3>Atelier suture</h3>
           <p>Apprends à recoudre une plaie sur peau d'entraînement, comme au bloc.</p>
         </div>
 
         <div class="atelier-card">
-          <div class="atelier-icon">
-            <!-- Stéthoscope -->
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14 8v9a10 10 0 0 0 20 0V8" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
-              <path d="M24 27v6a9 9 0 0 0 9 9 9 9 0 0 0 9-9v-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="42" cy="20" r="4" stroke="currentColor" stroke-width="2.6"/>
-              <circle cx="14" cy="8" r="2.6" fill="currentColor"/>
-              <circle cx="34" cy="8" r="2.6" fill="currentColor"/>
-            </svg>
-          </div>
+          <div class="atelier-photo"><img src="photos/photo-2.jpg" alt="Atelier stéthoscope MediBox" loading="lazy"></div>
           <h3>Atelier stéthoscope</h3>
           <p>Écoute un cœur, des poumons, et découvre ce que le médecin entend.</p>
         </div>
 
         <div class="atelier-card">
-          <div class="atelier-icon">
-            <!-- RCP : coeur + éclair -->
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M24 42S6 30 6 18a10 10 0 0 1 18-6 10 10 0 0 1 18 6c0 12-18 24-18 24Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>
-              <path d="M25 16l-5 8h7l-5 8" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
+          <div class="atelier-photo"><img src="photos/photo-4.jpg" alt="Atelier réanimation cardio-pulmonaire MediBox" loading="lazy"></div>
           <h3>Atelier réanimation</h3>
           <p>Le massage cardiaque expliqué et pratiqué sur mannequin (RCP).</p>
         </div>
 
         <div class="atelier-card">
-          <div class="atelier-icon">
-            <!-- Heimlich : silhouette + bras -->
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="24" cy="11" r="5" stroke="currentColor" stroke-width="2.6"/>
-              <path d="M16 41V27a8 8 0 0 1 16 0v14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
-              <path d="M14 28c3 1 5 3 10 3s7-2 10-3" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
-              <circle cx="24" cy="29" r="2.4" fill="currentColor"/>
-            </svg>
-          </div>
+          <div class="atelier-photo"><img src="photos/photo-3.jpg" alt="Atelier manœuvre de Heimlich MediBox" loading="lazy"></div>
           <h3>Manœuvre de Heimlich</h3>
           <p>Le geste qui sauve quand quelqu'un s'étouffe : viens t'entraîner.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ════════════ GALERIE PHOTOS (auto si présentes) ════════════ -->
-  <section class="section section-galerie" id="galerie" hidden>
-    <div class="wrap">
-      <h2 class="section-title">En images</h2>
-      <div class="galerie-grid" id="galerieGrid"></div>
     </div>
   </section>
 
@@ -156,10 +116,11 @@
         </ul>
         <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Marina+du+Gosier+Quai+Ouest+Le+Gosier+Guadeloupe" target="_blank" rel="noopener">🗺️ Voir l'itinéraire</a>
       </div>
-      <div class="infos-map" aria-hidden="true">
-        <div class="map-pin">📍</div>
-        <span class="map-caption">Marina du Gosier · Quai Ouest</span>
-      </div>
+      <iframe
+        class="infos-map"
+        title="Carte · Marina du Gosier"
+        src="https://www.google.com/maps?q=Marina+du+Gosier+Le+Gosier+Guadeloupe&output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </section>
 

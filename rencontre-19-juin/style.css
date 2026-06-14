@@ -86,8 +86,15 @@ h1, h2, h3 { font-family: 'Barlow Condensed', sans-serif; line-height: 1.05; }
   padding: 6px 16px; margin-bottom: 18px;
 }
 .hero-title {
-  font-size: clamp(3rem, 9vw, 5.2rem); font-weight: 800;
+  font-size: clamp(2.6rem, 8vw, 4.4rem); font-weight: 800;
   letter-spacing: 1px; text-shadow: 0 6px 24px rgba(0,0,0,0.25);
+}
+.hero-title .cor { color: var(--corail); }
+.hero-date {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+  font-size: clamp(3.2rem, 11vw, 6rem); line-height: 0.95;
+  letter-spacing: 1px; margin-top: 4px;
+  text-shadow: 0 8px 28px rgba(0,0,0,0.30);
 }
 .hero-badges { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 22px 0 8px; }
 .badge {
@@ -152,13 +159,11 @@ body.has-fond .section-form {
   backdrop-filter: blur(4px); transition: transform .18s, background .18s;
 }
 .atelier-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.14); }
-.atelier-icon {
-  width: 72px; height: 72px; margin: 0 auto 16px;
-  display: flex; align-items: center; justify-content: center;
-  background: #fff; color: var(--corail); border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+.atelier-photo {
+  margin: 0 0 16px; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.22);
 }
-.atelier-icon svg { width: 42px; height: 42px; }
+.atelier-photo img { display: block; width: 100%; height: 170px; object-fit: cover; }
 .atelier-card h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 8px; }
 .atelier-card p { font-size: .92rem; color: #d7eef4; }
 
@@ -190,16 +195,9 @@ body.has-fond .section-form {
 }
 .maps-link:hover { border-bottom-color: var(--turq-d); }
 .infos-map {
-  height: 240px; border-radius: 20px;
-  background:
-    radial-gradient(400px 200px at 70% 30%, rgba(11,187,214,0.25), transparent 60%),
-    linear-gradient(140deg, #def0f5, #c3e6ef);
-  border: 1px solid var(--line); box-shadow: var(--shadow);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; height: 290px; border: 0; border-radius: 20px;
+  box-shadow: var(--shadow); display: block;
 }
-.map-pin { font-size: 3rem; filter: drop-shadow(0 6px 10px rgba(1,70,110,0.25)); animation: bob 2.4s ease-in-out infinite; }
-@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-.map-caption { font-weight: 600; color: var(--navy); }
 
 /* ════════ FORMULAIRE ════════ */
 .section-form { background: linear-gradient(180deg, var(--bg), #e7f1f7); }

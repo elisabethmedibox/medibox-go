@@ -27,30 +27,6 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   img.src = 'photos/fond.jpg';
 })();
 
-// ─── Galerie photos : on tente de charger photos/photo-1.jpg … photo-8.jpg ───
-// Chaque image qui existe vraiment s'affiche ; sinon la section reste cachee.
-(function chargerGalerie() {
-  const grid = document.getElementById('galerieGrid');
-  const section = document.getElementById('galerie');
-  if (!grid || !section) return;
-  const MAX = 8;
-  let trouvees = 0, traitees = 0;
-
-  for (let i = 1; i <= MAX; i++) {
-    const img = new Image();
-    img.onload = () => {
-      img.alt = 'Rencontre MediBox';
-      grid.appendChild(img);
-      trouvees++;
-      if (section.hasAttribute('hidden')) section.removeAttribute('hidden');
-      finir();
-    };
-    img.onerror = finir;
-    img.src = 'photos/photo-' + i + '.jpg';
-  }
-  function finir() { traitees++; }
-})();
-
 // ─── Messages ───
 function showMsg(type, text) {
   const el = document.getElementById('msg');
