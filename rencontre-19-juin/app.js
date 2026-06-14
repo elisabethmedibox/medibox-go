@@ -16,6 +16,17 @@ const EVENEMENT_SLUG = 'rencontre-2026-06-19';
 
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// ─── Photo de fond duotone : si photos/fond.jpg existe, on l'active ───
+// Le hero et la zone du formulaire reçoivent alors la photo avec un voile bleu.
+(function chargerFond() {
+  const img = new Image();
+  img.onload = () => {
+    document.body.style.setProperty('--fond', "url('photos/fond.jpg')");
+    document.body.classList.add('has-fond');
+  };
+  img.src = 'photos/fond.jpg';
+})();
+
 // ─── Galerie photos : on tente de charger photos/photo-1.jpg … photo-8.jpg ───
 // Chaque image qui existe vraiment s'affiche ; sinon la section reste cachee.
 (function chargerGalerie() {

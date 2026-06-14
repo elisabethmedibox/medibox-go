@@ -1,8 +1,15 @@
 AJOUTER DES PHOTOS À LA PAGE
 ============================
 
-La page affiche automatiquement une galerie SI tu déposes des photos ici.
+Deux usages, tous les deux automatiques.
 
+--- 1. PHOTO DE FOND (voile bleu, façon Insta) ---
+Mets une belle photo d'ambiance ici, nommée exactement : fond.jpg
+-> elle devient le fond du hero (en haut) et de la zone du formulaire,
+   avec un voile bleu par-dessus pour garder le texte lisible.
+   S'il n'y a pas de fond.jpg, on garde le dégradé bleu actuel.
+
+--- 2. GALERIE "EN IMAGES" ---
 1. Mets tes images dans ce dossier "photos/".
 2. Nomme-les exactement : photo-1.jpg, photo-2.jpg, photo-3.jpg ... jusqu'à photo-8.jpg
    (format .jpg, dans l'ordre que tu veux).
