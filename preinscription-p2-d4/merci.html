@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pré-inscription confirmée · MediBox Antilles-Guyane</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="card-header">
+      <div class="logo-row">
+        <img src="" class="logo-img small" id="logoImg" alt="">
+        <div class="logo-text small"><span id="brandPart1"></span><span id="brandPart2"></span></div>
+      </div>
+      <h1 class="subtitle">Pré-inscription confirmée</h1>
+      <span class="year" id="year"></span>
+    </div>
+
+    <p style="font-size:1.4rem;text-align:center;margin:18px 0 6px;">🎉</p>
+
+    <p style="font-size:0.95rem;color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;padding:14px 16px;border-radius:10px;margin:10px 0;text-align:center;">
+      ✅ Ta pré-inscription est bien enregistrée !
+    </p>
+
+    <p style="font-size:0.9rem;color:#334155;line-height:1.6;margin:14px 0;">
+      Merci de ton intérêt pour <strong>MediBox Antilles-Guyane</strong>.
+      Ton compte est créé mais la plateforme <strong>n'est pas encore ouverte</strong> :
+      elle le sera à la <strong>rentrée 2026</strong>. On te recontacte dès l'ouverture
+      des inscriptions définitives pour finaliser ton accompagnement.
+    </p>
+
+    <p style="font-size:0.86rem;color:#475569;line-height:1.5;margin:14px 0;">
+      Tu peux fermer cette page. À très vite ! 🌴
+    </p>
+
+    <a href="https://go.mediboxantillesguyane.com/" class="btn-auth" style="display:block;text-align:center;text-decoration:none;background:#01466e;">Retour à l'accueil</a>
+  </div>
+
+  <div class="auth-footer" id="footer"></div>
+
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    document.title = 'Pré-inscription confirmée — ' + APP_CONFIG.brandName;
+    document.getElementById('logoImg').src = APP_CONFIG.logoUrl;
+    document.getElementById('logoImg').alt = APP_CONFIG.brandName;
+    document.getElementById('brandPart1').textContent = APP_CONFIG.brandPart1;
+    document.getElementById('brandPart2').textContent = APP_CONFIG.brandPart2;
+    document.getElementById('year').textContent = APP_CONFIG.year;
+    document.getElementById('footer').textContent = APP_CONFIG.copyright;
+
+    // Le compte est verrouillé (etudiant_preinscrit) : on ferme la session
+    // locale pour ne laisser aucune session active dans le navigateur.
+    try {
+      const sb = window.supabase.createClient(APP_CONFIG.supabaseUrl, APP_CONFIG.supabaseAnonKey);
+      sb.auth.signOut();
+    } catch (e) {}
+  </script>
+</body>
+</html>

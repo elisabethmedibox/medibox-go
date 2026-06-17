@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pré-inscription P2-D4 · MediBox Antilles-Guyane</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+  <div class="auth-card wide">
+    <div class="card-header">
+      <div class="logo-row">
+        <img src="" class="logo-img small" id="logoImg" alt="">
+        <div class="logo-text small"><span id="brandPart1"></span><span id="brandPart2"></span></div>
+      </div>
+      <h1 class="subtitle">Pré-inscription P2 → D4</h1>
+      <span class="year" id="year"></span>
+    </div>
+
+    <p style="font-size:0.9rem;color:#01466e;background:#e0edf4;padding:14px 16px;border-radius:10px;margin:14px 0;line-height:1.5;">
+      Tu es étudiant·e en <strong>médecine (P2, D1, D2, D3 ou D4)</strong> aux Antilles-Guyane et tu veux rejoindre MediBox ?
+      Laisse-nous tes coordonnées : <strong>on te recontacte à la rentrée</strong> dès l'ouverture des inscriptions.
+      C'est sans engagement et sans paiement.
+    </p>
+
+    <form id="preinscriptionForm">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="civilite">Civilité <span class="req">*</span></label>
+          <select id="civilite" required>
+            <option value="">— Choisir —</option>
+            <option value="M.">M.</option>
+            <option value="Mme">Mme</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="niveau">Niveau l'an prochain <span class="req">*</span></label>
+          <select id="niveau" required>
+            <option value="">— Chargement... —</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="faculte">Ta faculté <span class="req">*</span></label>
+        <select id="faculte" required>
+          <option value="">— Chargement... —</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="prenom">Prénom <span class="req">*</span></label>
+          <input type="text" id="prenom" required placeholder="Prénom">
+        </div>
+        <div class="form-group">
+          <label for="nom">Nom <span class="req">*</span></label>
+          <input type="text" id="nom" required placeholder="Nom" class="uppercase">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="telephone">Téléphone <span class="req">*</span></label>
+        <div class="phone-row">
+          <select id="indicatif" class="phone-indicatif" required>
+            <option value="+590">🇬🇵 Guadeloupe +590</option>
+            <option value="+596">🇲🇶 Martinique +596</option>
+            <option value="+594">🇬🇫 Guyane +594</option>
+            <option value="+33">🇫🇷 France +33</option>
+          </select>
+          <input type="tel" id="telephone" required placeholder="6 00 00 00 00">
+        </div>
+        <span class="email-hint">* Si ton indicatif n'est pas dans la liste, choisis « France ».</span>
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-mail <span class="req">*</span></label>
+        <input type="email" id="email" required placeholder="prenom.nom@gmail.com">
+        <span class="email-hint">Cet e-mail te servira d'identifiant de connexion. Tu peux utiliser ton e-mail personnel (Gmail, Yahoo, etc.).</span>
+      </div>
+
+      <div class="form-group">
+        <label for="mdp">Mot de passe <span class="req">*</span></label>
+        <div class="password-row">
+          <input type="password" id="mdp" required placeholder="Minimum 6 caractères" minlength="6">
+          <button type="button" class="password-toggle" onclick="togglePasswordVisibility()">👁️</button>
+        </div>
+        <span class="email-hint">Tu choisiras ce mot de passe pour te connecter quand la plateforme ouvrira.</span>
+      </div>
+
+      <button type="submit" class="btn-auth signup" id="btnSubmit">Je me pré-inscris</button>
+    </form>
+
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="auth-footer" id="footer"></div>
+
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="preinscription-p2-d4.js"></script>
+</body>
+</html>
