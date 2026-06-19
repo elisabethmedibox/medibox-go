@@ -206,17 +206,24 @@
         box.innerHTML="";
         D.geste.etapes.forEach(function(et,i){
           var sub = el("div",{class:"card-sub"});
-          sub.appendChild(el("div",{class:"tag"},["Étape "+(i+1)]));
-          sub.appendChild(field("Titre",null,et.t,function(v){et.t=v;}));
-          sub.appendChild(field("Description",null,et.d,function(v){et.d=v;},true));
-          var del = el("button",{class:"add",style:"color:#c0182a;border-color:#f2c0c2;background:#fff;"},["✕ Supprimer l'étape"]);
+          if(et.section !== undefined){
+            sub.appendChild(el("div",{class:"tag"},["Titre de partie"]));
+            sub.appendChild(field("Sous-titre (ex. Partie 1 · Les bruits du cœur)",null,et.section,function(v){et.section=v;}));
+          } else {
+            sub.appendChild(el("div",{class:"tag"},["Étape "+(i+1)]));
+            sub.appendChild(field("Titre",null,et.t,function(v){et.t=v;}));
+            sub.appendChild(field("Description",null,et.d,function(v){et.d=v;},true));
+          }
+          var del = el("button",{class:"add",style:"color:#c0182a;border-color:#f2c0c2;background:#fff;"},["✕ Supprimer"]);
           del.addEventListener("click", function(){ D.geste.etapes.splice(i,1); redraw(); schedulePreview(); });
           sub.appendChild(del);
           box.appendChild(sub);
         });
         var add = el("button",{class:"add"},["＋ Ajouter une étape"]);
         add.addEventListener("click", function(){ D.geste.etapes.push({t:"",d:""}); redraw(); schedulePreview(); });
-        box.appendChild(add);
+        var addSec = el("button",{class:"add",style:"margin-left:8px;"},["＋ Ajouter une partie"]);
+        addSec.addEventListener("click", function(){ D.geste.etapes.push({section:""}); redraw(); schedulePreview(); });
+        box.appendChild(add); box.appendChild(addSec);
       }
       redraw(); b.appendChild(box);
       mediaEditor(b, D.geste.media, "video");

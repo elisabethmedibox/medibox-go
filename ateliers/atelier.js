@@ -83,8 +83,11 @@
     var g = D.geste;
     var mat = g.materiel ? '<div class="materiel">' + g.materiel.map(function (m) {
       return "<span>" + esc(m) + "</span>"; }).join("") + "</div>" : "";
-    var et = g.etapes.map(function (e, i) {
-      return '<div class="etape"><div class="num">' + (i + 1) + '</div><div><div class="et-t">' +
+    var n = 0;
+    var et = g.etapes.map(function (e) {
+      if (e.section) return '<div class="etape-sec">' + esc(e.section) + "</div>";
+      n++;
+      return '<div class="etape"><div class="num">' + n + '</div><div><div class="et-t">' +
         esc(e.t) + '</div><div class="et-d">' + esc(e.d) + "</div>" +
         (e.media ? mediaSlot(e.media) : "") + "</div></div>"; }).join("");
     return '<h2 class="scr">' + esc(g.titre) + "</h2>" + mat + et + mediaSlot(g.media);

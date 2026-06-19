@@ -1,5 +1,6 @@
 /* ====================================================================
-   CONTENU DE L'ATELIER STÉTHOSCOPE (auscultation)
+   CONTENU DE L'ATELIER STÉTHOSCOPE (auscultation + tension)
+   En 2 parties : 1) les bruits du cœur  2) la prise de tension au brassard.
    Éditable via l'éditeur sans code (/ateliers/editeur.html?atelier=stheto).
    Pour ajouter une photo / vidéo : coller une URL dans "src".
    ==================================================================== */
@@ -12,33 +13,37 @@ window.ATELIER_DATA = {
 
   accroche: {
     chiffre: ["100 000 fois"],
-    phrase: "Ton cœur bat environ 100 000 fois par jour, sans jamais s'arrêter. Avec un stéthoscope, tu vas l'écouter battre.",
+    phrase: "Ton cœur bat environ 100 000 fois par jour, sans jamais s'arrêter. Aujourd'hui, tu vas l'écouter battre et mesurer la tension, comme un médecin.",
     source: "",
     cta: "Je me lance",
-    media: { type: "image", src: "", alt: "Stéthoscope posé sur une table" }
+    media: { type: "image", src: "", alt: "Stéthoscope et brassard de tension" }
   },
 
   pourquoi: {
     titre: "Pourquoi ce geste ?",
     points: [
-      "Le stéthoscope amplifie les sons du corps : le cœur, les poumons, parfois le ventre.",
-      "C'est le geste de base du médecin pour repérer un souffle, une respiration anormale.",
-      "Pas besoin d'appareil compliqué : une membrane, deux tuyaux, et de l'attention."
+      "Le stéthoscope amplifie les sons du corps : ici, le cœur, puis la tension artérielle.",
+      "Écouter le cœur, c'est entendre la pompe qui te fait vivre.",
+      "Avec un brassard, le même stéthoscope sert à mesurer la tension : un geste fait des millions de fois par jour dans le monde."
     ],
-    media: { type: "video", src: "", label: "Comment marche un stéthoscope (2 min)" }
+    media: { type: "video", src: "", label: "Cœur et tension expliqués (2 min)" }
   },
 
   geste: {
-    titre: "Le geste expliqué",
-    materiel: ["Stéthoscope", "Un binôme"],
+    titre: "Deux gestes à découvrir",
+    materiel: ["Stéthoscope", "Brassard de tension (tensiomètre)", "Un binôme"],
     etapes: [
-      { t: "Mettre les embouts", d: "On place les embouts dans les oreilles, l'ouverture orientée vers l'avant." },
-      { t: "Choisir la grande membrane", d: "On utilise le grand côté du pavillon (la membrane) pour les sons courants." },
-      { t: "Poser sur la peau", d: "On pose la membrane directement sur la peau, jamais par-dessus les vêtements." },
-      { t: "Écouter le cœur", d: "Sur le côté gauche de la poitrine : on entend les deux bruits, « toc-toc »." },
-      { t: "Écouter les poumons", d: "Dans le dos : on demande à la personne de respirer fort par la bouche." }
+      { section: "Partie 1 · Les bruits du cœur" },
+      { t: "Mettre les embouts", d: "Dans les oreilles, l'ouverture orientée vers l'avant. On utilise la grande membrane du pavillon." },
+      { t: "Poser la membrane sur la peau", d: "Directement sur la peau, à gauche de la poitrine, jamais par-dessus les vêtements." },
+      { t: "Écouter les deux bruits", d: "On entend le cœur faire « toc-toc » : ce sont ses deux bruits, à chaque battement." },
+      { section: "Partie 2 · La tension au brassard" },
+      { t: "Placer le brassard", d: "Autour du bras nu, juste au-dessus du pli du coude, bien ajusté." },
+      { t: "Poser la membrane au pli du coude", d: "Sur l'intérieur du coude, là où passe l'artère." },
+      { t: "Gonfler puis dégonfler doucement", d: "On gonfle le brassard, puis on laisse l'air repartir tout doucement en écoutant." },
+      { t: "Lire les deux chiffres", d: "Le bruit qui apparaît = la tension haute ; le bruit qui disparaît = la tension basse." }
     ],
-    media: { type: "video", src: "", label: "Ausculter pas à pas (2 min)" }
+    media: { type: "video", src: "", label: "Ausculter et prendre la tension (2 min)" }
   },
 
   identification: {
@@ -48,34 +53,36 @@ window.ATELIER_DATA = {
 
   pratique: {
     titre: "À toi de jouer",
-    consigne: "<b>Écoute à deux</b> : un « patient », un « examinateur ». Pose bien la membrane sur la peau et tends l'oreille.",
+    consigne: "<b>Deux gestes à essayer, à deux</b> : d'abord écouter le cœur, puis prendre la tension. En douceur sur ton binôme.",
     checklist: [
-      "Embouts orientés vers l'avant dans les oreilles",
-      "Membrane posée sur la peau, pas sur les vêtements",
-      "Cœur écouté à gauche de la poitrine (les deux bruits)",
-      "Poumons écoutés dans le dos, pendant une grande respiration"
+      "Embouts vers l'avant, membrane sur la peau (à gauche)",
+      "Les deux bruits du cœur entendus",
+      "Brassard placé sur le bras nu, au-dessus du coude",
+      "Membrane posée au pli du coude, sur l'artère",
+      "On gonfle, puis on dégonfle doucement",
+      "On repère l'apparition (tension haute) et la disparition (tension basse) du bruit"
     ],
-    media: { type: "image", src: "", alt: "Élève auscultant un binôme au stéthoscope" },
-    validation: "Fais valider ton auscultation par l'animateur"
+    media: { type: "image", src: "", alt: "Élève prenant la tension d'un binôme" },
+    validation: "Fais valider tes deux gestes par l'animateur"
   },
 
   quiz: [
-    { q: "Où pose-t-on la membrane du stéthoscope ?", options: ["Sur les vêtements", "Directement sur la peau", "Peu importe"], bonne: 1,
-      explication: "On pose toujours la membrane sur la peau : les vêtements ajoutent des frottements et masquent les sons." },
-    { q: "Comment orienter les embouts dans les oreilles ?", options: ["Vers l'avant", "Vers l'arrière", "Peu importe"], bonne: 0,
-      explication: "Les embouts s'orientent vers l'avant, dans l'axe du conduit auditif, pour bien entendre." },
-    { q: "Pour écouter les poumons, on demande de…", options: ["Retenir sa respiration", "Respirer fort par la bouche", "Parler"], bonne: 1,
-      explication: "On demande de respirer fort par la bouche : ça fait circuler l'air et rend les bruits audibles." }
+    { q: "Où pose-t-on la membrane pour écouter le cœur ?", options: ["Sur les vêtements", "Directement sur la peau, à gauche", "Dans le dos"], bonne: 1,
+      explication: "Sur la peau, à gauche de la poitrine : les vêtements ajoutent des frottements et masquent les bruits." },
+    { q: "Pour la tension, où place-t-on le brassard ?", options: ["Au poignet", "Autour du bras, au-dessus du coude", "Sur la poitrine"], bonne: 1,
+      explication: "Le brassard se place autour du bras nu, juste au-dessus du pli du coude, et la membrane au pli du coude." },
+    { q: "Quand on dégonfle, le bruit qui apparaît correspond à…", options: ["La tension haute", "La tension basse", "Rien du tout"], bonne: 0,
+      explication: "Le premier bruit qui apparaît = la tension haute (systolique) ; quand le bruit disparaît = la tension basse (diastolique)." }
   ],
 
   memo: {
     titre: "À retenir",
     points: [
-      "Embouts orientés vers l'avant dans les oreilles.",
-      "On pose la membrane sur la peau, jamais sur les vêtements.",
-      "Le cœur s'écoute à gauche de la poitrine (les deux bruits).",
-      "Les poumons s'écoutent dans le dos, en respirant fort par la bouche.",
-      "Un endroit calme aide beaucoup à entendre."
+      "Embouts vers l'avant, membrane toujours sur la peau.",
+      "Le cœur s'écoute à gauche de la poitrine (les deux bruits « toc-toc »).",
+      "Pour la tension : brassard sur le bras nu, membrane au pli du coude.",
+      "On gonfle, puis on dégonfle doucement en écoutant.",
+      "Le bruit apparaît = tension haute ; le bruit disparaît = tension basse."
     ]
   },
 
@@ -89,7 +96,7 @@ window.ATELIER_DATA = {
   fin: {
     badge: "🩺",
     titre: "Auscultation validée !",
-    message: "Bravo, tu viens d'écouter un cœur comme un médecin. Va débloquer les autres ateliers !",
+    message: "Bravo, tu viens d'écouter un cœur et de prendre une tension comme un médecin. Va débloquer les autres ateliers !",
     ctaHub: "Voir tous les ateliers",
     hubUrl: "../ateliers/"
   }

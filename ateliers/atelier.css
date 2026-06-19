@@ -67,6 +67,11 @@ ul.bullets li .ic{flex:0 0 30px;height:30px;border-radius:9px;background:#fdecc4
 .etape .et-t{font-weight:700;font-size:1.08rem;margin-bottom:3px;color:var(--navy-deep);}
 .etape .et-d{font-size:.98rem;color:var(--txt-soft);line-height:1.42;}
 
+/* Séparateur de partie dans la liste d'étapes */
+.etape-sec{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;color:var(--coral);
+  margin:18px 0 6px;padding-top:12px;border-top:2px solid var(--card-bd);letter-spacing:.02em;}
+.etape-sec:first-child{border-top:none;padding-top:0;margin-top:4px;}
+
 /* Matériel chips */
 .materiel{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 20px;}
 .materiel span{background:var(--bg-soft);border:1px solid var(--card-bd);border-radius:999px;
