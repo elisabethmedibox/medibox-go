@@ -207,7 +207,7 @@
             media.src = j.url; srcInput.value = j.url;
             thumb.src = j.url; thumb.style.display = "block";
             renderPreview(); toast("Photo ajoutée ✓");
-          } else { toast("Échec : "+((j&&j.error)||"erreur")); }
+          } else { if(j && j.error === "Code incorrect") window.__tuteurCode = null; toast("Échec : "+((j&&j.error)||"erreur")); }
         }).catch(function(){ toast("Réseau indisponible"); });
         fileInp.value = "";
       });
@@ -430,8 +430,11 @@
       body: JSON.stringify({ slug: D.slug, data: D, code: code })
     }).then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
       .then(function(res){
-        if(res.ok && res.j && res.j.ok) toast("Publié en ligne ✓ — visible par tous");
-        else toast("Échec : " + (res.j && res.j.error ? res.j.error : "erreur"));
+        if(res.ok && res.j && res.j.ok){ toast("Publié en ligne ✓ — visible par tous"); }
+        else {
+          if(res.j && res.j.error === "Code incorrect") window.__tuteurCode = null;
+          toast("Échec : " + (res.j && res.j.error ? res.j.error : "erreur"));
+        }
       }).catch(function(){ toast("Réseau indisponible"); });
   });
 
