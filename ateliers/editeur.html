@@ -16,6 +16,7 @@
   .btn{border:none;border-radius:10px;padding:10px 16px;font-family:'Barlow Condensed',sans-serif;
     font-weight:800;font-size:1rem;letter-spacing:.03em;cursor:pointer;}
   .btn-gold{background:#e8a200;color:#3d2900;}
+  .btn-green{background:#15a06b;color:#fff;}
   .btn-light{background:rgba(255,255,255,.15);color:#fff;}
   .btn-out{background:#fff;color:#01466e;border:1.5px solid #c9d8e6;}
   .wrap{display:grid;grid-template-columns:1fr 420px;gap:20px;padding:20px;max-width:1280px;margin:0 auto;align-items:start;}
@@ -74,6 +75,7 @@
     <button class="btn btn-light" id="refresh">Rafraîchir l'aperçu</button>
     <button class="btn btn-out" id="copy">Copier</button>
     <button class="btn btn-gold" id="download">Télécharger contenu.js</button>
+    <button class="btn btn-green" id="publish">Enregistrer en ligne</button>
   </div>
 </header>
 
@@ -86,15 +88,16 @@
     <div class="help">
       <b>Comment ça marche</b><br>
       1. Tu modifies les textes à gauche, l'aperçu se met à jour.<br>
-      2. Quand c'est bon, clique <b>Télécharger contenu.js</b>.<br>
-      3. Remplace le fichier <b>contenu.js</b> de l'atelier sur GitHub (ou donne-le à Claude) → c'est en ligne.
+      2. Quand c'est bon, clique <b>« Enregistrer en ligne »</b> et saisis le <b>code tuteur</b> → c'est publié pour tout le monde, tout de suite.<br>
+      3. (Option) <b>« Télécharger contenu.js »</b> garde une copie de secours du contenu.
     </div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- contenu de départ (suture) -->
+<!-- config Supabase + contenu de départ (suture) -->
+<script src="config.js"></script>
 <script src="../atelier_suture_lycee/contenu.js"></script>
 <script>
 (function(){
@@ -328,7 +331,7 @@
       '<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">'+
       '<link rel="stylesheet" href="/ateliers/atelier.css"></head><body>'+
       '<main id="atelier" class="atelier"></main>'+
-      '<script>window.ATELIER_DATA = '+JSON.stringify(D)+';window.ATELIER_START = '+currentStep+';<\/script>'+
+      '<script>window.ATELIER_NO_DB = true;window.ATELIER_DATA = '+JSON.stringify(D)+';window.ATELIER_START = '+currentStep+';<\/script>'+
       '<script src="/ateliers/atelier.js"><\/script></body></html>';
     iframe.srcdoc = doc;
   }
@@ -356,6 +359,21 @@
   });
   document.getElementById("refresh").addEventListener("click", renderPreview);
 
+  document.getElementById("publish").addEventListener("click", function(){
+    if(!window.ATELIER_DB){ toast("Config Supabase absente"); return; }
+    var code = window.prompt("Code d'accès tuteur pour publier en ligne :");
+    if(!code) return;
+    toast("Enregistrement…");
+    fetch(window.ATELIER_DB.fnUrl, {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ slug: D.slug, data: D, code: code })
+    }).then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
+      .then(function(res){
+        if(res.ok && res.j && res.j.ok) toast("Publié en ligne ✓ — visible par tous");
+        else toast("Échec : " + (res.j && res.j.error ? res.j.error : "erreur"));
+      }).catch(function(){ toast("Réseau indisponible"); });
+  });
+
   document.getElementById("import").addEventListener("change", function(e){
     var f = e.target.files[0]; if(!f) return;
     var r = new FileReader();
@@ -371,9 +389,26 @@
     r.readAsText(f);
   });
 
+  // Charge la version en ligne (base) si elle existe — c'est la source de vérité.
+  function loadFromDb(){
+    if(!window.ATELIER_DB || !D.slug || !window.fetch) return;
+    var db = window.ATELIER_DB;
+    fetch(db.url + "/rest/v1/ateliers_contenu?slug=eq."+encodeURIComponent(D.slug)+"&select=data", {
+      headers:{ apikey: db.anonKey, Authorization: "Bearer "+db.anonKey }
+    }).then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(rows){
+        if(rows && rows[0] && rows[0].data){
+          D = JSON.parse(JSON.stringify(rows[0].data));
+          document.getElementById("sub").textContent = "Atelier "+(D.titre||"")+" · version en ligne";
+          build(); renderPreview(); toast("Version en ligne chargée");
+        }
+      }).catch(function(){});
+  }
+
   build();
   buildTabs();
   renderPreview();
+  loadFromDb();
 })();
 </script>
 </body>

@@ -2,6 +2,8 @@
    Front uniquement pour l'instant : identité + sondage stockés en localStorage, aucune écriture serveur. */
 (function () {
   "use strict";
+
+  function start() {
   var D = window.ATELIER_DATA;
   var root = document.getElementById("atelier");
   if (!D || !root) {
@@ -327,4 +329,20 @@
   window.__atelierSteps = steps.map(function (s) { return s.key; });
 
   goto(typeof window.ATELIER_START === "number" ? window.ATELIER_START : 0);
+  } // fin start()
+
+  // Bootstrap : charge le contenu à jour depuis Supabase (source de vérité),
+  // avec repli sur le contenu local (contenu.js) si la base ne répond pas.
+  var __slug = (window.ATELIER_DATA || {}).slug;
+  var __db = window.ATELIER_DB;
+  if (!__slug || !__db || !window.fetch || window.ATELIER_NO_DB) { start(); return; }
+  var __done = false;
+  function __go() { if (__done) return; __done = true; start(); }
+  var __t = setTimeout(__go, 2500);
+  fetch(__db.url + "/rest/v1/ateliers_contenu?slug=eq." + encodeURIComponent(__slug) + "&select=data", {
+    headers: { apikey: __db.anonKey, Authorization: "Bearer " + __db.anonKey }
+  }).then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (rows) { if (rows && rows[0] && rows[0].data) { window.ATELIER_DATA = rows[0].data; } })
+    .catch(function () {})
+    .then(function () { clearTimeout(__t); __go(); });
 })();
