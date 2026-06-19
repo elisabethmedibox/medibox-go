@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Éditeur d'atelier · MediBox</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Chakra Petch',sans-serif;background:#eef3f8;color:#0b2a3f;}
+  header{background:#01466e;color:#fff;padding:14px 20px;display:flex;align-items:center;
+    justify-content:space-between;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:10;}
+  header h1{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:.04em;}
+  header .sub{font-size:.8rem;opacity:.8;}
+  header .acts{display:flex;gap:8px;flex-wrap:wrap;}
+  .btn{border:none;border-radius:10px;padding:10px 16px;font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;font-size:1rem;letter-spacing:.03em;cursor:pointer;}
+  .btn-gold{background:#e8a200;color:#3d2900;}
+  .btn-light{background:rgba(255,255,255,.15);color:#fff;}
+  .btn-out{background:#fff;color:#01466e;border:1.5px solid #c9d8e6;}
+  .wrap{display:grid;grid-template-columns:1fr 420px;gap:20px;padding:20px;max-width:1280px;margin:0 auto;align-items:start;}
+  @media(max-width:980px){.wrap{grid-template-columns:1fr;}.preview-col{position:static;}}
+  .form-col{display:flex;flex-direction:column;gap:14px;}
+  .sec{background:#fff;border:1px solid #d6e2ee;border-radius:14px;overflow:hidden;}
+  .sec>summary{list-style:none;cursor:pointer;padding:14px 18px;font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;font-size:1.2rem;color:#01466e;background:#f7fafd;display:flex;align-items:center;gap:10px;}
+  .sec>summary::-webkit-details-marker{display:none;}
+  .sec>summary .chev{margin-left:auto;transition:.2s;color:#789;}
+  .sec[open]>summary .chev{transform:rotate(90deg);}
+  .sec .body{padding:16px 18px;display:flex;flex-direction:column;gap:13px;}
+  label.fld{display:flex;flex-direction:column;gap:5px;font-size:.85rem;font-weight:700;color:#33536b;}
+  label.fld .hint{font-weight:400;color:#7b93a6;font-size:.78rem;}
+  input[type=text],textarea,select{font-family:'Chakra Petch',sans-serif;font-size:.98rem;
+    border:1.5px solid #c9d8e6;border-radius:9px;padding:10px 12px;color:#0b2a3f;background:#fff;width:100%;}
+  textarea{resize:vertical;min-height:60px;line-height:1.45;}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:#01466e;box-shadow:0 0 0 3px rgba(1,70,110,.1);}
+  .list-item{display:flex;gap:8px;align-items:flex-start;}
+  .list-item .grow{flex:1;display:flex;flex-direction:column;gap:6px;}
+  .mini{background:#fff;border:1.5px solid #e3343420;border:1.5px solid #f2c0c2;color:#c0182a;
+    border-radius:8px;width:36px;flex:0 0 36px;height:38px;cursor:pointer;font-size:1.1rem;line-height:1;}
+  .add{align-self:flex-start;background:#e7f0f8;color:#01466e;border:1px dashed #9cbdda;border-radius:9px;
+    padding:8px 14px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit;}
+  .card-sub{background:#f6f9fc;border:1px solid #e0e9f2;border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:10px;}
+  .card-sub .tag{font-size:.74rem;font-weight:800;color:#01466e;letter-spacing:.06em;text-transform:uppercase;}
+  .media-note{font-size:.78rem;color:#7b93a6;}
+  .preview-col{position:sticky;top:78px;display:flex;flex-direction:column;gap:10px;}
+  .pv-tabs{display:flex;flex-wrap:wrap;gap:6px;}
+  .pv-tabs button{border:1px solid #c9d8e6;background:#fff;color:#33536b;border-radius:8px;
+    padding:6px 11px;font-family:'Chakra Petch',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;}
+  .pv-tabs button.on{background:#01466e;color:#fff;border-color:#01466e;}
+  .phone{background:#01233a;border-radius:26px;padding:10px;box-shadow:0 14px 40px rgba(1,40,63,.25);}
+  .phone iframe{width:100%;height:620px;border:0;border-radius:18px;background:#f3f7fb;display:block;}
+  .pv-head{display:flex;justify-content:space-between;align-items:center;}
+  .pv-head .t{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.15rem;color:#01466e;}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#15a06b;color:#fff;
+    padding:12px 22px;border-radius:10px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;
+    transition:.3s;pointer-events:none;z-index:50;}
+  .toast.show{opacity:1;}
+  .help{font-size:.82rem;color:#5a748c;background:#fff;border:1px solid #d6e2ee;
+    border-radius:12px;padding:14px 16px;line-height:1.5;}
+  .help b{color:#01466e;}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>🛠️ Éditeur d'atelier</h1>
+    <div class="sub" id="sub">Atelier Suture</div>
+  </div>
+  <div class="acts">
+    <label class="btn btn-light" style="cursor:pointer;">Importer un contenu.js
+      <input type="file" id="import" accept=".js" hidden>
+    </label>
+    <button class="btn btn-light" id="refresh">Rafraîchir l'aperçu</button>
+    <button class="btn btn-out" id="copy">Copier</button>
+    <button class="btn btn-gold" id="download">Télécharger contenu.js</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="form-col" id="form"></div>
+  <div class="preview-col">
+    <div class="pv-head"><span class="t">Aperçu en direct</span><span class="media-note">téléphone</span></div>
+    <div class="pv-tabs" id="pvtabs"></div>
+    <div class="phone"><iframe id="preview" title="Aperçu de l'atelier"></iframe></div>
+    <div class="help">
+      <b>Comment ça marche</b><br>
+      1. Tu modifies les textes à gauche, l'aperçu se met à jour.<br>
+      2. Quand c'est bon, clique <b>Télécharger contenu.js</b>.<br>
+      3. Remplace le fichier <b>contenu.js</b> de l'atelier sur GitHub (ou donne-le à Claude) → c'est en ligne.
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- contenu de départ (suture) -->
+<script src="../atelier_suture_lycee/contenu.js"></script>
+<script>
+(function(){
+  "use strict";
+  var D = JSON.parse(JSON.stringify(window.ATELIER_DATA || {}));
+  var form = document.getElementById("form");
+
+  /* ---------- helpers de rendu ---------- */
+  function el(tag, attrs, kids){
+    var n = document.createElement(tag);
+    if(attrs) for(var k in attrs){ if(k==="class")n.className=attrs[k]; else if(k==="html")n.innerHTML=attrs[k]; else n.setAttribute(k,attrs[k]); }
+    (kids||[]).forEach(function(c){ n.appendChild(typeof c==="string"?document.createTextNode(c):c); });
+    return n;
+  }
+  function field(labelTxt, hint, value, oninput, multiline){
+    var lab = el("label",{class:"fld"},[labelTxt]);
+    if(hint) lab.appendChild(el("span",{class:"hint"},[hint]));
+    var inp = multiline ? el("textarea") : el("input",{type:"text"});
+    inp.value = value==null?"":value;
+    inp.addEventListener("input", function(){ oninput(inp.value); schedulePreview(); });
+    lab.appendChild(inp);
+    return lab;
+  }
+  function listEditor(arr, placeholder, multiline){
+    // édite un tableau de chaînes EN PLACE ; renvoie le conteneur
+    var box = el("div",{class:"card-sub"});
+    function redraw(){
+      box.innerHTML="";
+      arr.forEach(function(_,i){
+        var row = el("div",{class:"list-item"});
+        var grow = el("div",{class:"grow"});
+        var inp = multiline ? el("textarea") : el("input",{type:"text"});
+        inp.value = arr[i]; if(placeholder) inp.placeholder=placeholder;
+        inp.addEventListener("input", function(){ arr[i]=inp.value; schedulePreview(); });
+        grow.appendChild(inp);
+        var del = el("button",{class:"mini",title:"Supprimer"},["✕"]);
+        del.addEventListener("click", function(){ arr.splice(i,1); redraw(); schedulePreview(); });
+        row.appendChild(grow); row.appendChild(del); box.appendChild(row);
+      });
+      var add = el("button",{class:"add"},["＋ Ajouter"]);
+      add.addEventListener("click", function(){ arr.push(""); redraw(); schedulePreview(); });
+      box.appendChild(add);
+    }
+    redraw();
+    return box;
+  }
+  function section(title, builder){
+    var det = el("details",{class:"sec"}); det.open = true;
+    var sum = el("summary",{},[title]); sum.appendChild(el("span",{class:"chev"},["▶"]));
+    var body = el("div",{class:"body"});
+    det.appendChild(sum); det.appendChild(body);
+    builder(body);
+    return det;
+  }
+  function mediaEditor(body, media, kind){
+    var card = el("div",{class:"card-sub"});
+    card.appendChild(el("div",{class:"tag"},[kind==="video"?"Vidéo (2 min)":"Photo"]));
+    if(kind==="video"){
+      card.appendChild(field("Texte du bouton","ex. Le point pas à pas (2 min)",media.label,function(v){media.label=v;}));
+      card.appendChild(field("Lien de la vidéo","YouTube ou Vimeo · vide = emplacement",media.src,function(v){media.src=v;}));
+    } else {
+      card.appendChild(field("Lien de la photo","URL de l'image · vide = emplacement",media.src,function(v){media.src=v;}));
+      card.appendChild(field("Description (alt)","courte description de la photo",media.alt,function(v){media.alt=v;}));
+    }
+    card.appendChild(el("div",{class:"media-note"},["Laisse le lien vide tant que tu n'as pas la photo / vidéo : un cadre « emplacement » s'affiche."]));
+    body.appendChild(card);
+  }
+  function listBlock(body, labelTxt, arr, placeholder, multiline){
+    body.appendChild(el("label",{class:"fld"},[labelTxt]));
+    body.appendChild(listEditor(arr, placeholder, multiline));
+  }
+
+  /* ---------- construit le formulaire ---------- */
+  function build(){
+    form.innerHTML="";
+
+    form.appendChild(section("① Général", function(b){
+      b.appendChild(field("Titre de l'atelier",null,D.titre,function(v){D.titre=v;}));
+      b.appendChild(field("Emoji",null,D.emoji,function(v){D.emoji=v;}));
+      b.appendChild(field("Public (badge)","ex. Lycée · Grand public",D.public,function(v){D.public=v;}));
+    }));
+
+    form.appendChild(section("② Accroche (1er écran)", function(b){
+      b.appendChild(field("Chiffre à mettre en avant","doit apparaître dans la phrase ci-dessous",D.accroche.chiffre,function(v){D.accroche.chiffre=v;}));
+      b.appendChild(field("Phrase d'accroche",null,D.accroche.phrase,function(v){D.accroche.phrase=v;},true));
+      b.appendChild(field("Source du chiffre",null,D.accroche.source,function(v){D.accroche.source=v;}));
+      b.appendChild(field("Texte du bouton",null,D.accroche.cta,function(v){D.accroche.cta=v;}));
+      mediaEditor(b, D.accroche.media, "image");
+    }));
+
+    form.appendChild(section("③ Pourquoi ce geste", function(b){
+      b.appendChild(field("Titre",null,D.pourquoi.titre,function(v){D.pourquoi.titre=v;}));
+      listBlock(b,"Points (un par ligne)",D.pourquoi.points,"un argument",true);
+      mediaEditor(b, D.pourquoi.media, "video");
+    }));
+
+    form.appendChild(section("④ Le geste expliqué", function(b){
+      b.appendChild(field("Titre",null,D.geste.titre,function(v){D.geste.titre=v;}));
+      listBlock(b,"Matériel",D.geste.materiel,"ex. Porte-aiguille");
+      b.appendChild(el("label",{class:"fld"},["Étapes du geste"]));
+      var box = el("div",{class:"card-sub"});
+      function redraw(){
+        box.innerHTML="";
+        D.geste.etapes.forEach(function(et,i){
+          var sub = el("div",{class:"card-sub"});
+          sub.appendChild(el("div",{class:"tag"},["Étape "+(i+1)]));
+          sub.appendChild(field("Titre",null,et.t,function(v){et.t=v;}));
+          sub.appendChild(field("Description",null,et.d,function(v){et.d=v;},true));
+          var del = el("button",{class:"add",style:"color:#c0182a;border-color:#f2c0c2;background:#fff;"},["✕ Supprimer l'étape"]);
+          del.addEventListener("click", function(){ D.geste.etapes.splice(i,1); redraw(); schedulePreview(); });
+          sub.appendChild(del);
+          box.appendChild(sub);
+        });
+        var add = el("button",{class:"add"},["＋ Ajouter une étape"]);
+        add.addEventListener("click", function(){ D.geste.etapes.push({t:"",d:""}); redraw(); schedulePreview(); });
+        box.appendChild(add);
+      }
+      redraw(); b.appendChild(box);
+      mediaEditor(b, D.geste.media, "video");
+    }));
+
+    form.appendChild(section("⑤ Identification", function(b){
+      b.appendChild(field("Titre",null,D.identification.titre,function(v){D.identification.titre=v;}));
+      b.appendChild(field("Sous-titre",null,D.identification.sousTitre,function(v){D.identification.sousTitre=v;},true));
+    }));
+
+    form.appendChild(section("⑥ À toi de jouer (pratique)", function(b){
+      b.appendChild(field("Titre",null,D.pratique.titre,function(v){D.pratique.titre=v;}));
+      b.appendChild(field("Consigne","le gras s'écrit <b>comme ça</b>",D.pratique.consigne,function(v){D.pratique.consigne=v;},true));
+      listBlock(b,"Checklist (un point par ligne)",D.pratique.checklist,"un point à cocher");
+      b.appendChild(field("Texte du bouton de validation",null,D.pratique.validation,function(v){D.pratique.validation=v;}));
+      mediaEditor(b, D.pratique.media, "image");
+    }));
+
+    form.appendChild(section("⑦ Quiz", function(b){
+      var box = el("div");
+      function redraw(){
+        box.innerHTML="";
+        D.quiz.forEach(function(q,i){
+          var sub = el("div",{class:"card-sub"});
+          sub.appendChild(el("div",{class:"tag"},["Question "+(i+1)]));
+          sub.appendChild(field("Question",null,q.q,function(v){q.q=v;}));
+          sub.appendChild(el("label",{class:"fld"},["Réponses possibles"]));
+          sub.appendChild(listEditor(q.options,"une réponse"));
+          // bonne réponse
+          var lab = el("label",{class:"fld"},["Bonne réponse"]);
+          var sel = el("select");
+          q.options.forEach(function(opt,oi){ var o=el("option",{value:oi},[ (oi+1)+". "+(opt||"") ]); if(oi===q.bonne)o.selected=true; sel.appendChild(o); });
+          sel.addEventListener("change", function(){ q.bonne=parseInt(sel.value,10); schedulePreview(); });
+          lab.appendChild(sel); sub.appendChild(lab);
+          sub.appendChild(field("Explication",null,q.explication,function(v){q.explication=v;},true));
+          var del = el("button",{class:"add",style:"color:#c0182a;border-color:#f2c0c2;background:#fff;"},["✕ Supprimer la question"]);
+          del.addEventListener("click", function(){ D.quiz.splice(i,1); redraw(); schedulePreview(); });
+          sub.appendChild(del);
+          box.appendChild(sub);
+        });
+        var add = el("button",{class:"add"},["＋ Ajouter une question"]);
+        add.addEventListener("click", function(){ D.quiz.push({q:"",options:["",""],bonne:0,explication:""}); redraw(); schedulePreview(); });
+        box.appendChild(add);
+      }
+      redraw(); b.appendChild(box);
+    }));
+
+    form.appendChild(section("⑧ Mémo à retenir", function(b){
+      b.appendChild(field("Titre",null,D.memo.titre,function(v){D.memo.titre=v;}));
+      listBlock(b,"Points clés",D.memo.points,"un point à retenir",true);
+    }));
+
+    form.appendChild(section("⑨ Sondage", function(b){
+      var box = el("div");
+      function redraw(){
+        box.innerHTML="";
+        D.sondage.forEach(function(q,i){
+          var sub = el("div",{class:"card-sub"});
+          sub.appendChild(el("div",{class:"tag"},["Question "+(i+1)]));
+          sub.appendChild(field("Question",null,q.q,function(v){q.q=v;}));
+          var lab = el("label",{class:"fld"},["Type de réponse"]);
+          var sel = el("select");
+          [["emoji","Émojis 😍🙂😐"],["choix","Boutons (Oui / Non…)"],["texte","Texte libre"]].forEach(function(t){
+            var o=el("option",{value:t[0]},[t[1]]); if(q.type===t[0])o.selected=true; sel.appendChild(o);
+          });
+          sel.addEventListener("change", function(){ q.type=sel.value; if(q.type==="texte")q.options=[]; else if(!q.options||!q.options.length)q.options=[""]; redraw(); schedulePreview(); });
+          lab.appendChild(sel); sub.appendChild(lab);
+          if(q.type!=="texte"){
+            sub.appendChild(el("label",{class:"fld"},["Réponses proposées"]));
+            sub.appendChild(listEditor(q.options,"une réponse"));
+          }
+          var del = el("button",{class:"add",style:"color:#c0182a;border-color:#f2c0c2;background:#fff;"},["✕ Supprimer la question"]);
+          del.addEventListener("click", function(){ D.sondage.splice(i,1); redraw(); schedulePreview(); });
+          sub.appendChild(del);
+          box.appendChild(sub);
+        });
+        var add = el("button",{class:"add"},["＋ Ajouter une question"]);
+        add.addEventListener("click", function(){ D.sondage.push({q:"",type:"choix",options:["",""]}); redraw(); schedulePreview(); });
+        box.appendChild(add);
+      }
+      redraw(); b.appendChild(box);
+    }));
+
+    form.appendChild(section("⑩ Écran final", function(b){
+      b.appendChild(field("Badge (emoji)",null,D.fin.badge,function(v){D.fin.badge=v;}));
+      b.appendChild(field("Titre",null,D.fin.titre,function(v){D.fin.titre=v;}));
+      b.appendChild(field("Message",null,D.fin.message,function(v){D.fin.message=v;},true));
+      b.appendChild(field("Texte du bouton final",null,D.fin.ctaHub,function(v){D.fin.ctaHub=v;}));
+    }));
+  }
+
+  /* ---------- aperçu ---------- */
+  var STEP_LABELS = ["Accroche","Pourquoi","Geste","Identité","Pratique","Quiz","Mémo","Sondage","Fin"];
+  var currentStep = 0;
+  function buildTabs(){
+    var host = document.getElementById("pvtabs");
+    host.innerHTML="";
+    STEP_LABELS.forEach(function(lab,i){
+      var btn = el("button",{},[lab]);
+      if(i===currentStep) btn.className="on";
+      btn.addEventListener("click", function(){ currentStep=i; updateTabs(); renderPreview(); });
+      host.appendChild(btn);
+    });
+  }
+  function updateTabs(){
+    var btns = document.querySelectorAll("#pvtabs button");
+    btns.forEach(function(b,i){ b.className = i===currentStep?"on":""; });
+  }
+  var pvTimer=null;
+  function schedulePreview(){ clearTimeout(pvTimer); pvTimer=setTimeout(renderPreview, 350); }
+  function renderPreview(){
+    var iframe = document.getElementById("preview");
+    var doc = '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">'+
+      '<meta name="viewport" content="width=device-width, initial-scale=1.0">'+
+      '<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">'+
+      '<link rel="stylesheet" href="/ateliers/atelier.css"></head><body>'+
+      '<main id="atelier" class="atelier"></main>'+
+      '<script>window.ATELIER_DATA = '+JSON.stringify(D)+';window.ATELIER_START = '+currentStep+';<\/script>'+
+      '<script src="/ateliers/atelier.js"><\/script></body></html>';
+    iframe.srcdoc = doc;
+  }
+
+  /* ---------- export ---------- */
+  function genFile(){
+    var header = "/* ====================================================================\n"+
+      "   CONTENU DE L'ATELIER "+(D.titre||"").toUpperCase()+"\n"+
+      "   Généré par l'éditeur sans code (/ateliers/editeur.html).\n"+
+      "   ==================================================================== */\n";
+    return header + "window.ATELIER_DATA = " + JSON.stringify(D, null, 2) + ";\n";
+  }
+  function toast(msg){ var t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(function(){t.classList.remove("show");},2200); }
+
+  document.getElementById("download").addEventListener("click", function(){
+    var blob = new Blob([genFile()], {type:"text/javascript"});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "contenu.js"; a.click();
+    URL.revokeObjectURL(a.href);
+    toast("contenu.js téléchargé ✓");
+  });
+  document.getElementById("copy").addEventListener("click", function(){
+    navigator.clipboard.writeText(genFile()).then(function(){ toast("Contenu copié ✓"); },
+      function(){ toast("Copie impossible — utilise Télécharger"); });
+  });
+  document.getElementById("refresh").addEventListener("click", renderPreview);
+
+  document.getElementById("import").addEventListener("change", function(e){
+    var f = e.target.files[0]; if(!f) return;
+    var r = new FileReader();
+    r.onload = function(){
+      try{
+        var sandbox = {}; new Function("window", r.result)(sandbox);
+        if(!sandbox.ATELIER_DATA) throw new Error("ATELIER_DATA introuvable");
+        D = JSON.parse(JSON.stringify(sandbox.ATELIER_DATA));
+        document.getElementById("sub").textContent = "Atelier "+(D.titre||"");
+        build(); renderPreview(); toast("Contenu importé ✓");
+      }catch(err){ toast("Fichier invalide : "+err.message); }
+    };
+    r.readAsText(f);
+  });
+
+  build();
+  buildTabs();
+  renderPreview();
+})();
+</script>
+</body>
+</html>
