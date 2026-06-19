@@ -17,6 +17,9 @@
     font-weight:800;font-size:1rem;letter-spacing:.03em;cursor:pointer;}
   .btn-gold{background:#e8a200;color:#3d2900;}
   .btn-green{background:#15a06b;color:#fff;}
+  #atelier-select{font-family:'Chakra Petch',sans-serif;font-size:.85rem;border-radius:8px;
+    border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.14);color:#fff;padding:5px 9px;cursor:pointer;}
+  #atelier-select option{color:#0b2a3f;}
   .btn-light{background:rgba(255,255,255,.15);color:#fff;}
   .btn-out{background:#fff;color:#01466e;border:1.5px solid #c9d8e6;}
   .wrap{display:grid;grid-template-columns:1fr 420px;gap:20px;padding:20px;max-width:1280px;margin:0 auto;align-items:start;}
@@ -66,7 +69,7 @@
 <header>
   <div>
     <h1>🛠️ Éditeur d'atelier</h1>
-    <div class="sub" id="sub">Atelier Suture</div>
+    <div class="sub"><select id="atelier-select"></select> <span id="sub"></span></div>
   </div>
   <div class="acts">
     <label class="btn btn-light" style="cursor:pointer;">Importer un contenu.js
@@ -389,26 +392,68 @@
     r.readAsText(f);
   });
 
-  // Charge la version en ligne (base) si elle existe — c'est la source de vérité.
-  function loadFromDb(){
-    if(!window.ATELIER_DB || !D.slug || !window.fetch) return;
+  /* ---------- sélection / chargement d'atelier ---------- */
+  var ATELIERS = [
+    { slug: "atelier_suture_lycee", label: "Suture", file: "../atelier_suture_lycee/contenu.js" },
+    { slug: "atelier_rcp_public",  label: "RCP",    file: "../atelier_rcp_public/contenu.js" }
+  ];
+
+  function fetchDB(slug){
+    if(!window.ATELIER_DB || !window.fetch) return Promise.resolve(null);
     var db = window.ATELIER_DB;
-    fetch(db.url + "/rest/v1/ateliers_contenu?slug=eq."+encodeURIComponent(D.slug)+"&select=data", {
+    return fetch(db.url + "/rest/v1/ateliers_contenu?slug=eq."+encodeURIComponent(slug)+"&select=data", {
       headers:{ apikey: db.anonKey, Authorization: "Bearer "+db.anonKey }
     }).then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(rows){
-        if(rows && rows[0] && rows[0].data){
-          D = JSON.parse(JSON.stringify(rows[0].data));
-          document.getElementById("sub").textContent = "Atelier "+(D.titre||"")+" · version en ligne";
-          build(); renderPreview(); toast("Version en ligne chargée");
-        }
+      .then(function(rows){ return (rows && rows[0] && rows[0].data) ? rows[0].data : null; })
+      .catch(function(){ return null; });
+  }
+
+  function setData(data, src){
+    D = JSON.parse(JSON.stringify(data));
+    currentStep = 0;
+    document.getElementById("sub").textContent = src ? "· " + src : "";
+    var sel = document.getElementById("atelier-select");
+    if(sel) sel.value = D.slug;
+    build(); buildTabs(); renderPreview();
+  }
+
+  function loadAtelier(slug){
+    var meta = ATELIERS[0];
+    ATELIERS.forEach(function(a){ if(a.slug===slug) meta = a; });
+    toast("Chargement · " + meta.label + "…");
+    fetchDB(meta.slug).then(function(dbData){
+      if(dbData){ setData(dbData, "version en ligne"); return; }
+      fetch(meta.file).then(function(r){ return r.ok ? r.text() : null; }).then(function(txt){
+        if(!txt) return;
+        var w = {}; new Function("window", txt)(w);
+        if(w.ATELIER_DATA) setData(w.ATELIER_DATA, "fichier local (pas encore en base)");
       }).catch(function(){});
+    });
+  }
+
+  // sélecteur d'atelier
+  (function(){
+    var sel = document.getElementById("atelier-select");
+    ATELIERS.forEach(function(a){
+      var o = document.createElement("option"); o.value = a.slug; o.textContent = "Atelier " + a.label; sel.appendChild(o);
+    });
+    sel.addEventListener("change", function(){ loadAtelier(sel.value); });
+  })();
+
+  // atelier initial : ?atelier=… (slug complet ou mot-clé type "rcp"), sinon suture
+  var param = (new URLSearchParams(location.search)).get("atelier");
+  var initial = ATELIERS[0].slug;
+  if(param){
+    var p = param.toLowerCase();
+    ATELIERS.forEach(function(a){
+      if(a.slug === p || a.label.toLowerCase() === p || a.slug.indexOf(p) >= 0) initial = a.slug;
+    });
   }
 
   build();
   buildTabs();
   renderPreview();
-  loadFromDb();
+  loadAtelier(initial);
 })();
 </script>
 </body>
