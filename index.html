@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MediBox Antilles-Guyane</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--navy:#01466e;--navy-deep:#01233a;--gold:#e8a200;--coral:#e11d2b;
+        --bg:#f3f7fb;--txt:#0b2a3f;--txt-soft:#33536b;--txt-mute:#6c8499;--card-bd:#d3e0ec;--shadow:0 6px 20px rgba(1,52,86,.08);}
+  body{font-family:'Chakra Petch',sans-serif;background:var(--bg);color:var(--txt);min-height:100dvh;
+       display:flex;flex-direction:column;}
+  .wrap{max-width:560px;margin:0 auto;padding:30px 22px 40px;flex:1;display:flex;flex-direction:column;}
+  .brand{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:.16em;font-size:.84rem;color:var(--navy);margin-bottom:auto;}
+  .hero{text-align:center;margin:auto 0;}
+  .eyebrow{display:inline-block;background:#fdf2d4;color:#92590a;font-weight:700;font-size:.84rem;
+    letter-spacing:.06em;padding:7px 16px;border-radius:999px;margin-bottom:18px;text-transform:uppercase;}
+  h1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:3rem;line-height:1.02;color:var(--navy-deep);margin-bottom:14px;}
+  h1 .hl{color:var(--coral);}
+  .sub{color:var(--txt-soft);font-size:1.12rem;line-height:1.55;margin-bottom:30px;}
+  .cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;
+    background:var(--navy);color:#fff;text-decoration:none;font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;letter-spacing:.04em;font-size:1.45rem;padding:18px 22px;border-radius:16px;box-shadow:var(--shadow);
+    transition:transform .15s;}
+  .cta:hover{transform:translateY(-2px);}
+  .hint{margin-top:16px;font-size:.92rem;color:var(--txt-mute);}
+  .foot{text-align:center;font-size:.78rem;color:var(--txt-mute);margin-top:30px;}
+  @media(max-width:380px){h1{font-size:2.4rem;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">🩺 MEDIBOX · ANTILLES-GUYANE</div>
+
+  <div class="hero">
+    <div class="eyebrow">Samedi 20 juin 2026</div>
+    <h1>Bienvenue à <span class="hl">MediBox</span></h1>
+    <p class="sub">Découvre les gestes qui sauvent et les gestes du médecin à travers nos ateliers. Choisis, apprends, pratique.</p>
+    <a class="cta" href="ateliers/">Découvrir les ateliers →</a>
+    <div class="hint">Apprends un geste qui compte en quelques minutes.</div>
+  </div>
+
+  <div class="foot">go.mediboxantillesguyane.com · MediBox Antilles-Guyane</div>
+</div>
+</body>
+</html>
