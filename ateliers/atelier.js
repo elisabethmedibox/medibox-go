@@ -36,6 +36,16 @@
       esc(m.alt || "emplacement à remplir") + "</div></div>";
   }
 
+  function highlightChiffres(phrase, chiffre) {
+    // chiffre peut être une chaîne OU un tableau de chaînes à mettre en valeur
+    var list = Array.isArray(chiffre) ? chiffre : (chiffre ? [chiffre] : []);
+    var out = phrase;
+    list.forEach(function (c) {
+      if (c) out = out.replace(c, '<span class="hl">' + c + "</span>");
+    });
+    return out;
+  }
+
   function toEmbed(url) {
     var yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
     if (yt) return "https://www.youtube.com/embed/" + yt[1];
@@ -52,7 +62,7 @@
     var a = D.accroche;
     return '<span class="pub-pill">' + esc(D.public) + '</span>' +
       '<div class="eyebrow">' + esc(D.emoji) + " Atelier " + esc(D.titre) + "</div>" +
-      '<h1 class="big">' + a.phrase.replace(esc(a.chiffre), '<span class="hl">' + esc(a.chiffre) + "</span>") + "</h1>" +
+      '<h1 class="big">' + highlightChiffres(a.phrase, a.chiffre) + "</h1>" +
       mediaSlot(a.media) +
       (a.source ? '<div class="source">Source : ' + esc(a.source) + "</div>" : "");
   }, cta: function () { return D.accroche.cta || "Je me lance"; } });
