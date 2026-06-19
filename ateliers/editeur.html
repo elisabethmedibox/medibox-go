@@ -155,17 +155,68 @@
     builder(body);
     return det;
   }
+  function getCode(){
+    if(window.__tuteurCode) return window.__tuteurCode;
+    var c = window.prompt("Code d'accès tuteur :");
+    if(c) window.__tuteurCode = c;
+    return c;
+  }
+  function resizeImage(file, maxW, quality){
+    return new Promise(function(resolve){
+      var img = new Image();
+      img.onload = function(){
+        var w = img.width, h = img.height;
+        if(w > maxW){ h = Math.round(h * maxW / w); w = maxW; }
+        var c = document.createElement("canvas"); c.width = w; c.height = h;
+        c.getContext("2d").drawImage(img, 0, 0, w, h);
+        c.toBlob(function(b){ resolve(b || file); }, "image/jpeg", quality);
+      };
+      img.onerror = function(){ resolve(file); };
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
   function mediaEditor(body, media, kind){
     var card = el("div",{class:"card-sub"});
     card.appendChild(el("div",{class:"tag"},[kind==="video"?"Vidéo (2 min)":"Photo"]));
     if(kind==="video"){
       card.appendChild(field("Texte du bouton","ex. Le point pas à pas (2 min)",media.label,function(v){media.label=v;}));
       card.appendChild(field("Lien de la vidéo","YouTube ou Vimeo · vide = emplacement",media.src,function(v){media.src=v;}));
+      card.appendChild(el("div",{class:"media-note"},["Laisse vide tant que tu n'as pas la vidéo : un emplacement s'affiche."]));
     } else {
-      card.appendChild(field("Lien de la photo","URL de l'image · vide = emplacement",media.src,function(v){media.src=v;}));
+      var srcF = field("Lien de la photo","se remplit tout seul après l'envoi",media.src,function(v){media.src=v;});
+      var srcInput = srcF.querySelector("input");
+      var thumb = el("img"); thumb.style.cssText = "max-width:100%;border-radius:10px;margin-top:6px;display:"+(media.src?"block":"none")+";";
+      if(media.src) thumb.src = media.src;
+      var up = el("label",{class:"add",style:"cursor:pointer;"},["📷 Choisir / téléverser une photo"]);
+      var fileInp = el("input",{type:"file",accept:"image/*"}); fileInp.style.display = "none";
+      up.appendChild(fileInp);
+      fileInp.addEventListener("change", function(){
+        var f = fileInp.files[0]; if(!f) return;
+        if(!window.ATELIER_DB || !window.ATELIER_DB.mediaUrl){ toast("Config upload absente"); return; }
+        var code = getCode(); if(!code) return;
+        toast("Téléversement…");
+        resizeImage(f, 1600, 0.85).then(function(blob){
+          var fd = new FormData();
+          fd.append("file", blob, "photo.jpg");
+          fd.append("code", code);
+          fd.append("slug", D.slug || "divers");
+          return fetch(window.ATELIER_DB.mediaUrl, { method:"POST", body: fd });
+        }).then(function(r){ return r.json(); }).then(function(j){
+          if(j && j.ok && j.url){
+            media.src = j.url; srcInput.value = j.url;
+            thumb.src = j.url; thumb.style.display = "block";
+            renderPreview(); toast("Photo ajoutée ✓");
+          } else { toast("Échec : "+((j&&j.error)||"erreur")); }
+        }).catch(function(){ toast("Réseau indisponible"); });
+        fileInp.value = "";
+      });
+      card.appendChild(up);
       card.appendChild(field("Description (alt)","courte description de la photo",media.alt,function(v){media.alt=v;}));
+      card.appendChild(srcF);
+      card.appendChild(thumb);
+      card.appendChild(el("div",{class:"media-note"},["Choisis une photo : elle est hébergée automatiquement et le lien se remplit tout seul."]));
     }
-    card.appendChild(el("div",{class:"media-note"},["Laisse le lien vide tant que tu n'as pas la photo / vidéo : un cadre « emplacement » s'affiche."]));
     body.appendChild(card);
   }
   function listBlock(body, labelTxt, arr, placeholder, multiline){
@@ -371,7 +422,7 @@
 
   document.getElementById("publish").addEventListener("click", function(){
     if(!window.ATELIER_DB){ toast("Config Supabase absente"); return; }
-    var code = window.prompt("Code d'accès tuteur pour publier en ligne :");
+    var code = getCode();
     if(!code) return;
     toast("Enregistrement…");
     fetch(window.ATELIER_DB.fnUrl, {
