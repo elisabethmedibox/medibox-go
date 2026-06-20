@@ -184,10 +184,13 @@
       card.appendChild(field("Lien de la vidéo","YouTube ou Vimeo · vide = emplacement",media.src,function(v){media.src=v;}));
       card.appendChild(el("div",{class:"media-note"},["Laisse vide tant que tu n'as pas la vidéo : un emplacement s'affiche."]));
     } else {
-      var srcF = field("Lien de la photo","se remplit tout seul après l'envoi",media.src,function(v){media.src=v;});
-      var srcInput = srcF.querySelector("input");
       var thumb = el("img"); thumb.style.cssText = "max-width:100%;border-radius:10px;margin-top:6px;display:"+(media.src?"block":"none")+";";
       if(media.src) thumb.src = media.src;
+      var srcF = field("Lien de la photo","téléverse ci-dessus, OU colle ici l'adresse d'une image internet (https://…)",media.src,function(v){
+        media.src = v;
+        if(v){ thumb.src = v; thumb.style.display = "block"; } else { thumb.style.display = "none"; }
+      });
+      var srcInput = srcF.querySelector("input");
       var up = el("label",{class:"add",style:"cursor:pointer;"},["📷 Choisir / téléverser une photo"]);
       var fileInp = el("input",{type:"file",accept:"image/*"}); fileInp.style.display = "none";
       up.appendChild(fileInp);
@@ -215,7 +218,7 @@
       card.appendChild(field("Description (alt)","courte description de la photo",media.alt,function(v){media.alt=v;}));
       card.appendChild(srcF);
       card.appendChild(thumb);
-      card.appendChild(el("div",{class:"media-note"},["Choisis une photo : elle est hébergée automatiquement et le lien se remplit tout seul."]));
+      card.appendChild(el("div",{class:"media-note"},["Deux options : téléverse une photo (hébergée automatiquement), OU colle l'adresse d'une image trouvée sur internet dans « Lien de la photo »."]));
     }
     body.appendChild(card);
   }
