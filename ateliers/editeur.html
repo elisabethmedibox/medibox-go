@@ -265,14 +265,16 @@
             sub.appendChild(field("Titre",null,et.t,function(v){et.t=v;}));
             sub.appendChild(field("Description",null,et.d,function(v){et.d=v;},true));
             if(et.media){
-              mediaEditor(sub, et.media, "image");
-              var rmPhoto = el("button",{class:"add",style:"color:#c0182a;border-color:#f2c0c2;background:#fff;"},["✕ Retirer la photo de l'étape"]);
-              rmPhoto.addEventListener("click", function(){ delete et.media; redraw(); schedulePreview(); });
-              sub.appendChild(rmPhoto);
+              mediaEditor(sub, et.media, et.media.type === "video" ? "video" : "image");
+              var rmMedia = el("button",{class:"add",style:"color:#c0182a;border-color:#f2c0c2;background:#fff;"},["✕ Retirer le média de l'étape"]);
+              rmMedia.addEventListener("click", function(){ delete et.media; redraw(); schedulePreview(); });
+              sub.appendChild(rmMedia);
             } else {
-              var addPhoto = el("button",{class:"add"},["📷 Ajouter une photo à cette étape"]);
+              var addPhoto = el("button",{class:"add"},["📷 Ajouter une photo"]);
               addPhoto.addEventListener("click", function(){ et.media = {type:"image",src:"",alt:""}; redraw(); schedulePreview(); });
-              sub.appendChild(addPhoto);
+              var addVid = el("button",{class:"add",style:"margin-left:8px;"},["🎬 Ajouter une vidéo"]);
+              addVid.addEventListener("click", function(){ et.media = {type:"video",src:"",label:"Vidéo (2 min)"}; redraw(); schedulePreview(); });
+              sub.appendChild(addPhoto); sub.appendChild(addVid);
             }
           }
           var del = el("button",{class:"add",style:"color:#c0182a;border-color:#f2c0c2;background:#fff;"},["✕ Supprimer"]);

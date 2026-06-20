@@ -40,7 +40,7 @@ window.ATELIER_DATA = {
       { t: "Foyer aortique", d: "En haut à droite du sternum (2e espace entre les côtes) : on y écoute la valve aortique. B2 y est bien net." },
       { t: "Foyer pulmonaire", d: "En haut à gauche du sternum (2e espace) : on y écoute la valve pulmonaire." },
       { t: "Foyer tricuspide", d: "En bas du sternum, du côté gauche : on y écoute la valve tricuspide." },
-      { t: "Foyer mitral", d: "À la pointe du cœur, sous le sein gauche (5e espace, ligne du milieu de la clavicule) : on y écoute la valve mitrale. B1 y est le plus franc." },
+      { t: "Foyer mitral", d: "À la pointe du cœur, sous le sein gauche (5e espace, ligne du milieu de la clavicule) : on y écoute la valve mitrale. B1 y est le plus franc.", media: { type: "video", src: "", label: "Repérer le foyer mitral (2 min)" } },
       { section: "Partie 2 · La tension au brassard" },
       { t: "Placer le brassard et la membrane", d: "Brassard autour du bras nu, juste au-dessus du coude ; membrane du stéthoscope au pli du coude, sur l'artère.", media: { type: "image", src: "", alt: "Brassard et stéthoscope placés au pli du coude" } },
       { t: "Gonfler au-dessus de la tension", d: "On gonfle jusqu'à comprimer complètement l'artère : le sang ne passe plus, on n'entend rien." },
