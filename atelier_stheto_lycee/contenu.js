@@ -68,6 +68,7 @@ window.ATELIER_DATA = {
       "1er bruit = PAS, disparition = PAD ; je note PAS / PAD"
     ],
     media: { type: "image", src: "", alt: "Élève prenant la tension d'un binôme" },
+    video: { type: "video", src: "", label: "La pratique en vidéo (2 min)" },
     validation: "Fais valider tes deux gestes par l'animateur"
   },
 

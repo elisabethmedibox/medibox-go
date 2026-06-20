@@ -136,7 +136,7 @@
       return '<div class="check" data-i="' + i + '"><span class="box">✓</span><span>' + esc(c) + "</span></div>"; }).join("");
     return '<h2 class="scr">' + esc(p.titre || "À toi de jouer") + "</h2>" +
       '<div class="consigne">' + p.consigne + "</div>" +
-      items + (p.media ? mediaSlot(p.media) : "") +
+      items + (p.media ? mediaSlot(p.media) : "") + (p.video ? mediaSlot(p.video) : "") +
       '<button type="button" class="valid-anim" id="valid-anim">' + esc(p.validation || "Fais valider ton geste par l'animateur") + "</button>";
   }, onEnter: function (scr) {
     scr.querySelectorAll(".check").forEach(function (row) {

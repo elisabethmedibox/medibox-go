@@ -301,6 +301,22 @@
       listBlock(b,"Checklist (un point par ligne)",D.pratique.checklist,"un point à cocher");
       b.appendChild(field("Texte du bouton de validation",null,D.pratique.validation,function(v){D.pratique.validation=v;}));
       mediaEditor(b, D.pratique.media, "image");
+      var vbox = el("div");
+      function redrawVideo(){
+        vbox.innerHTML = "";
+        if(D.pratique.video){
+          mediaEditor(vbox, D.pratique.video, "video");
+          var rm = el("button",{class:"add",style:"color:#c0182a;border-color:#f2c0c2;background:#fff;"},["✕ Retirer la vidéo"]);
+          rm.addEventListener("click", function(){ delete D.pratique.video; redrawVideo(); schedulePreview(); });
+          vbox.appendChild(rm);
+        } else {
+          var add = el("button",{class:"add"},["🎬 Ajouter une vidéo à la pratique"]);
+          add.addEventListener("click", function(){ D.pratique.video = {type:"video",src:"",label:"La pratique en vidéo (2 min)"}; redrawVideo(); schedulePreview(); });
+          vbox.appendChild(add);
+        }
+      }
+      redrawVideo();
+      b.appendChild(vbox);
     }));
 
     form.appendChild(section("⑦ Quiz", function(b){
