@@ -253,6 +253,22 @@
 
     form.appendChild(section("④ Le geste expliqué", function(b){
       b.appendChild(field("Titre",null,D.geste.titre,function(v){D.geste.titre=v;}));
+      var introBox = el("div",{class:"card-sub"});
+      function redrawIntro(){
+        introBox.innerHTML = "";
+        introBox.appendChild(el("div",{class:"tag"},["Vidéo d'intro (avant la 1re étape)"]));
+        if(D.geste.introMedia){
+          mediaEditor(introBox, D.geste.introMedia, "video");
+          var rm = el("button",{class:"add",style:"color:#c0182a;border-color:#f2c0c2;background:#fff;"},["✕ Retirer la vidéo d'intro"]);
+          rm.addEventListener("click", function(){ delete D.geste.introMedia; redrawIntro(); schedulePreview(); });
+          introBox.appendChild(rm);
+        } else {
+          var add = el("button",{class:"add"},["🎬 Ajouter une vidéo d'intro"]);
+          add.addEventListener("click", function(){ D.geste.introMedia = {type:"video",src:"",label:"En vidéo (2 min)"}; redrawIntro(); schedulePreview(); });
+          introBox.appendChild(add);
+        }
+      }
+      redrawIntro(); b.appendChild(introBox);
       listBlock(b,"Matériel",D.geste.materiel,"ex. Porte-aiguille");
       b.appendChild(el("label",{class:"fld"},["Étapes du geste"]));
       var box = el("div",{class:"card-sub"});

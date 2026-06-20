@@ -31,6 +31,7 @@ window.ATELIER_DATA = {
 
   geste: {
     titre: "Le geste expliqué",
+    introMedia: { type: "video", src: "", label: "En vidéo (2 min)" },
     materiel: ["Porte-aiguille", "Pince à disséquer", "Fil + aiguille courbe", "Pad d'entraînement", "Ciseaux"],
     etapes: [
       { t: "Charger l'aiguille", d: "On la serre dans le porte-aiguille, aux 2/3 de sa courbe." },

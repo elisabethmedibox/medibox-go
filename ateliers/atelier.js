@@ -84,7 +84,7 @@
       return '<div class="etape"><div class="num">' + n + '</div><div><div class="et-t">' +
         esc(e.t) + '</div><div class="et-d">' + esc(e.d) + "</div>" +
         (e.media ? mediaSlot(e.media) : "") + "</div></div>"; }).join("");
-    return '<h2 class="scr">' + esc(g.titre) + "</h2>" + mat + et + mediaSlot(g.media);
+    return '<h2 class="scr">' + esc(g.titre) + "</h2>" + mediaSlot(g.introMedia) + mat + et + mediaSlot(g.media);
   } });
 
   // 4. Identification
