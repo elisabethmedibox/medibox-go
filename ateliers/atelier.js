@@ -20,22 +20,16 @@
     return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
   function mediaSlot(m) {
-    if (!m) return "";
+    // Bloc média vide (pas de lien) => rien d'affiché sur l'interface étudiant.
+    if (!m || !m.src) return "";
     if (m.type === "video") {
-      if (m.src) {
-        var emb = toEmbed(m.src);
-        if (emb) return '<div class="media video-link"><div class="vembed"><iframe src="' + esc(emb) +
-          '" allowfullscreen loading="lazy" title="' + esc(m.label || "Vidéo") + '"></iframe></div></div>';
-        return '<div class="media video-link"><a class="vbtn" href="' + esc(m.src) +
-          '" target="_blank" rel="noopener">▶ ' + esc(m.label || "Regarder la vidéo") + "</a></div>";
-      }
-      return '<div class="media video-link"><i>▶</i><div class="mt"><b>Vidéo ' +
-        esc(m.label || "(2 min)") + "</b><br>emplacement à remplir</div></div>";
+      var emb = toEmbed(m.src);
+      if (emb) return '<div class="media video-link"><div class="vembed"><iframe src="' + esc(emb) +
+        '" allowfullscreen loading="lazy" title="' + esc(m.label || "Vidéo") + '"></iframe></div></div>';
+      return '<div class="media video-link"><a class="vbtn" href="' + esc(m.src) +
+        '" target="_blank" rel="noopener">▶ ' + esc(m.label || "Regarder la vidéo") + "</a></div>";
     }
-    // image
-    if (m.src) return '<div class="media"><img src="' + esc(m.src) + '" alt="' + esc(m.alt || "") + '"></div>';
-    return '<div class="media"><i>🖼️</i><div class="mt"><b>Photo</b><br>' +
-      esc(m.alt || "emplacement à remplir") + "</div></div>";
+    return '<div class="media"><img src="' + esc(m.src) + '" alt="' + esc(m.alt || "") + '"></div>';
   }
 
   function highlightChiffres(phrase, chiffre) {
