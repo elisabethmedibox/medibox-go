@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription LAS2-LAS3 2026-2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="auth.css">
+  <style>
+    .ue-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin-top:8px;}
+    .ue-grid .spe-checkbox{margin:0;align-items:flex-start;}
+    .ue-grid .spe-label{font-size:0.82rem;line-height:1.25;}
+    @media (max-width:480px){ .ue-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+
+  <div class="auth-card wide">
+    <div class="card-header">
+      <div class="logo-row">
+        <img src="" class="logo-img small" id="logoImg" alt="">
+        <div class="logo-text small"><span id="brandPart1"></span><span id="brandPart2"></span></div>
+      </div>
+      <h1 class="subtitle">Inscription LAS2 - LAS3</h1>
+      <span class="year" id="year"></span>
+    </div>
+
+    <p style="font-size:0.85rem;color:#01466e;background:#e0edf4;padding:12px 14px;border-radius:10px;margin:14px 0;">
+      Une fois le formulaire rempli, tu seras dirigé·e vers le règlement des <strong>frais d'inscription (140 €)</strong>.
+      Ta formule est la <strong>formule MediLAS+</strong>, dédiée aux étudiant·e·s de LAS2 et LAS3.
+    </p>
+
+    <form id="inscriptionForm">
+
+      <div class="form-group">
+        <label for="universite">Université <span class="req">*</span></label>
+        <select id="universite" required>
+          <option value="">— Chargement... —</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="civilite">Civilité <span class="req">*</span></label>
+          <select id="civilite" required>
+            <option value="">— Choisir —</option>
+            <option value="M.">M.</option>
+            <option value="Mme">Mme</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="niveau">Niveau à la rentrée <span class="req">*</span></label>
+          <select id="niveau" required>
+            <option value="">— Chargement... —</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="departementEtudes">Département d'études <span class="req">*</span></label>
+        <select id="departementEtudes" required>
+          <option value="">— Chargement... —</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="licence">Ta licence <span class="req">*</span></label>
+        <select id="licence" required disabled>
+          <option value="">— Choisis d'abord ton département —</option>
+        </select>
+        <span class="email-hint">La licence dans laquelle tu es inscrit·e (ta majeure).</span>
+      </div>
+
+      <div class="activites-bloc">
+        <span class="activites-titre">UE qu'il te reste à valider
+          <span class="activites-subtitle">Coche toutes les UE qui te manquent encore. Laisse tout décoché si tu les as toutes validées.</span>
+        </span>
+        <div id="ueGrid" class="ue-grid">
+          <span style="font-size:0.82rem;color:#64748b;">Chargement des UE...</span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="prenom">Prénom <span class="req">*</span></label>
+          <input type="text" id="prenom" required placeholder="Prénom">
+        </div>
+        <div class="form-group">
+          <label for="nom">Nom <span class="req">*</span></label>
+          <input type="text" id="nom" required placeholder="Nom" class="uppercase">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dateNaissance">Date de naissance <span class="label-hint">(facultatif)</span></label>
+        <input type="date" id="dateNaissance">
+      </div>
+
+      <div class="form-group">
+        <label for="telephone">Téléphone <span class="req">*</span></label>
+        <div class="phone-row">
+          <select id="indicatif" class="phone-indicatif" required>
+            <option value="+590">🇬🇵 Guadeloupe +590</option>
+            <option value="+596">🇲🇶 Martinique +596</option>
+            <option value="+594">🇬🇫 Guyane +594</option>
+            <option value="+33">🇫🇷 France +33</option>
+          </select>
+          <input type="tel" id="telephone" required placeholder="6 00 00 00 00">
+        </div>
+        <span class="email-hint">* Si ton indicatif n'est pas dans la liste, choisis « France ».</span>
+      </div>
+
+      <div class="form-group">
+        <label for="emailFac">Email universitaire <span class="req">*</span></label>
+        <input type="email" id="emailFac" required placeholder="prenom.nom@etu.univ-antilles.fr">
+        <span class="email-hint" id="emailFacHint">Cet email universitaire te servira d'identifiant de connexion.</span>
+      </div>
+
+      <div class="form-group">
+        <label for="emailPerso">Email personnel <span class="req">*</span></label>
+        <input type="email" id="emailPerso" required placeholder="prenom.nom@gmail.com">
+        <span class="email-hint">Ton email personnel (Gmail, Yahoo, etc.), pour pouvoir te joindre.</span>
+      </div>
+
+      <div class="form-group">
+        <label for="mdp">Mot de passe <span class="req">*</span></label>
+        <div class="password-row">
+          <input type="password" id="mdp" required placeholder="Minimum 6 caractères" minlength="6">
+          <button type="button" class="password-toggle" onclick="togglePasswordVisibility()">👁️</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="rue">Rue <span class="label-hint">(facultatif)</span></label>
+        <input type="text" id="rue" placeholder="Numéro et nom de rue">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="codePostal">Code postal <span class="label-hint">(facultatif)</span></label>
+          <input type="text" id="codePostal" placeholder="97100">
+        </div>
+        <div class="form-group">
+          <label for="ville">Ville <span class="label-hint">(facultatif)</span></label>
+          <input type="text" id="ville" placeholder="Ville" class="uppercase">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="financeParProche">La formation est-elle financée par un parent ou un proche ? <span class="req">*</span></label>
+        <select id="financeParProche" required>
+          <option value="">— Choisir —</option>
+          <option value="oui">Oui</option>
+          <option value="non">Non, je finance moi-même</option>
+        </select>
+      </div>
+
+      <div id="parentsSection" class="cond-fields" style="display:none;">
+        <div class="activites-bloc">
+          <span class="activites-titre">Référent 1 (parent ou proche)
+            <span class="activites-subtitle">Ces informations sont facultatives.</span>
+          </span>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ref1Civilite">Civilité</label>
+              <select id="ref1Civilite">
+                <option value="">— Choisir —</option>
+                <option value="M.">M.</option>
+                <option value="Mme">Mme</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="ref1Prenom">Prénom</label>
+              <input type="text" id="ref1Prenom" placeholder="Prénom">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="ref1Nom">Nom</label>
+            <input type="text" id="ref1Nom" placeholder="Nom" class="uppercase">
+          </div>
+          <div class="form-group">
+            <label for="ref1Email">Email</label>
+            <input type="email" id="ref1Email" placeholder="email@exemple.com">
+          </div>
+          <div class="form-group">
+            <label for="ref1Telephone">Téléphone</label>
+            <div class="phone-row">
+              <select id="ref1Indicatif" class="phone-indicatif">
+                <option value="+590">🇬🇵 Guadeloupe +590</option>
+                <option value="+596">🇲🇶 Martinique +596</option>
+                <option value="+594">🇬🇫 Guyane +594</option>
+                <option value="+33">🇫🇷 France +33</option>
+              </select>
+              <input type="tel" id="ref1Telephone" placeholder="6 00 00 00 00">
+            </div>
+          </div>
+          <label class="spe-checkbox" style="margin-top:6px;">
+            <input type="checkbox" id="ref1Payeur">
+            <span class="spe-label">C'est cette personne qui règle les frais</span>
+          </label>
+
+          <button type="button" id="btnAjouterRef2" class="auth-link" style="border:none;background:none;cursor:pointer;margin-top:12px;">+ Ajouter un deuxième référent</button>
+        </div>
+
+        <div id="parent2Section" style="display:none;">
+          <div class="activites-bloc">
+            <span class="activites-titre">Référent 2 (parent ou proche)
+              <span class="activites-subtitle">Ces informations sont facultatives.</span>
+            </span>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ref2Civilite">Civilité</label>
+                <select id="ref2Civilite">
+                  <option value="">— Choisir —</option>
+                  <option value="M.">M.</option>
+                  <option value="Mme">Mme</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="ref2Prenom">Prénom</label>
+                <input type="text" id="ref2Prenom" placeholder="Prénom">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="ref2Nom">Nom</label>
+              <input type="text" id="ref2Nom" placeholder="Nom" class="uppercase">
+            </div>
+            <div class="form-group">
+              <label for="ref2Email">Email</label>
+              <input type="email" id="ref2Email" placeholder="email@exemple.com">
+            </div>
+            <div class="form-group">
+              <label for="ref2Telephone">Téléphone</label>
+              <div class="phone-row">
+                <select id="ref2Indicatif" class="phone-indicatif">
+                  <option value="+590">🇬🇵 Guadeloupe +590</option>
+                  <option value="+596">🇲🇶 Martinique +596</option>
+                  <option value="+594">🇬🇫 Guyane +594</option>
+                  <option value="+33">🇫🇷 France +33</option>
+                </select>
+                <input type="tel" id="ref2Telephone" placeholder="6 00 00 00 00">
+              </div>
+            </div>
+            <label class="spe-checkbox" style="margin-top:6px;">
+              <input type="checkbox" id="ref2Payeur">
+              <span class="spe-label">C'est cette personne qui règle les frais</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-auth signup" id="btnSubmit">Créer mon compte</button>
+    </form>
+
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="auth-footer" id="footer"></div>
+
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="auth-validation.js"></script>
+  <script src="inscription-las2-3.js"></script>
+</body>
+</html>

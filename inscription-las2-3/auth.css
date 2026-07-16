@@ -1,0 +1,494 @@
+/* ============================================================
+   AUTH.CSS — Styles spécifiques aux pages login / inscription
+   Ces pages ont leur propre mise en page (pas de sidebar).
+   Polices : Outfit + Inter (différentes du reste de l'app).
+   ============================================================ */
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #01466e 0%, #012d47 40%, #011e33 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Bannières décoratives */
+body::before {
+  content: '';
+  position: fixed;
+  top: -120px; right: -200px;
+  width: 600px; height: 250px;
+  background: #f34c4b;
+  transform: rotate(-15deg);
+  opacity: 0.15;
+  border-radius: 40px;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -100px; left: -180px;
+  width: 500px; height: 200px;
+  background: #06b6d4;
+  transform: rotate(12deg);
+  opacity: 0.12;
+  border-radius: 40px;
+  z-index: 0;
+}
+
+/* Brochure au-dessus de la carte */
+.brochure {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 24px;
+  animation: fadeDown 0.6s ease-out;
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.brochure-title {
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.brochure-title span { color: #f34c4b; }
+.brochure-sub {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.82rem;
+  font-weight: 400;
+}
+
+/* Carte formulaire */
+.auth-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 36px 32px 32px 32px;
+  animation: fadeUp 0.5s ease-out;
+}
+.auth-card.wide { max-width: 480px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header carte */
+.card-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.card-header .logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.logo-img { height: 52px; margin-bottom: 10px; }
+.logo-img.small { height: 32px; margin-bottom: 0; }
+.logo-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 2px;
+}
+.logo-text.small { font-size: 1.2rem; }
+.logo-text span:first-child { color: #01466e; }
+.logo-text span:last-child { color: #f34c4b; }
+.card-header h1 {
+  font-family: 'Inter', sans-serif;
+  color: #01466e;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.card-header .subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-top: 4px;
+}
+.card-header .year {
+  display: inline-block;
+  margin-top: 6px;
+  background: #e0edf4;
+  color: #01466e;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 20px;
+}
+
+/* Formulaire auth */
+.form-group { margin-bottom: 16px; }
+.label-hint {
+  display: inline-block;
+  margin-left: 4px;
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: #64748b;
+  font-style: italic;
+}
+.form-row { display: flex; gap: 12px; }
+.form-row .form-group { flex: 1; }
+
+.auth-card label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 5px;
+}
+.auth-card label .req { color: #f34c4b; }
+
+.auth-card input,
+.auth-card select {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #dde3e8;
+  border-radius: 10px;
+  background: #f8f9fb;
+  color: #333;
+  transition: all 0.2s;
+  outline: none;
+}
+.auth-card input:focus,
+.auth-card select:focus {
+  border-color: #06b6d4;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.12);
+}
+.auth-card input.error,
+.auth-card select.error {
+  border-color: #f34c4b;
+  box-shadow: 0 0 0 3px rgba(243, 76, 75, 0.12);
+}
+.auth-card select { cursor: pointer; }
+
+/* Téléphone : indicatif + numéro côte à côte */
+.phone-row {
+  display: flex;
+  gap: 8px;
+}
+.phone-indicatif {
+  width: auto;
+  flex: 0 0 110px;
+}
+
+/* Bouton principal auth */
+.btn-auth {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+  color: #fff;
+}
+.btn-auth:hover {
+  transform: translateY(-1px);
+}
+.btn-auth:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.btn-auth.login {
+  background: #f34c4b;
+}
+.btn-auth.login:hover {
+  background: #e03e3d;
+  box-shadow: 0 6px 20px rgba(243, 76, 75, 0.3);
+}
+.btn-auth.signup {
+  background: #16a34a;
+}
+.btn-auth.signup:hover {
+  background: #15803d;
+  box-shadow: 0 6px 20px rgba(22, 163, 74, 0.3);
+}
+
+/* Messages */
+.auth-card .msg {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  display: none;
+  text-align: center;
+}
+.auth-card .msg.show { display: block; animation: fadeUp 0.3s ease-out; }
+.auth-card .msg.success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+.auth-card .msg.error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+/* Liens sous le formulaire */
+.auth-link {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  color: #06b6d4;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.auth-link:hover { color: #01466e; text-decoration: underline; }
+
+.auth-link-secondary {
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.auth-link-secondary:hover { color: #06b6d4; }
+
+/* Footer */
+.auth-footer {
+  position: relative;
+  z-index: 1;
+  margin-top: 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 440px) {
+  .auth-card { padding: 28px 20px 24px 20px; }
+  .brochure-title { font-size: 1.1rem; }
+}
+@media (max-width: 500px) {
+  .auth-card.wide { padding: 24px 18px 20px; }
+  .form-row { flex-direction: column; gap: 0; }
+}
+
+/* ===== FORCER MAJUSCULES (nom, ville) ===== */
+.uppercase { text-transform: uppercase; }
+
+/* ===== MOT DE PASSE : oeil toggle ===== */
+.password-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+.password-row input {
+  flex: 1;
+  padding-right: 44px;
+}
+.password-toggle {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.password-toggle:hover { opacity: 1; }
+
+/* ===== INSCRIPTION STAFF : grille spécialités ===== */
+.specialites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 6px;
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px;
+  background: #f8fafc;
+}
+.spe-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+.spe-checkbox:hover { background: #e2e8f0; }
+.spe-checkbox input[type="checkbox"] {
+  accent-color: #01466e;
+  width: 16px;
+  height: 16px;
+}
+.spe-label { font-weight: 500; color: #1e293b; }
+
+/* Champs conditionnels */
+.cond-fields { transition: all 0.3s; }
+
+/* ===== INSCRIPTION STAFF : Activités souhaitées ===== */
+.activites-bloc {
+  border-top: 2px solid #e2e8f0;
+  padding-top: 18px;
+  margin-top: 20px;
+}
+.activites-titre {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #01466e;
+  display: block;
+  margin-bottom: 12px;
+}
+.activites-subtitle {
+  display: block;
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: #64748b;
+  margin-top: 4px;
+  font-style: italic;
+}
+.activites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px;
+  background: #f8fafc;
+}
+.activite-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.activite-card:hover {
+  border-color: #06b6d4;
+  background: #f0fdfa;
+}
+.activite-card:has(input:checked) {
+  border-color: #06b6d4;
+  background: #ecfeff;
+  box-shadow: 0 0 0 1px #06b6d4;
+}
+.activite-card input[type="checkbox"] {
+  accent-color: #01466e;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  cursor: pointer;
+}
+.activite-card-emoji {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.activite-card-content {
+  flex: 1;
+  min-width: 0;
+}
+.activite-card-label {
+  display: block;
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #01466e;
+  line-height: 1.25;
+}
+.activite-card-desc {
+  display: block;
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 0.72rem;
+  color: #64748b;
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+/* Bloc Top 3 priorités */
+.top-priorites-bloc {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border: 1px solid #f59e0b;
+  border-radius: 10px;
+}
+.top-priorites-titre {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #78350f;
+  margin-bottom: 10px;
+}
+.top-priorites-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 0;
+}
+.priorite-select {
+  background: #fff;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .activites-grid {
+    grid-template-columns: 1fr;
+  }
+  .top-priorites-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Hint sous le champ email (suffixe attendu, validation domaine) */
+.email-hint {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.75rem;
+  color: #64748b;
+  font-style: italic;
+  min-height: 1em;
+}
+.email-hint-strict {
+  color: #06b6d4;
+  font-weight: 600;
+  font-style: normal;
+}
+.email-hint-error {
+  color: #f34c4b;
+  font-weight: 600;
+  font-style: normal;
+}
