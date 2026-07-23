@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ta plateforme d'été · MediBox Antilles-Guyane</title>
+<meta name="description" content="Bienvenue sur ta plateforme d'entraînement d'été MediBox. Regarde la vidéo de présentation avant de commencer.">
+<meta name="robots" content="noindex">
+
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PLATEFORME D'ÉTÉ — page d'accueil vidéo (charte medibox-go)
+   Palette : navy #0e4a6b · corail #ef6c5a · turquoise #0bbbd6
+   ============================================================ */
+:root {
+  --navy: #0e4a6b;
+  --navy-d: #093850;
+  --corail: #ef6c5a;
+  --turq: #0bbbd6;
+  --turq-d: #0891b2;
+  --ink: #0f2230;
+  --gris: #5a6b78;
+  --bg: #f4f8fb;
+  --card: #ffffff;
+  --shadow-lg: 0 20px 50px rgba(1, 70, 110, 0.18);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Chakra Petch', sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 500px at 80% -10%, rgba(11,187,214,0.45), transparent 60%),
+    linear-gradient(160deg, var(--navy) 0%, var(--navy-d) 60%, #012438 100%);
+  min-height: 100vh;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 40px 18px 60px;
+}
+.logo { width: 150px; max-width: 60%; height: auto; margin-bottom: 8px; }
+.signature {
+  color: #7fe6f5; text-transform: uppercase; letter-spacing: 2px;
+  font-size: .74rem; font-weight: 700; margin-bottom: 26px;
+}
+h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  color: #fff; font-size: 2.6rem; font-weight: 800; text-align: center;
+  line-height: 1.08; margin-bottom: 10px;
+}
+h1 .cor { color: var(--corail); }
+.lead {
+  color: #cfeaf2; text-align: center; max-width: 620px;
+  font-size: 1.02rem; margin-bottom: 34px;
+}
+.video-card {
+  background: var(--card); border-radius: 18px; box-shadow: var(--shadow-lg);
+  padding: 14px; width: 100%; max-width: 860px;
+}
+.video-ratio {
+  position: relative; width: 100%; padding-bottom: 56.25%;
+  border-radius: 12px; overflow: hidden; background: #0f2230;
+}
+.video-ratio iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+}
+.consigne {
+  display: flex; align-items: center; gap: 10px; justify-content: center;
+  margin: 26px 0 30px; color: #fff; font-weight: 600; text-align: center;
+  font-size: 1rem; max-width: 640px;
+}
+.cta {
+  display: inline-block; background: var(--turq); color: #fff;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 700;
+  padding: 16px 38px; border-radius: 14px; text-decoration: none;
+  letter-spacing: .4px; transition: background .15s, transform .15s;
+  box-shadow: 0 10px 26px rgba(11, 187, 214, 0.35);
+}
+.cta:hover { background: var(--turq-d); transform: translateY(-2px); }
+.cta-hint { color: #9fb9c8; font-size: .8rem; margin-top: 12px; text-align: center; }
+footer {
+  margin-top: auto; padding-top: 46px; color: #9fb9c8; font-size: .78rem; text-align: center;
+}
+@media (max-width: 560px) {
+  h1 { font-size: 2rem; }
+  .cta { width: 100%; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<img src="logo-medibox.png" alt="MediBox Antilles-Guyane" class="logo">
+<span class="signature">À vos côtés depuis 2022</span>
+
+<h1>Bienvenue sur ta plateforme d'<span class="cor">été</span> !</h1>
+<p class="lead">
+  Ton inscription est validée et ton accès d'été est ouvert.
+  Avant de commencer, regarde cette courte vidéo : elle t'explique
+  comment profiter au mieux de la plateforme pendant l'été.
+</p>
+
+<div class="video-card">
+  <div class="video-ratio">
+    <!-- LOOM_EMBED : remplacer VIDEO_ID par l'identifiant de la vidéo Loom -->
+    <iframe src="https://www.loom.com/embed/VIDEO_ID" allowfullscreen
+      title="Vidéo de présentation de la plateforme d'été MediBox"></iframe>
+  </div>
+</div>
+
+<p class="consigne">🎬 Une fois la vidéo terminée, connecte-toi avec les identifiants reçus par email :</p>
+
+<a class="cta" href="https://laspasscaraibes.exoteach.com/elearning/#/home">Accéder à la plateforme d'été →</a>
+<p class="cta-hint">Tes identifiants sont dans l'email « Ton accès d'été » · pense à vérifier tes spams</p>
+
+<footer>MediBox Antilles-Guyane · Préparation de la 1ère à la 6ème année</footer>
+
+</body>
+</html>
