@@ -59,7 +59,7 @@
     document.getElementById('brandPart1').textContent = APP_CONFIG.brandPart1;
     document.getElementById('brandPart2').textContent = APP_CONFIG.brandPart2;
     document.getElementById('year').textContent = APP_CONFIG.year;
-    document.getElementById('footer').textContent = APP_CONFIG.copyright;
+    document.getElementById('footer').innerHTML = APP_CONFIG.copyright + (APP_CONFIG.contactTel ? ' · <a href="' + APP_CONFIG.contactTelHref + '" style="color:inherit;">📞 ' + APP_CONFIG.contactTel + '</a>' : '');
   </script>
   <script>
     (function() {

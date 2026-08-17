@@ -24,6 +24,13 @@ const APP_CONFIG = {
 
   // Copyright
   copyright: '© MediBox Antilles Guyane 2026 - Tracking EDN / ECOS',
+  // ─── COORDONNÉES D'ACCUEIL ───
+  // ⛔ Source unique : même numéro que medibox-app/config.js. Ne jamais le
+  // réécrire en dur dans une page.
+  contactTel: '0590 91 56 73',
+  contactTelHref: 'tel:+590590915673',
+  contactTelHoraires: 'du lundi au vendredi, de 8h à 15h',
+  contactEmail: 'contact@mediboxantillesguyane.com',
 
   // Dates des concours (pour les comptes à rebours)
   dateEDN: '2027-10-12',
