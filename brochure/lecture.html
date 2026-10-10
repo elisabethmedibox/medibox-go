@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brochure MediBox Antilles-Guyane</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --marine:#16405f; --marine-nuit:#0a2438; --corail:#f05a5f; --turquoise:#2fb6c9;
+    --encre:#1c2b36; --gris:#8da3b4;
+    --titre:"Avenir Next Condensed","Arial Narrow","Roboto Condensed","Helvetica Neue",Arial,sans-serif;
+    --texte:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  body{font-family:var(--texte);background:var(--marine-nuit);color:#fff;
+       height:100dvh;overflow:hidden;display:flex;flex-direction:column;
+       -webkit-user-select:none;user-select:none}
+
+  .barre{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:12px 16px;background:rgba(10,36,56,.92);border-bottom:1px solid rgba(255,255,255,.1);
+    position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
+  .marque{font-family:var(--titre);font-weight:700;letter-spacing:.16em;font-size:.76rem;
+    text-transform:uppercase;color:#fff;text-decoration:none;white-space:nowrap}
+  .marque .corail{color:var(--corail)}
+  .compteur{font-family:var(--titre);font-size:1rem;letter-spacing:.04em;color:#cfe2ec;white-space:nowrap}
+  .compteur input{width:3.2em;font-family:inherit;font-size:1rem;text-align:right;color:#fff;
+    background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;
+    padding:2px 5px;margin-right:2px}
+  .compteur input:focus{outline:none;border-color:var(--turquoise)}
+
+  .scene{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;
+    padding:14px 16px 8px;position:relative}
+  /* La page entiere doit tenir dans l'ecran : sa largeur est bornee par la
+     hauteur disponible, sinon il faudrait faire defiler pour lire le bas. */
+  .page{position:relative;aspect-ratio:630/876;
+    width:min(100%, 720px, calc((100dvh - 150px) * 630 / 876));
+    background:#fff no-repeat center/contain;border-radius:4px;
+    box-shadow:0 18px 50px rgba(0,0,0,.45);margin:0 auto}
+  /* le voile couvre l'image : il empeche l'enregistrement par appui long */
+  .page::after{content:"";position:absolute;inset:0}
+  .page.charge::before{content:"";position:absolute;inset:0;
+    background:linear-gradient(100deg,#f4f8fb 20%,#e6eef4 50%,#f4f8fb 80%);
+    animation:respire 1.3s ease-in-out infinite}
+  @keyframes respire{0%,100%{opacity:.55}50%{opacity:1}}
+
+  .fleche{position:fixed;top:50%;transform:translateY(-50%);z-index:4;
+    width:46px;height:46px;border:none;border-radius:50%;cursor:pointer;
+    background:rgba(255,255,255,.14);color:#fff;font-size:1.5rem;line-height:1;
+    display:flex;align-items:center;justify-content:center;transition:background .15s}
+  .fleche:hover:not(:disabled){background:var(--corail)}
+  .fleche:disabled{opacity:.25;cursor:default}
+  .fleche.prec{left:10px}
+  .fleche.suiv{right:10px}
+
+  .pied{padding:10px 16px 20px;text-align:center;font-size:.8rem;color:var(--gris)}
+  .astuce{display:none}
+  .pied a{color:#cfe2ec}
+
+  .plein{flex:1;display:flex;align-items:center;justify-content:center;padding:30px 22px}
+  .annonce{max-width:420px;text-align:center}
+  .annonce h1{font-family:var(--titre);font-size:2rem;margin-bottom:12px}
+  .annonce p{color:#cfe2ec;font-size:.96rem;margin-bottom:22px;line-height:1.6}
+  .annonce a{display:inline-block;text-decoration:none;font-family:var(--titre);font-weight:700;
+    font-size:1.2rem;letter-spacing:.04em;color:#fff;background:var(--corail);
+    border-radius:12px;padding:13px 26px}
+
+  @media(max-width:700px){
+    .fleche{top:auto;bottom:70px;transform:none}
+    .scene{padding:12px 8px 6px}
+    .marque{font-size:.68rem;letter-spacing:.1em}
+    .astuce{display:block;margin-bottom:4px}
+    .pied .contact{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div id="application" style="display:none;flex-direction:column;flex:1">
+  <div class="barre">
+    <a class="marque" href="https://www.mediboxantillesguyane.com">MED<span class="corail">i</span><span class="corail">BOX</span> · Brochure</a>
+    <div class="compteur">
+      <input type="text" id="saisiePage" inputmode="numeric" aria-label="Aller à la page" value="1">
+      <span id="total">/ 60</span>
+    </div>
+  </div>
+
+  <div class="scene">
+    <button class="fleche prec" id="prec" aria-label="Page précédente">‹</button>
+    <div class="page charge" id="page" role="img" aria-label="Page 1 de la brochure"></div>
+    <button class="fleche suiv" id="suiv" aria-label="Page suivante">›</button>
+  </div>
+
+  <div class="pied">
+    <span class="astuce">Pincez l'écran pour agrandir une page</span>
+    <span class="contact">Lecture en ligne · brochure 2026-2027 ·
+    une question ? <a href="tel:+590590915673">0590 91 56 73</a></span>
+  </div>
+</div>
+
+<div class="plein" id="attente">
+  <div class="annonce">
+    <h1>Un instant…</h1>
+    <p>Nous préparons votre brochure.</p>
+  </div>
+</div>
+
+<div class="plein" id="refus" style="display:none">
+  <div class="annonce">
+    <h1 id="refusTitre">Lien non valable</h1>
+    <p id="refusTexte">Ce lien de lecture ne fonctionne pas. Demandez-en un nouveau, c'est immédiat.</p>
+    <a href="./">Demander la brochure</a>
+  </div>
+</div>
+
+<script>
+const API = "https://uozfgssyswxjapscklan.supabase.co/functions/v1/brochure-lire";
+
+const jeton = new URLSearchParams(location.search).get("c") || "";
+const elApp = document.getElementById("application");
+const elAttente = document.getElementById("attente");
+const elRefus = document.getElementById("refus");
+const elPage = document.getElementById("page");
+const elSaisie = document.getElementById("saisiePage");
+const elTotal = document.getElementById("total");
+const btnPrec = document.getElementById("prec");
+const btnSuiv = document.getElementById("suiv");
+
+let pages = [];      // liens signés, dans l'ordre
+let courante = 0;    // index de la page affichée
+let minuterie = null;
+
+function refuser(titre, texte) {
+  elAttente.style.display = "none";
+  elApp.style.display = "none";
+  document.getElementById("refusTitre").textContent = titre;
+  document.getElementById("refusTexte").textContent = texte;
+  elRefus.style.display = "flex";
+}
+
+// Précharge les pages voisines : le feuilletage paraît instantané sans
+// télécharger les soixante pages d'un coup.
+function precharger(i) {
+  [i - 1, i + 1, i + 2].forEach((k) => {
+    if (k >= 0 && k < pages.length) { const im = new Image(); im.src = pages[k]; }
+  });
+}
+
+function afficher(i) {
+  courante = Math.max(0, Math.min(pages.length - 1, i));
+  elPage.classList.add("charge");
+  const im = new Image();
+  im.onload = () => {
+    elPage.style.backgroundImage = 'url("' + pages[courante] + '")';
+    elPage.classList.remove("charge");
+  };
+  im.onerror = () => charger(true);   // liens expirés : on les redemande
+  im.src = pages[courante];
+
+  elPage.setAttribute("aria-label", "Page " + (courante + 1) + " de la brochure");
+  elSaisie.value = courante + 1;
+  btnPrec.disabled = courante === 0;
+  btnSuiv.disabled = courante === pages.length - 1;
+  precharger(courante);
+}
+
+async function charger(silencieux) {
+  try {
+    const r = await fetch(API + "?c=" + encodeURIComponent(jeton));
+    const d = await r.json();
+
+    if (!r.ok || !Array.isArray(d.pages) || d.pages.length === 0) {
+      if (silencieux) return;
+      return refuser(
+        r.status === 404 ? "Lien inconnu" : "Brochure indisponible",
+        d.erreur || "Réessayez dans un instant, ou demandez un nouveau lien."
+      );
+    }
+
+    pages = d.pages;
+    elTotal.textContent = "/ " + pages.length;
+    elAttente.style.display = "none";
+    elApp.style.display = "flex";
+    afficher(silencieux ? courante : 0);
+
+    // Les liens signés durent deux heures : on les renouvelle avant la fin
+    // pour que personne ne tombe sur une page blanche en pleine lecture.
+    clearTimeout(minuterie);
+    minuterie = setTimeout(() => charger(true), Math.max(60, (d.valide_secondes || 7200) - 600) * 1000);
+  } catch (e) {
+    if (!silencieux) refuser("Connexion impossible", "Vérifiez votre connexion internet, puis rechargez la page.");
+  }
+}
+
+btnPrec.addEventListener("click", () => afficher(courante - 1));
+btnSuiv.addEventListener("click", () => afficher(courante + 1));
+
+document.addEventListener("keydown", (e) => {
+  if (document.activeElement === elSaisie) return;
+  if (e.key === "ArrowLeft" || e.key === "PageUp") afficher(courante - 1);
+  if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") afficher(courante + 1);
+  if (e.key === "Home") afficher(0);
+  if (e.key === "End") afficher(pages.length - 1);
+});
+
+elSaisie.addEventListener("change", () => {
+  const n = parseInt(elSaisie.value, 10);
+  if (n >= 1 && n <= pages.length) afficher(n - 1);
+  else elSaisie.value = courante + 1;
+});
+
+// Feuilletage au doigt
+let departX = null;
+document.querySelector(".scene").addEventListener("touchstart", (e) => {
+  departX = e.touches[0].clientX;
+}, { passive: true });
+document.querySelector(".scene").addEventListener("touchend", (e) => {
+  if (departX === null) return;
+  const delta = e.changedTouches[0].clientX - departX;
+  if (Math.abs(delta) > 50) afficher(courante + (delta < 0 ? 1 : -1));
+  departX = null;
+}, { passive: true });
+
+// La brochure se lit, elle ne s'emporte pas.
+document.addEventListener("contextmenu", (e) => e.preventDefault());
+document.addEventListener("dragstart", (e) => e.preventDefault());
+
+if (!/^[0-9a-f]{32}$/.test(jeton)) {
+  refuser("Lien incomplet",
+    "Cette adresse ne contient pas de lien de lecture. Demandez la brochure, vous l'ouvrirez aussitôt.");
+} else {
+  charger(false);
+}
+</script>
+</body>
+</html>
