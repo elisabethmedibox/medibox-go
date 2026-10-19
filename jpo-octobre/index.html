@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journées portes ouvertes MediBox · 26 et 27 octobre 2026</title>
+<meta name="description" content="Journées portes ouvertes MediBox les 26 et 27 octobre 2026, pour les étudiants de 2e à 6e année de médecine. Viens seul ou accompagné de tes parents.">
+
+<!-- Aperçu lors d'un partage (réseaux, WhatsApp) -->
+<meta property="og:title" content="Journées portes ouvertes MediBox · 26 et 27 octobre">
+<meta property="og:description" content="Deux journées pour découvrir notre accompagnement de la 2e à la 6e année de médecine. Viens seul ou avec tes parents.">
+<meta property="og:type" content="website">
+
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261019a">
+</head>
+<body>
+
+<!-- ════════════ HERO ════════════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <img src="logo-medibox.png" alt="MediBox Antilles-Guyane" class="hero-logo">
+    <span class="hero-signature">À vos côtés depuis 2022</span>
+
+    <div class="hero-ribbon">Venez nous rencontrer !</div>
+
+    <h1 class="hero-title">Portes ouvertes Medi<span class="cor">Box</span></h1>
+    <div class="hero-date">Lundi 26 et mardi 27 octobre</div>
+
+    <div class="hero-badges">
+      <span class="badge"><span class="badge-emoji">🩺</span> De la 2e à la 6e année</span>
+      <span class="badge"><span class="badge-emoji">👨‍👩‍👧</span> Parents bienvenus</span>
+    </div>
+
+    <p class="hero-sub">
+      Deux journées pour découvrir notre accompagnement, rencontrer la Directrice
+      et nos tuteurs, et poser toutes tes questions sur la préparation à l'EDN
+      et aux ECOS. <strong>Viens seul·e ou accompagné·e de tes parents.</strong>
+    </p>
+
+    <a href="#inscription" class="hero-cta">Je réserve ma place →</a>
+    <p class="hero-cta-hint">Entrée libre · inscription en 30 secondes</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ════════════ FORMULAIRE ════════════ -->
+  <section class="section section-form" id="inscription">
+    <div class="wrap">
+      <div class="form-card">
+        <div class="form-head">
+          <h2>Je réserve ma place</h2>
+          <p>Choisis ta journée, ou les deux. On t'attend !</p>
+        </div>
+
+        <form id="jpoForm" novalidate>
+
+          <!-- ── Les journées ── -->
+          <div class="field">
+            <label>Quelle journée viens-tu ?</label>
+            <div class="choix-liste" id="zoneJours">
+              <label class="choix" for="jour26">
+                <input type="checkbox" id="jour26" value="jpo-2026-10-26">
+                <span><strong>Lundi 26 octobre</strong></span>
+              </label>
+              <label class="choix" for="jour27">
+                <input type="checkbox" id="jour27" value="jpo-2026-10-27">
+                <span><strong>Mardi 27 octobre</strong></span>
+              </label>
+            </div>
+            <p class="choix-aide">Tu peux cocher les deux journées.</p>
+          </div>
+
+          <!-- ── Toi ── -->
+          <div class="field-row">
+            <div class="field">
+              <label for="prenom">Prénom</label>
+              <input type="text" id="prenom" name="prenom" autocomplete="given-name" required>
+            </div>
+            <div class="field">
+              <label for="nom">Nom</label>
+              <input type="text" id="nom" name="nom" autocomplete="family-name" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="telephone">Téléphone</label>
+              <input type="tel" id="telephone" name="telephone" autocomplete="tel" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="niveau">Cette année, tu es en :</label>
+            <select id="niveau" name="niveau" required>
+              <option value="">Choisis ton niveau...</option>
+              <option value="2e année médecine">P2 · 2e année</option>
+              <option value="3e année médecine">D1 · 3e année</option>
+              <option value="4e année">D2 · 4e année</option>
+              <option value="5e année">D3 · 5e année</option>
+              <option value="6e année">D4 · 6e année</option>
+            </select>
+          </div>
+
+          <!-- ── L'accompagnement ── -->
+          <div class="field">
+            <label>Tu viens :</label>
+            <div class="choix-liste">
+              <label class="choix" for="accSeul">
+                <input type="radio" name="accompagnement" id="accSeul" value="seul" checked>
+                <span>Seul·e</span>
+              </label>
+              <label class="choix" for="accUn">
+                <input type="radio" name="accompagnement" id="accUn" value="un_parent">
+                <span>Accompagné·e d'un parent</span>
+              </label>
+              <label class="choix" for="accDeux">
+                <input type="radio" name="accompagnement" id="accDeux" value="deux_parents">
+                <span>Accompagné·e de deux parents</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- ── Parent 1 ── -->
+          <div class="bloc-parent" id="blocParent1" hidden>
+            <h3 class="bloc-parent-titre">Premier parent</h3>
+            <div class="field-row">
+              <div class="field">
+                <label for="p1Prenom">Prénom</label>
+                <input type="text" id="p1Prenom" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="p1Nom">Nom</label>
+                <input type="text" id="p1Nom" autocomplete="off">
+              </div>
+            </div>
+            <div class="field">
+              <label for="p1Email">E-mail</label>
+              <input type="email" id="p1Email" autocomplete="off">
+            </div>
+          </div>
+
+          <!-- ── Parent 2 ── -->
+          <div class="bloc-parent" id="blocParent2" hidden>
+            <h3 class="bloc-parent-titre">Second parent</h3>
+            <div class="field-row">
+              <div class="field">
+                <label for="p2Prenom">Prénom</label>
+                <input type="text" id="p2Prenom" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="p2Nom">Nom</label>
+                <input type="text" id="p2Nom" autocomplete="off">
+              </div>
+            </div>
+            <div class="field">
+              <label for="p2Email">E-mail</label>
+              <input type="email" id="p2Email" autocomplete="off">
+            </div>
+          </div>
+
+          <!-- Anti-spam : champ piège invisible, à laisser vide -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="site">Ne pas remplir</label>
+            <input type="text" id="site" name="site" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div id="msg" class="msg"></div>
+
+          <button type="submit" id="btnSubmit" class="form-submit">Je réserve ma place</button>
+          <p class="form-legal">Tes coordonnées servent uniquement à t'accueillir et à te recontacter au sujet de MediBox. Elles ne sont jamais revendues.</p>
+        </form>
+
+        <!-- État succès (affiché après envoi) -->
+        <div id="successBox" class="success-box" hidden>
+          <div class="success-emoji">🎉</div>
+          <h2>C'est noté !</h2>
+          <p id="successText">On t'attend aux portes ouvertes. À très vite !</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <img src="logo-medibox.png" alt="MediBox Antilles-Guyane" class="foot-logo">
+  <p>MediBox Antilles-Guyane · Préparation PASS-LAS et médecine</p>
+  <p class="foot-small">© MediBox Antilles-Guyane 2026</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="app.js?v=20261019a"></script>
+</body>
+</html>
