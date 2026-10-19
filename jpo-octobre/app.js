@@ -58,8 +58,18 @@ function lireParent(prefixe) {
   };
 }
 
+/* ⛔ Le point doit être cherché APRÈS l'arobase, avec lastIndexOf.
+   Une première version comparait indexOf('.') à indexOf('@') : comme
+   indexOf rend le PREMIER point, « prenom.nom@exemple.fr » était refusé.
+   C'est la forme d'adresse la plus répandue chez les étudiants, et
+   l'adresse universitaire elle-même : le formulaire refusait tout le
+   monde. Trouvé en remplissant le formulaire pour de vrai. */
 function emailValide(mail) {
-  return !!mail && mail.indexOf('@') >= 1 && mail.indexOf('.') > mail.indexOf('@');
+  if (!mail || mail.length > 150) return false;
+  const at = mail.indexOf('@');
+  if (at < 1) return false;
+  const point = mail.lastIndexOf('.');
+  return point > at + 1 && point < mail.length - 1;
 }
 
 // ─── Soumission ───
