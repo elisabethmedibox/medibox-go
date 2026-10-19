@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261019a">
+<link rel="stylesheet" href="style.css?v=20261019b">
 </head>
 <body>
 
@@ -28,14 +28,17 @@
     <div class="hero-date">Lundi 26 et mardi 27 octobre</div>
 
     <div class="hero-badges">
-      <span class="badge"><span class="badge-emoji">🩺</span> De la 2e à la 6e année</span>
+      <span class="badge"><span class="badge-emoji">🩺</span> Lundi 26 à 19h00 · P2 et D1</span>
+      <span class="badge"><span class="badge-emoji">🩺</span> Mardi 27 à 20h00 · externes</span>
       <span class="badge"><span class="badge-emoji">👨‍👩‍👧</span> Parents bienvenus</span>
     </div>
 
     <p class="hero-sub">
-      Deux journées pour découvrir notre accompagnement, rencontrer la Directrice
+      Deux soirées pour découvrir notre accompagnement, rencontrer la Directrice
       et nos tuteurs, et poser toutes tes questions sur la préparation à l'EDN
-      et aux ECOS. <strong>Viens seul·e ou accompagné·e de tes parents.</strong>
+      et aux ECOS. Chaque soirée a son public : <strong>le lundi pour les P2 et
+      les D1</strong>, <strong>le mardi pour les externes</strong>.
+      Viens seul·e ou accompagné·e de tes parents.
     </p>
 
     <a href="#inscription" class="hero-cta">Je réserve ma place →</a>
@@ -62,14 +65,16 @@
             <div class="choix-liste" id="zoneJours">
               <label class="choix" for="jour26">
                 <input type="checkbox" id="jour26" value="jpo-2026-10-26">
-                <span><strong>Lundi 26 octobre</strong></span>
+                <span><strong>Lundi 26 octobre à 19h00</strong><br>
+                  <em class="choix-public">La soirée des P2 et des D1</em></span>
               </label>
               <label class="choix" for="jour27">
                 <input type="checkbox" id="jour27" value="jpo-2026-10-27">
-                <span><strong>Mardi 27 octobre</strong></span>
+                <span><strong>Mardi 27 octobre à 20h00</strong><br>
+                  <em class="choix-public">La soirée des externes (D2, D3, D4)</em></span>
               </label>
             </div>
-            <p class="choix-aide">Tu peux cocher les deux journées.</p>
+            <p class="choix-aide" id="aideJours">Indique ton niveau plus bas : on cochera la soirée qui te correspond. Tu restes libre de changer, ou de venir aux deux.</p>
           </div>
 
           <!-- ── Toi ── -->
@@ -164,6 +169,27 @@
             </div>
           </div>
 
+          <!-- ── Droit à l'image ──
+               ⛔ Case JAMAIS obligatoire : un consentement n'est valable
+               que s'il est libre. Ne pas la cocher n'empêche pas de venir. -->
+          <div class="field">
+            <label class="choix choix-consentement" for="consentementImage">
+              <input type="checkbox" id="consentementImage">
+              <span>
+                J'accepte d'apparaître sur les <strong>photos de groupe</strong> prises
+                pendant la soirée, et que MediBox Antilles-Guyane les publie sur ses
+                comptes <strong>Instagram</strong> et <strong>Facebook</strong>.
+                Si je viens accompagné·e, je me suis assuré·e de leur accord.
+              </span>
+            </label>
+            <p class="choix-aide">
+              C'est facultatif : ne pas cocher cette case ne change rien à ton inscription
+              ni à ton accueil. Tu peux revenir sur ton accord à tout moment, et nous
+              retirerons la photo concernée, en écrivant à
+              <a href="mailto:contact@mediboxantillesguyane.com">contact@mediboxantillesguyane.com</a>.
+            </p>
+          </div>
+
           <!-- Anti-spam : champ piège invisible, à laisser vide -->
           <div class="hp-field" aria-hidden="true">
             <label for="site">Ne pas remplir</label>
@@ -195,6 +221,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="app.js?v=20261019b"></script>
+<script src="app.js?v=20261019c"></script>
 </body>
 </html>

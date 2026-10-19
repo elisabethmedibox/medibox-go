@@ -20,8 +20,22 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Libellé lisible de chaque journée, pour les messages.
 const LIBELLE_JOUR = {
-  'jpo-2026-10-26': 'lundi 26 octobre',
-  'jpo-2026-10-27': 'mardi 27 octobre'
+  'jpo-2026-10-26': 'lundi 26 octobre à 19h00',
+  'jpo-2026-10-27': 'mardi 27 octobre à 20h00'
+};
+
+// Chaque soirée a son public : le lundi les P2 et les D1, le mardi les
+// externes. On coche la bonne case quand l'étudiant choisit son niveau,
+// SANS jamais l'y enfermer : il reste libre de changer, ou de venir aux deux.
+// ⛔ Les clés doivent être ÉCRITES COMME DANS LE MENU (même forme Unicode) :
+// un « é » décomposé ne s'appareille pas à un « é » composé, et la
+// correspondance échouerait en silence.
+const JOUR_DU_NIVEAU = {
+  '2e année médecine': 'jour26',
+  '3e année médecine': 'jour26',
+  '4e année': 'jour27',
+  '5e année': 'jour27',
+  '6e année': 'jour27'
 };
 
 // ─── Messages ───
@@ -48,6 +62,18 @@ document.querySelectorAll('input[name="accompagnement"]').forEach(r => {
   r.addEventListener('change', majBlocsParents);
 });
 majBlocsParents();
+
+// ⭐ On ne coche que si AUCUNE soirée n'est encore choisie : sinon on
+// écraserait un choix délibéré (quelqu'un qui veut venir les deux soirs).
+document.getElementById('niveau').addEventListener('change', (e) => {
+  const cible = JOUR_DU_NIVEAU[e.target.value];
+  if (!cible) return;
+  const deja = document.getElementById('jour26').checked || document.getElementById('jour27').checked;
+  if (deja) return;
+  document.getElementById(cible).checked = true;
+  const aide = document.getElementById('aideJours');
+  if (aide) aide.textContent = 'On a coché la soirée qui correspond à ton niveau. Tu peux la changer, ou venir aux deux.';
+});
 
 // ─── Lecture d'un bloc parent ───
 function lireParent(prefixe) {
@@ -112,6 +138,9 @@ document.getElementById('jpoForm').addEventListener('submit', async (e) => {
   if (!telephone) { invalide('telephone', 'Merci d\'indiquer un téléphone pour qu\'on puisse te joindre.'); return; }
   if (!niveau) { invalide('niveau', 'Dis-nous en quelle année tu es.'); return; }
 
+  // ─── Le droit à l'image (facultatif, jamais bloquant) ───
+  const consentementImage = document.getElementById('consentementImage').checked;
+
   // ─── L'accompagnement ───
   const choix = document.querySelector('input[name="accompagnement"]:checked');
   const accompagnement = choix ? choix.value : 'seul';
@@ -147,7 +176,8 @@ document.getElementById('jpoForm').addEventListener('submit', async (e) => {
       telephone: telephone,
       annee_prochaine: niveau,
       accompagnement: accompagnement,
-      accompagnants: accompagnants
+      accompagnants: accompagnants,
+      consentement_image: consentementImage
     });
 
     if (!error) { enregistres.push(slug); continue; }
