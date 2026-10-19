@@ -138,8 +138,18 @@ document.getElementById('jpoForm').addEventListener('submit', async (e) => {
   if (!telephone) { invalide('telephone', 'Merci d\'indiquer un téléphone pour qu\'on puisse te joindre.'); return; }
   if (!niveau) { invalide('niveau', 'Dis-nous en quelle année tu es.'); return; }
 
-  // ─── Le droit à l'image (facultatif, jamais bloquant) ───
+  // ─── Le droit à l'image ───
+  // ⛔ OBLIGATOIRE (décision d'Elisabeth du 19/10/2026) : les photos de
+  // groupe font partie de la soirée et un retrait a posteriori serait
+  // ingerable. C'est une condition de participation, annoncée avant
+  // l'inscription. Sans la case, on n'enregistre rien.
   const consentementImage = document.getElementById('consentementImage').checked;
+  if (!consentementImage) {
+    invalide('consentementImage',
+      'Pour t\'inscrire, tu dois accepter d\'apparaître sur les photos de groupe.');
+    document.getElementById('consentementImage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
 
   // ─── L'accompagnement ───
   const choix = document.querySelector('input[name="accompagnement"]:checked');

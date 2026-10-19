@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261019b">
+<link rel="stylesheet" href="style.css?v=20261019c">
 </head>
 <body>
 
@@ -170,23 +170,25 @@
           </div>
 
           <!-- ── Droit à l'image ──
-               ⛔ Case JAMAIS obligatoire : un consentement n'est valable
-               que s'il est libre. Ne pas la cocher n'empêche pas de venir. -->
+               ⛔ Case OBLIGATOIRE, décision d'Elisabeth du 19/10/2026 : les
+               photos de groupe font partie de la soirée, et un retrait
+               a posteriori serait ingerable. C'est donc une CONDITION DE
+               PARTICIPATION, annoncée avant l'inscription, et non un
+               consentement optionnel. Le formulaire bloque sans elle. -->
           <div class="field">
             <label class="choix choix-consentement" for="consentementImage">
-              <input type="checkbox" id="consentementImage">
+              <input type="checkbox" id="consentementImage" required>
               <span>
                 J'accepte d'apparaître sur les <strong>photos de groupe</strong> prises
                 pendant la soirée, et que MediBox Antilles-Guyane les publie sur ses
                 comptes <strong>Instagram</strong> et <strong>Facebook</strong>.
-                Si je viens accompagné·e, je me suis assuré·e de leur accord.
+                Si je viens accompagné·e, je m'assure de leur accord.
               </span>
             </label>
-            <p class="choix-aide">
-              C'est facultatif : ne pas cocher cette case ne change rien à ton inscription
-              ni à ton accueil. Tu peux revenir sur ton accord à tout moment, et nous
-              retirerons la photo concernée, en écrivant à
-              <a href="mailto:contact@mediboxantillesguyane.com">contact@mediboxantillesguyane.com</a>.
+            <p class="choix-aide choix-aide-obligatoire">
+              Les photos de groupe font partie de la soirée : cet accord est
+              <strong>nécessaire pour s'inscrire</strong>. Elles ne sont utilisées que sur
+              les comptes Instagram et Facebook de la prépa.
             </p>
           </div>
 
@@ -221,6 +223,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="app.js?v=20261019c"></script>
+<script src="app.js?v=20261019d"></script>
 </body>
 </html>

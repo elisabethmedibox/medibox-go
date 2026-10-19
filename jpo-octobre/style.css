@@ -315,3 +315,7 @@ body.has-fond .section-form {
 .choix-consentement { align-items: flex-start; line-height: 1.5; }
 .choix-consentement input { margin-top: 2px; }
 .choix-consentement a { color: var(--turq-d); }
+
+/* L'accord sur les photos conditionne l'inscription : on le dit clairement. */
+.choix-aide-obligatoire { color: var(--navy); }
+.choix-consentement.error { border-color: var(--corail); box-shadow: 0 0 0 4px rgba(255,87,87,0.12); }
