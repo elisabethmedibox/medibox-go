@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portes ouvertes Terminale Santé · 28 et 29 octobre 2026</title>
+<meta name="description" content="Portes ouvertes MediBox pour les élèves de Terminale : mercredi 28 octobre, et matinée d'immersion en médecine le jeudi 29 octobre.">
+
+<!-- Aperçu lors d'un partage (réseaux, WhatsApp) -->
+<meta property="og:title" content="Portes ouvertes Terminale Santé · 28 et 29 octobre">
+<meta property="og:description" content="Deux jours pour découvrir les études de santé : portes ouvertes le mercredi 28, matinée d'immersion en médecine le jeudi 29.">
+<meta property="og:type" content="website">
+
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261020a">
+</head>
+<body>
+
+<!-- ════════════ HERO ════════════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <img src="logo-medibox.png" alt="MediBox Antilles-Guyane" class="hero-logo">
+    <span class="hero-signature">À vos côtés depuis 2022</span>
+
+    <div class="hero-ribbon">Tu es en Terminale ?</div>
+
+    <h1 class="hero-title">Portes ouvertes Medi<span class="cor">Box</span></h1>
+    <div class="hero-date">Mercredi 28 et jeudi 29 octobre</div>
+
+    <div class="hero-badges">
+      <span class="badge"><span class="badge-emoji">☀️</span> Mercredi 9h00 - 11h00</span>
+      <span class="badge"><span class="badge-emoji">🌆</span> Mercredi 17h00 - 20h00</span>
+      <span class="badge"><span class="badge-emoji">🩺</span> Jeudi 8h00 - 12h00 · immersion</span>
+    </div>
+
+    <p class="hero-sub">
+      Viens découvrir les études de santé, rencontrer la Directrice et nos
+      étudiants, et poser toutes tes questions sur le PASS et les LAS.
+      Le jeudi matin, tu passes à la <strong>pratique</strong> avec une matinée
+      d'immersion en médecine. <strong>Tu peux venir le mercredi et le jeudi.</strong>
+    </p>
+
+    <a href="#inscription" class="hero-cta">Je réserve ma place →</a>
+    <p class="hero-cta-hint">Entrée libre · inscription en 30 secondes</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ════════════ FORMULAIRE ════════════ -->
+  <section class="section section-form" id="inscription">
+    <div class="wrap">
+      <div class="form-card">
+        <div class="form-head">
+          <h2>Je réserve ma place</h2>
+          <p>Choisis ton créneau, ou plusieurs. On t'attend !</p>
+        </div>
+
+        <form id="jpoForm" novalidate>
+
+          <!-- ── Les créneaux ── -->
+          <div class="field">
+            <label>À quel créneau viens-tu ?</label>
+            <div class="choix-liste" id="zoneCreneaux">
+              <label class="choix" for="cr1">
+                <input type="checkbox" id="cr1" value="jpo-terminale-2026-10-28-matin">
+                <span><strong>Mercredi 28 octobre, 9h00 à 11h00</strong><br>
+                  <em class="choix-public">Portes ouvertes, le matin</em></span>
+              </label>
+              <label class="choix" for="cr2">
+                <input type="checkbox" id="cr2" value="jpo-terminale-2026-10-28-soir">
+                <span><strong>Mercredi 28 octobre, 17h00 à 20h00</strong><br>
+                  <em class="choix-public">Portes ouvertes, en fin de journée</em></span>
+              </label>
+              <label class="choix" for="cr3">
+                <input type="checkbox" id="cr3" value="jpo-terminale-2026-10-29">
+                <span><strong>Jeudi 29 octobre, 8h00 à 12h00</strong><br>
+                  <em class="choix-public">Matinée d'immersion en médecine</em></span>
+              </label>
+            </div>
+            <p class="choix-aide">Tu peux venir le mercredi <strong>et</strong> le jeudi : coche tout ce qui t'intéresse.</p>
+          </div>
+
+          <!-- ── Toi ── -->
+          <div class="field-row">
+            <div class="field">
+              <label for="prenom">Prénom</label>
+              <input type="text" id="prenom" name="prenom" autocomplete="given-name" required>
+            </div>
+            <div class="field">
+              <label for="nom">Nom</label>
+              <input type="text" id="nom" name="nom" autocomplete="family-name" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="telephone">Téléphone</label>
+              <input type="tel" id="telephone" name="telephone" autocomplete="tel" required>
+            </div>
+          </div>
+
+          <!-- ── L'accompagnement ── -->
+          <div class="field">
+            <label>Tu viens :</label>
+            <div class="choix-liste">
+              <label class="choix" for="accSeul">
+                <input type="radio" name="accompagnement" id="accSeul" value="seul" checked>
+                <span>Seul·e</span>
+              </label>
+              <label class="choix" for="accUn">
+                <input type="radio" name="accompagnement" id="accUn" value="un_parent">
+                <span>Accompagné·e d'un parent</span>
+              </label>
+              <label class="choix" for="accDeux">
+                <input type="radio" name="accompagnement" id="accDeux" value="deux_parents">
+                <span>Accompagné·e de deux parents</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- ── Parent 1 ── -->
+          <div class="bloc-parent" id="blocParent1" hidden>
+            <h3 class="bloc-parent-titre">Premier parent</h3>
+            <div class="field-row">
+              <div class="field">
+                <label for="p1Prenom">Prénom</label>
+                <input type="text" id="p1Prenom" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="p1Nom">Nom</label>
+                <input type="text" id="p1Nom" autocomplete="off">
+              </div>
+            </div>
+            <div class="field">
+              <label for="p1Email">E-mail</label>
+              <input type="email" id="p1Email" autocomplete="off">
+            </div>
+          </div>
+
+          <!-- ── Parent 2 ── -->
+          <div class="bloc-parent" id="blocParent2" hidden>
+            <h3 class="bloc-parent-titre">Second parent</h3>
+            <div class="field-row">
+              <div class="field">
+                <label for="p2Prenom">Prénom</label>
+                <input type="text" id="p2Prenom" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="p2Nom">Nom</label>
+                <input type="text" id="p2Nom" autocomplete="off">
+              </div>
+            </div>
+            <div class="field">
+              <label for="p2Email">E-mail</label>
+              <input type="email" id="p2Email" autocomplete="off">
+            </div>
+          </div>
+
+          <!-- ── Droit à l'image ──
+               ⛔ Case OBLIGATOIRE, même règle que la JPO P2-D4 : les photos
+               de groupe font partie de la journée et un retrait a posteriori
+               serait ingérable. C'est une condition de participation,
+               annoncée avant l'inscription.
+               ⛔ Public de lycéens, donc souvent MINEUR : un mineur ne peut
+               pas autoriser seul l'usage de son image. La case le dit
+               explicitement et renvoie à l'accord des parents. -->
+          <div class="field">
+            <label class="choix choix-consentement" for="consentementImage">
+              <input type="checkbox" id="consentementImage" required>
+              <span>
+                J'accepte d'apparaître sur les <strong>photos de groupe</strong> prises
+                pendant la journée, et que MediBox Antilles-Guyane les publie sur ses
+                comptes <strong>Instagram</strong> et <strong>Facebook</strong>.
+                <strong>Si je suis mineur·e, mes parents ont donné leur accord</strong>,
+                et si je viens accompagné·e, je m'assure de l'accord de mes proches.
+              </span>
+            </label>
+            <p class="choix-aide choix-aide-obligatoire">
+              Les photos de groupe font partie de la journée : cet accord est
+              <strong>nécessaire pour s'inscrire</strong>. Elles ne sont utilisées que sur
+              les comptes Instagram et Facebook de la prépa.
+            </p>
+          </div>
+
+          <!-- Anti-spam : champ piège invisible, à laisser vide -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="site">Ne pas remplir</label>
+            <input type="text" id="site" name="site" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div id="msg" class="msg"></div>
+
+          <button type="submit" id="btnSubmit" class="form-submit">Je réserve ma place</button>
+          <p class="form-legal">Tes coordonnées servent uniquement à t'accueillir et à te recontacter au sujet de MediBox. Elles ne sont jamais revendues.</p>
+        </form>
+
+        <!-- État succès (affiché après envoi) -->
+        <div id="successBox" class="success-box" hidden>
+          <div class="success-emoji">🎉</div>
+          <h2>C'est noté !</h2>
+          <p id="successText">On t'attend aux portes ouvertes. À très vite !</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <img src="logo-medibox.png" alt="MediBox Antilles-Guyane" class="foot-logo">
+  <p>MediBox Antilles-Guyane · Préparation PASS-LAS et médecine</p>
+  <p class="foot-small">© MediBox Antilles-Guyane 2026</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="app.js?v=20261020a"></script>
+</body>
+</html>
