@@ -1,14 +1,18 @@
 /* ============================================================
-   JPO TERMINALE SANTÉ · 28 et 29 octobre 2026 — logique du formulaire
+   JPO TERMINALE SANTÉ · 28 et 31 octobre 2026 — logique du formulaire
 
-   Trois créneaux, chacun étant un ÉVÉNEMENT à part entière :
-     mercredi 28 matin · mercredi 28 fin de journée · jeudi 29 immersion.
+   Deux créneaux, chacun étant un ÉVÉNEMENT à part entière :
+     mercredi 28 octobre de 16h à 20h · samedi 31 octobre de 9h à 12h.
 
-   - ⛔ UNE LIGNE PAR CRÉNEAU CHOISI. Quelqu'un qui vient le mercredi ET
-     le jeudi produit deux lignes, une par slug. C'est ce qui donne le
-     récapitulatif par séquence sans rien recouper.
+   Le choix passe par un MENU DÉROULANT (demande d'Elisabeth). Sa
+   troisième option, « je viens aux deux », conserve le cumul qu'un
+   menu simple interdirait.
+
+   - ⛔ UNE LIGNE PAR CRÉNEAU CHOISI. Qui vient aux deux produit deux
+     lignes, une par slug. C'est ce qui donne le récapitulatif par
+     séquence sans rien recouper.
    - Les créneaux sont insérés un par un, jamais en lot : si la personne
-     est déjà inscrite au mercredi mais pas au jeudi, le jeudi doit
+     est déjà inscrite au mercredi mais pas au samedi, le samedi doit
      quand même passer.
    - Niveau toujours « Terminale » : ce formulaire ne s'adresse qu'à eux,
      on ne le demande donc pas. ⛔ La valeur doit rester écrite ainsi,
@@ -24,14 +28,13 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const NIVEAU = 'Terminale';
 
-// Les trois créneaux : la case qui les coche, et leur libellé lisible.
-const CRENEAUX = [
-  { case: 'cr1', slug: 'jpo-terminale-2026-10-28-matin', libelle: 'mercredi 28 octobre de 9h00 à 11h00' },
-  { case: 'cr2', slug: 'jpo-terminale-2026-10-28-soir',  libelle: 'mercredi 28 octobre de 17h00 à 20h00' },
-  { case: 'cr3', slug: 'jpo-terminale-2026-10-29',       libelle: "jeudi 29 octobre de 8h00 à 12h00 pour l'immersion" }
-];
-const LIBELLE_CRENEAU = {};
-CRENEAUX.forEach(c => { LIBELLE_CRENEAU[c.slug] = c.libelle; });
+// Les deux créneaux, et leur libellé lisible pour les messages.
+const LIBELLE_CRENEAU = {
+  'jpo-terminale-2026-10-28': 'mercredi 28 octobre de 16h00 à 20h00',
+  'jpo-terminale-2026-10-31': 'samedi 31 octobre de 9h00 à 12h00'
+};
+// La valeur du menu qui veut dire « les deux ».
+const LES_DEUX = 'les-deux';
 
 // ─── Messages ───
 function showMsg(type, text) {
@@ -96,12 +99,17 @@ document.getElementById('jpoForm').addEventListener('submit', async (e) => {
     showMsg('error', msg);
   }
 
-  // ─── Les créneaux ───
-  const creneaux = CRENEAUX.filter(c => document.getElementById(c.case).checked).map(c => c.slug);
-  if (creneaux.length === 0) {
-    showMsg('error', 'Choisis au moins un créneau pour venir nous voir.');
+  // ─── Le créneau ───
+  const choixCreneau = document.getElementById('creneau').value;
+  if (!choixCreneau) {
+    invalide('creneau', 'Dis-nous quand tu viens.');
     return;
   }
+  // « Les deux » se déplie en deux créneaux : une ligne sera écrite pour
+  // chacun, exactement comme si la personne les avait choisis séparément.
+  const creneaux = (choixCreneau === LES_DEUX)
+    ? Object.keys(LIBELLE_CRENEAU)
+    : [choixCreneau];
 
   // ─── Toi ───
   const prenom = document.getElementById('prenom').value.trim();

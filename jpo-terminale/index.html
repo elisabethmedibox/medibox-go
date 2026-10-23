@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portes ouvertes Terminale Santé · 28 et 29 octobre 2026</title>
-<meta name="description" content="Portes ouvertes MediBox pour les élèves de Terminale : mercredi 28 octobre, et matinée d'immersion en médecine le jeudi 29 octobre.">
+<title>Portes ouvertes Terminale Santé · 28 et 31 octobre 2026</title>
+<meta name="description" content="Portes ouvertes MediBox pour les élèves de Terminale : mercredi 28 octobre de 16h à 20h, et samedi 31 octobre de 9h à 12h.">
 
 <!-- Aperçu lors d'un partage (réseaux, WhatsApp) -->
-<meta property="og:title" content="Portes ouvertes Terminale Santé · 28 et 29 octobre">
-<meta property="og:description" content="Deux jours pour découvrir les études de santé : portes ouvertes le mercredi 28, matinée d'immersion en médecine le jeudi 29.">
+<meta property="og:title" content="Portes ouvertes Terminale Santé · 28 et 31 octobre">
+<meta property="og:description" content="Deux créneaux pour découvrir les études de santé : mercredi 28 octobre de 16h à 20h, samedi 31 octobre de 9h à 12h.">
 <meta property="og:type" content="website">
 
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261020a">
+<link rel="stylesheet" href="style.css?v=20261023a">
 </head>
 <body>
 
@@ -25,19 +25,18 @@
     <div class="hero-ribbon">Tu es en Terminale ?</div>
 
     <h1 class="hero-title">Portes ouvertes Medi<span class="cor">Box</span></h1>
-    <div class="hero-date">Mercredi 28 et jeudi 29 octobre</div>
+    <div class="hero-date">Mercredi 28 et samedi 31 octobre</div>
 
     <div class="hero-badges">
-      <span class="badge"><span class="badge-emoji">☀️</span> Mercredi 9h00 - 11h00</span>
-      <span class="badge"><span class="badge-emoji">🌆</span> Mercredi 17h00 - 20h00</span>
-      <span class="badge"><span class="badge-emoji">🩺</span> Jeudi 8h00 - 12h00 · immersion</span>
+      <span class="badge"><span class="badge-emoji">🌆</span> Mercredi 28 · 16h00 - 20h00</span>
+      <span class="badge"><span class="badge-emoji">☀️</span> Samedi 31 · 9h00 - 12h00</span>
+      <span class="badge"><span class="badge-emoji">👨‍👩‍👧</span> Parents bienvenus</span>
     </div>
 
     <p class="hero-sub">
       Viens découvrir les études de santé, rencontrer la Directrice et nos
       étudiants, et poser toutes tes questions sur le PASS et les LAS.
-      Le jeudi matin, tu passes à la <strong>pratique</strong> avec une matinée
-      d'immersion en médecine. <strong>Tu peux venir le mercredi et le jeudi.</strong>
+      Deux créneaux au choix, et <strong>tu peux venir aux deux</strong>.
     </p>
 
     <a href="#inscription" class="hero-cta">Je réserve ma place →</a>
@@ -53,32 +52,23 @@
       <div class="form-card">
         <div class="form-head">
           <h2>Je réserve ma place</h2>
-          <p>Choisis ton créneau, ou plusieurs. On t'attend !</p>
+          <p>Choisis ton créneau. On t'attend !</p>
         </div>
 
         <form id="jpoForm" novalidate>
 
-          <!-- ── Les créneaux ── -->
+          <!-- ── Le créneau ──
+               Menu déroulant demandé par Elisabeth. La troisième option
+               permet de garder le cumul : « les deux » produit deux
+               lignes, une par créneau. -->
           <div class="field">
-            <label>À quel créneau viens-tu ?</label>
-            <div class="choix-liste" id="zoneCreneaux">
-              <label class="choix" for="cr1">
-                <input type="checkbox" id="cr1" value="jpo-terminale-2026-10-28-matin">
-                <span><strong>Mercredi 28 octobre, 9h00 à 11h00</strong><br>
-                  <em class="choix-public">Portes ouvertes, le matin</em></span>
-              </label>
-              <label class="choix" for="cr2">
-                <input type="checkbox" id="cr2" value="jpo-terminale-2026-10-28-soir">
-                <span><strong>Mercredi 28 octobre, 17h00 à 20h00</strong><br>
-                  <em class="choix-public">Portes ouvertes, en fin de journée</em></span>
-              </label>
-              <label class="choix" for="cr3">
-                <input type="checkbox" id="cr3" value="jpo-terminale-2026-10-29">
-                <span><strong>Jeudi 29 octobre, 8h00 à 12h00</strong><br>
-                  <em class="choix-public">Matinée d'immersion en médecine</em></span>
-              </label>
-            </div>
-            <p class="choix-aide">Tu peux venir le mercredi <strong>et</strong> le jeudi : coche tout ce qui t'intéresse.</p>
+            <label for="creneau">Quand viens-tu ?</label>
+            <select id="creneau" name="creneau" required>
+              <option value="">Choisis ton créneau...</option>
+              <option value="jpo-terminale-2026-10-28">Mercredi 28 octobre, de 16h00 à 20h00</option>
+              <option value="jpo-terminale-2026-10-31">Samedi 31 octobre, de 9h00 à 12h00</option>
+              <option value="les-deux">Je viens aux deux</option>
+            </select>
           </div>
 
           <!-- ── Toi ── -->
@@ -174,14 +164,14 @@
               <input type="checkbox" id="consentementImage" required>
               <span>
                 J'accepte d'apparaître sur les <strong>photos de groupe</strong> prises
-                pendant la journée, et que MediBox Antilles-Guyane les publie sur ses
+                pendant la visite, et que MediBox Antilles-Guyane les publie sur ses
                 comptes <strong>Instagram</strong> et <strong>Facebook</strong>.
                 <strong>Si je suis mineur·e, mes parents ont donné leur accord</strong>,
                 et si je viens accompagné·e, je m'assure de l'accord de mes proches.
               </span>
             </label>
             <p class="choix-aide choix-aide-obligatoire">
-              Les photos de groupe font partie de la journée : cet accord est
+              Les photos de groupe font partie de la visite : cet accord est
               <strong>nécessaire pour s'inscrire</strong>. Elles ne sont utilisées que sur
               les comptes Instagram et Facebook de la prépa.
             </p>
@@ -218,6 +208,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="app.js?v=20261020a"></script>
+<script src="app.js?v=20261023a"></script>
 </body>
 </html>
