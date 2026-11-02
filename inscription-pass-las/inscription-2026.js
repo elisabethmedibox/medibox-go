@@ -50,8 +50,16 @@ async function loadDonnees() {
         .eq('actif', true).eq('categorie', 'pre-medecine').order('ordre'),
       sb.from('departements').select('id, code, libelle')
         .eq('actif', true).neq('code', 'Métropole').order('libelle'),
+      // ⛔ Le filtre était une liste noire d'UN code (« <> Externe ») : les
+      // formules Terminale, puis les trois formules P2-D4, s'affichaient donc
+      // dans le formulaire PASS-LAS. Un PASS pouvait choisir MediTop à 1 080 €.
+      // On demande désormais les formules dont le PUBLIC est PASS-LAS
+      // (formules.niveaux_codes) : une formule d'un autre niveau ne peut plus
+      // apparaître ici, même ajoutée plus tard.
       sb.from('formules').select('id, code, libelle, ordre')
-        .eq('actif', true).neq('code', 'Externe').order('ordre'),
+        .eq('actif', true)
+        .overlaps('niveaux_codes', ['PASS', 'LAS1', 'LAS2', 'LAS3'])
+        .order('ordre'),
       sb.from('annees_etude').select('id, libelle').eq('libelle', APP_CONFIG.year).maybeSingle()
     ]);
 
@@ -78,8 +86,17 @@ async function loadDonnees() {
     departements.forEach(d => departementsByCode.set(d.code, d));
     fillSelect('departementEtudes', departements, 'code', d => d.libelle, '— Choisir —');
 
-    // Formules (hors Externe)
-    fillSelect('formule', formules, 'id', f => f.libelle, '— Choisir —');
+    // Formules proposées ici
+    // ⛔ La table `formules` contient AUSSI les formules Terminale Santé, et
+    //    MediPASS qui est complète pour 2026-2027 (decision du 31/10/2026).
+    //    Sans ce filtre, un étudiant de PASS peut cocher « Terminale Santé »
+    //    ou s'inscrire dans une formule fermée. Le filtre porte sur le libellé
+    //    parce que la fermeture est une décision d'année, pas un état de la
+    //    ligne : `actif` qualifie la formule elle-même, pas la campagne.
+    const FORMULES_FERMEES = ['MediPASS'];
+    const formulesOuvertes = formules.filter(f =>
+      !/^Terminale/i.test(f.libelle) && !FORMULES_FERMEES.includes(f.libelle));
+    fillSelect('formule', formulesOuvertes, 'id', f => f.libelle, '— Choisir —');
   } catch (e) {
     selUniv.innerHTML = '<option value="">Erreur de chargement</option>';
     console.error('Erreur chargement données :', e);
