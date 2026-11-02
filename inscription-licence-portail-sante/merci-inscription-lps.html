@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dernière étape : frais de réservation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="card-header">
+      <div class="logo-row">
+        <img src="" class="logo-img small" id="logoImg" alt="">
+        <div class="logo-text small"><span id="brandPart1"></span><span id="brandPart2"></span></div>
+      </div>
+      <h1 class="subtitle">Dernière étape</h1>
+      <span class="year" id="year"></span>
+    </div>
+
+    <p style="font-size:0.92rem;color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;padding:14px 16px;border-radius:10px;margin:14px 0;text-align:center;">
+      ✅ Ton compte a bien été créé !
+    </p>
+
+    <p style="font-size:0.88rem;color:#334155;line-height:1.5;margin:14px 0;">
+      Pour réserver ta place dans la première promotion <strong>Licence Portail Santé 2027-2028</strong>, il te reste à régler les <strong>frais de réservation</strong>. Ils bloquent ta place et ne t'engagent sur aucune formule : le présentiel ou le distanciel, et le tarif de ton territoire, se décident au moment de l'inscription définitive.
+    </p>
+    <p style="font-size:0.82rem;color:#475569;line-height:1.5;margin:0 0 14px;">
+      Ces frais te sont remboursés en cas de refus sur Parcoursup ou d'inscription dans un autre établissement, sur demande, jusqu'à la fin de la phase principale d'admission Parcoursup.
+    </p>
+
+    <div id="paiementZone">
+      <button type="button" class="btn-auth signup" id="btnPayer" disabled>Chargement...</button>
+      <div id="copyZone" style="display:none;margin-top:16px;">
+        <p style="font-size:0.82rem;color:#475569;margin-bottom:6px;">Ou copie le lien de paiement personnalisé à envoyer par e-mail (par exemple au parent qui règle) :</p>
+        <div style="display:flex;gap:8px;">
+          <input type="text" id="lienPaiement" readonly style="flex:1;min-width:0;font-size:0.78rem;padding:10px 12px;border:1.5px solid #dde3e8;border-radius:8px;background:#f8f9fb;color:#334155;">
+          <button type="button" id="btnCopier" class="btn-auth" style="width:auto;padding:10px 16px;background:#01466e;margin-top:0;flex-shrink:0;">Copier</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="auth-footer" id="footer"></div>
+
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    const ANNEE_LPS = '2027-2028';
+    const PROGRAMME_LPS = 'inscription_lps';
+
+    document.title = 'Frais de réservation - ' + APP_CONFIG.brandName;
+    document.getElementById('logoImg').src = APP_CONFIG.logoUrl;
+    document.getElementById('logoImg').alt = APP_CONFIG.brandName;
+    document.getElementById('brandPart1').textContent = APP_CONFIG.brandPart1;
+    document.getElementById('brandPart2').textContent = APP_CONFIG.brandPart2;
+    document.getElementById('year').textContent = ANNEE_LPS;
+    document.getElementById('footer').innerHTML = APP_CONFIG.copyright + (APP_CONFIG.contactTel ? ' · <a href="' + APP_CONFIG.contactTelHref + '" style="color:inherit;">📞 ' + APP_CONFIG.contactTel + '</a>' : '');
+
+    const sb = window.supabase.createClient(APP_CONFIG.supabaseUrl, APP_CONFIG.supabaseAnonKey);
+
+    function showMsg(type, text) {
+      const el = document.getElementById('msg');
+      el.className = 'msg show ' + type;
+      el.textContent = text;
+    }
+    function formatMontant(centimes) {
+      return (centimes / 100).toLocaleString('fr-FR') + ' €';
+    }
+
+    async function init() {
+      const btn = document.getElementById('btnPayer');
+
+      // Session requise (compte tout juste créé ou reconnecté)
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session || !session.user) {
+        btn.style.display = 'none';
+        showMsg('error', 'Session expirée. Reconnecte-toi depuis la page de connexion de l\'application pour régler tes frais de réservation.');
+        return;
+      }
+
+      // Résoudre l'année puis lire le montant + lien Stripe des frais du programme
+      const { data: annee } = await sb.from('annees_etude')
+        .select('id').eq('libelle', ANNEE_LPS).maybeSingle();
+
+      const { data: frais, error } = annee ? await sb.from('frais_inscription')
+        .select('montant_centimes, stripe_payment_link_url')
+        .eq('actif', true)
+        .eq('annee_etude_id', annee.id)
+        .eq('programme_id', PROGRAMME_LPS)
+        .maybeSingle() : { data: null, error: true };
+
+      if (error || !frais) {
+        btn.style.display = 'none';
+        showMsg('error', 'Le paiement n\'est pas encore disponible. Tu recevras un email pour finaliser. Tu peux fermer cette page.');
+        return;
+      }
+
+      if (!frais.stripe_payment_link_url) {
+        btn.style.display = 'none';
+        showMsg('success', 'Ta réservation est enregistrée. Le règlement des frais sera bientôt disponible : tu recevras un email avec le lien de paiement. Tu peux fermer cette page.');
+        return;
+      }
+
+      // Lien Stripe tagué (client_reference_id = id étudiant) : le webhook rattache le paiement
+      const url = frais.stripe_payment_link_url;
+      const sep = url.includes('?') ? '&' : '?';
+      const lienTague = url + sep
+        + 'client_reference_id=' + encodeURIComponent(session.user.id)
+        + '&prefilled_email=' + encodeURIComponent(session.user.email || '');
+
+      btn.disabled = false;
+      btn.textContent = 'Réserver ma place (' + formatMontant(frais.montant_centimes) + ')';
+      btn.addEventListener('click', () => {
+        btn.disabled = true;
+        btn.textContent = '⏳ Redirection vers le paiement...';
+        window.location.href = lienTague;
+      });
+
+      document.getElementById('lienPaiement').value = lienTague;
+      document.getElementById('copyZone').style.display = 'block';
+      document.getElementById('btnCopier').addEventListener('click', async () => {
+        const champ = document.getElementById('lienPaiement');
+        const btnC = document.getElementById('btnCopier');
+        try {
+          await navigator.clipboard.writeText(lienTague);
+        } catch (e) {
+          champ.select();
+          document.execCommand('copy');
+        }
+        btnC.textContent = '✓ Copié';
+        setTimeout(() => { btnC.textContent = 'Copier'; }, 1500);
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
