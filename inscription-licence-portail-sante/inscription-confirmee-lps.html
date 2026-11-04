@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription confirmée</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="card-header">
+      <div class="logo-row">
+        <img src="" class="logo-img small" id="logoImg" alt="">
+        <div class="logo-text small"><span id="brandPart1"></span><span id="brandPart2"></span></div>
+      </div>
+      <h1 class="subtitle">Inscription confirmée</h1>
+      <span class="year" id="year"></span>
+    </div>
+
+    <div style="text-align:center;font-size:2.6rem;margin:10px 0 4px;">🎉</div>
+
+    <p style="font-size:0.95rem;color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;padding:16px 18px;border-radius:12px;margin:14px 0;text-align:center;line-height:1.5;">
+      Merci de votre inscription. <strong>Nous avons hâte de vous rencontrer !</strong>
+    </p>
+
+    <p style="font-size:0.95rem;color:#334155;line-height:1.6;margin:14px 4px;text-align:center;">
+      Votre place dans la première promotion Licence Portail Santé est réservée. Notre équipe
+      reprendra contact avec vous en 2027 afin de poursuivre votre inscription.
+    </p>
+
+    <p style="font-size:0.95rem;color:#01466e;line-height:1.6;margin:22px 4px 6px;text-align:center;">
+      Bien cordialement, et bonne chance pour le bac&nbsp;!
+    </p>
+    <p style="font-size:0.88rem;color:#64748b;margin:0 4px 10px;text-align:center;">
+      L'équipe MediBox Antilles-Guyane
+    </p>
+  </div>
+
+  <div class="auth-footer" id="footer"></div>
+
+  <script src="config.js"></script>
+  <script>
+    // ⛔ L'année n'est pas APP_CONFIG.year (2026-2027) : cette page confirme une
+    //    réservation pour la rentrée suivante.
+    const ANNEE_LPS = '2027-2028';
+    document.title = 'Inscription confirmée — ' + APP_CONFIG.brandName;
+    document.getElementById('logoImg').src = APP_CONFIG.logoUrl;
+    document.getElementById('logoImg').alt = APP_CONFIG.brandName;
+    document.getElementById('brandPart1').textContent = APP_CONFIG.brandPart1;
+    document.getElementById('brandPart2').textContent = APP_CONFIG.brandPart2;
+    document.getElementById('year').textContent = ANNEE_LPS;
+    document.getElementById('footer').innerHTML = APP_CONFIG.copyright + (APP_CONFIG.contactTel ? ' · <a href="' + APP_CONFIG.contactTelHref + '" style="color:inherit;">📞 ' + APP_CONFIG.contactTel + '</a>' : '');
+  </script>
+</body>
+</html>
